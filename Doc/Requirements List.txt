@@ -1,0 +1,5 @@
+need stuff for runing this shit:
+
+ecliplse mosquitto
+node red (duh)
+node js (for node red duh)
