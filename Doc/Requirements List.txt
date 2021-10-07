@@ -1,5 +1,16 @@
-need stuff for runing this shit:
+useful things to have:
 
 ecliplse mosquitto
-node red (duh)
-node js (for node red duh)
+https://mosquitto.org/download/
+
+node-red
+https://nodered.org/
+
+node js
+https://nodejs.org/en/
+
+mqtt broker config example
+http://www.steves-internet-guide.com/mossquitto-conf-file/
+
+mqtt broker config documentation
+https://mosquitto.org/man/mosquitto-conf-5.html
