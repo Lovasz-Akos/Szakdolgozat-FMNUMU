@@ -12,6 +12,6 @@ Eszterházy Károly Katolikus Egyetem.
 
 
 ### MQTT Broker:
-    mosquitto -c custom.conf -v
+    mosquitto -c mqtt.conf -v
     
 >note that the mqtt config contains the host device's static ipv4 address, this may need to be changed for it to function as intended
