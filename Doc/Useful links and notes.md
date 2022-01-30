@@ -10,12 +10,11 @@
 
 ## Node-RED
 
-[Node-RED](https://nodered.org/) is the entire back-end of the project 
+[Node-RED](https://nodered.org/) is the entire back-end of the project
 
 ## MQTT broker config help
 
 [Broker config with examples](http://www.steves-internet-guide.com/mossquitto-conf-file/)
-
 
 [Broker config documentation](https://mosquitto.org/man/mosquitto-conf-5.html)
 
@@ -27,7 +26,6 @@ good for basic interaction and rapid deployment and testing of features
 ## MQTT alap docs
 
 [MQTT docs](https://www.hivemq.com/mqtt-essentials/)
-
 
 ## Starting the servers
 
@@ -58,17 +56,17 @@ mosquitto -c mqtt.conf -v
       - Notifications
       - Widgets
       - Links
-    - Activites have UI attached to them, so it's the primary interaction point with the user.
+    - Activities have UI attached to them, so it's the primary interaction point with the user.
   - Service
-    - General-purpose enty point
+    - General-purpose entry point
       - Does not provide UI, could be some of the following:
         - Media playback in the background
         - Data syncing
         - APIs
       - The user is usually not aware of most service components
       - The service runs until it's job is complete
-  - Broadcast Reciever
-    - Primarily used as the system's entry point from outside, this is where the app recieves commands to perform an action that wasn't directly started by the user
+  - Broadcast Receiver
+    - Primarily used as the system's entry point from outside, this is where the app receives commands to perform an action that wasn't directly started by the user
   - Content Provider
     - Database management
     - Data access ot the app from file system
