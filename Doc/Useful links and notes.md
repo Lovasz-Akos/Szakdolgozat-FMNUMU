@@ -29,6 +29,15 @@ good for basic interaction and rapid deployment and testing of features
 
 ## Starting the servers
 
+This is automated on the deployment hardware.
+
+```bash
+ssh root@{IP of server}
+pw: funstar3d //note that this is only applicable to my hardware
+```
+
+The web UI is hosted on {IP of server}:1880 and is accessible from any device on the network
+
 ### Node-RED Server
 
 ```bash
@@ -73,3 +82,19 @@ mosquitto -c mqtt.conf -v
     - Private data streaming
 
 The AndroidManifest.xml contains all of the components the app uses, so it must declare every required component for the system can start the app components.
+
+## Linux notes
+
+Access to file that contains startup scripts
+
+```bash
+sudo crontab -e
+```
+
+Startup manager
+
+```bash
+sysv-rc-conf
+```
+
+## Random thoughts
