@@ -1,0 +1,114 @@
+%
+% Szakdolgozat minta az Eszterházy Károly Egyetem
+% matematika illetve informatika szakos hallgatóinak.
+%
+
+\documentclass[
+% opciók nélkül: egyoldalas nyomtatás, elektronikus verzió
+% twoside, % kétoldalas nyomtatás
+% tocnopagenum,% oldalszámozás a tartalomjegyzék után kezdődik
+]{thesis-ekf}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
+\usepackage[magyar]{babel}
+\usepackage{mathtools,amssymb,amsthm,hyperref,listingsutf8,xcolor,caption,pdfpages}
+\usepackage{subcaption}
+\lstset{
+	inputencoding=utf8,
+	language=C,
+	basicstyle=\footnotesize,
+	breaklines,
+	captionpos=b,
+	postbreak=\hbox{$\color{red}\hookrightarrow\ $},
+	xleftmargin=1cm,
+	xrightmargin=1cm,
+	backgroundcolor=\color{gray!30},
+	frame=tlbr,
+	framesep=3pt,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{brown},
+	rulecolor=\color{black},
+	showstringspaces=false
+}
+
+\captionsetup{compatibility=false}
+\footnotestyle{rule=fourth}
+
+\newtheorem{tetel}{Tétel}[chapter]
+\theoremstyle{definition}
+\newtheorem{definicio}[tetel]{Definíció}
+\theoremstyle{remark}
+\newtheorem{megjegyzes}[tetel]{Megjegyzés}
+
+\begin{document}
+\institute{Matematikai és Informatikai Intézet}
+\title{Okos otthon hub és irányítóközpont}
+\author{Lovász Ákos\\Programtervező informatikus BSc}
+\supervisor{Dr. Tajti Tibor\\Egyetemi adjunktus}
+\city{Eger}
+\date{2021}
+\maketitle
+\tableofcontents
+
+
+\chapter*{Bevezetés}
+Tanulmányaim folyamán számos technológiával ismerkedtem meg, melyek mindegyike rengeteg
+lehetőséget tárt fel előttem, viszont a szakmai gyakorlatom során kiemelkedően megragadta a fantáziámat az Andoid
+fejlesztés és a hardverprogramozás összekapcsolása által kialakult rendszerek lehetősége.
+\par
+Az Android alkalmazások fejlesztése iránt mindig is érdeklődtem, egy-egy kisebb alkalmazást gyakorlásként
+már készítettem ezt megelőzően, de komolyabban itt kezdtem vele foglalkozni, megismerkedni a vele járó
+sajátosságokkal.
+\par
+Az ilyen jellegű eszközök kapcsolata és kommunikációja már korai gondolataimban is az okos otthonok felépítésére
+emlékeztetett, ezért is gondoltam megfelelő táma választásnak.
+\par
+A döntést követő kutatás során szembetűnő hátránya volt az okos otthon rendszereknek, hogy a legtöbb ,,márkás''
+megoldás elsősorban drága és csak felületes hozzáférést tesznek lehetővé, melyet teljes mértékben a rendszer
+gyártója határoz meg. 
+\par
+Az alternatív, olcsóbb rendszerek bár nyíltabb hozzáállással próbálnak előnyt szerezni,
+viszont sokszor erősen a technikai oldalába mélyednek, így egy átlagos felhasználónak bonyolultnak, 
+nehezen kezelhetőnek tűnhetnek. Ezen felül gyakran futhatunk olyan problémába, hogy az általunk választott
+rendszerben lévő hiányosságokat csak más gyártótól származó eszköz nyújtana megoldást, viszont különböző
+gyártók eszközei nagyon ritkán kompatibilisek egymással.
+\par
+Ezeket az észrevételeket figyelembe véve egyértelműnek tűnt, hogy van lehetőség egy olyan rendszer kivitelezésére,
+ami elsősorban olcsóbb, de ugyanakkor nem túlbonyolított, felhasználóbarát marad. Fontos a nyitottság, a bővíthetőség,
+és a széleskörű kompatibilitás lehetősége, hogy a felhasználó biztos lehessen abban, hogy a jövőben felmerülő
+hiányosságok egyszerűen pótolhatók.
+
+\chapter{A rendszer alapjai}
+\section{A kiszolgáló hardver}
+\section{Az Android alkalmazás}
+\section{Node-RED}
+\section{MQTT}
+backend hardver, frontend android, node red, mqtt, bővíthető, könnyen karbantartható stb stb
+
+\chapter{Hardver}
+orangepy, bármi android telefon, okos eszközök (esp32)
+\section{Orange Pi Zero}
+\section{Okos eszközök}
+
+\chapter{Szoftver}
+nodered, mqtt, android
+\section{Node-RED}
+\section{MQTT}
+\section{Android}
+
+\chapter{A renszer működése}
+Itt írom le a kész rendszer működését, 
+\section{Első indításra felkészítés}
+\section{Telefon csatlakoztatása kiszolgálóhoz}
+\section{Okos eszközök csatlakoztatása kiszolgálóhoz}
+\section{Okos eszközök kezelése az alkalmazásban}
+
+\chapter{Továbbfejlesztési lehetőségek}
+user access? felület új eszköztípusok felvételéhez?
+
+\begin{thebibliography}{2}
+\end{thebibliography}
+
+\end{document}
