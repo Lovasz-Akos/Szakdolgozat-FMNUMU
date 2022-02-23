@@ -103,4 +103,8 @@ sysv-rc-conf
 
 [Android testing]([https://link](https://developer.android.com/training/testing/fundamentals))
 
-## Random thoughts
+## MQTT Android basics
+
+[Eclipse docs](https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php)
+
+[Hive quickstart guide](https://www.hivemq.com/blog/mqtt-client-library-enyclopedia-paho-android-service/)
