@@ -1,9 +1,11 @@
 package com.fmnumu.szakdolgozat.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fmnumu.szakdolgozat.R;
+import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
 import com.fmnumu.szakdolgozat.databinding.FragmentHomeBinding;
+
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.nio.charset.StandardCharsets;
 
 public class HomeFragment extends Fragment {
 
@@ -35,6 +47,7 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 
@@ -43,4 +56,7 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+
 }
