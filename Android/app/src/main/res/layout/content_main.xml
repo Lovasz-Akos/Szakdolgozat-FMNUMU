@@ -28,6 +28,6 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@android:drawable/ic_menu_send" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

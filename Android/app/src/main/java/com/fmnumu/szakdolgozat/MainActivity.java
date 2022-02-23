@@ -5,23 +5,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.fmnumu.szakdolgozat.databinding.ContentMainBinding;
-import com.fmnumu.szakdolgozat.ui.home.HomeFragment;
-import com.fmnumu.szakdolgozat.ui.home.HomeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.Fragment;
 
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
 
@@ -33,7 +26,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -102,36 +94,54 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MQTT PARAMS", "sendMessageMQTT-MSG: "+ mqttMessage);
 
         String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client =
-        new MqttAndroidClient(this.getApplicationContext(), "mqtt://"+mqttAddress+":1883", clientId);
+        MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(), "tcp://"+mqttAddress+":1883", clientId);
+
         Log.d("MQTT PARAMS", "sendMessageMQTT-ADDR-LONG: "+ client.getServerURI().toString());
 
+        byte[] encodedPayload = new byte[0];
         try {
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
+            client.connect(null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
-                    Log.d("mqt succ", "onSuccess");
+                    Log.i("Connection", "connect succeed");
+
+                    publishMessage(mqttMessage, client, mqttTopic);
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    // Something went wrong e.g. connection timeout or firewall problems
-                    Log.d("mqt fail", "onFailure");
-
+                    Log.i("Connection", "connect anyád fasza");
                 }
             });
+
         } catch (MqttException e) {
             e.printStackTrace();
         }
 
-        byte[] encodedPayload = new byte[0];
+    }
+
+    public void publishMessage(String payload, MqttAndroidClient mqttAndroidClient, String topic) {
         try {
-            encodedPayload = mqttMessage.getBytes("UTF-8");
-            MqttMessage message = new MqttMessage(encodedPayload);
-            client.publish(mqttTopic, message);
-        } catch (UnsupportedEncodingException | MqttException e) {
+            if (mqttAndroidClient.isConnected() == false) {
+                mqttAndroidClient.connect();
+            }
+
+            MqttMessage message = new MqttMessage();
+            message.setPayload(payload.getBytes());
+            message.setQos(0);
+            mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("Connection", "publish succeed!") ;
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.i("Connection", "publish failed!") ;
+                }
+            });
+        } catch (MqttException e) {
+            Log.e("mqttException", e.toString());
             e.printStackTrace();
         }
     }
