@@ -97,4 +97,10 @@ Startup manager
 sysv-rc-conf
 ```
 
+## Tesztelés
+
+[Node-RED testing](https://www.technicalfeeder.com/2021/02/how-to-write-node-red-flow-test/)
+
+[Android testing]([https://link](https://developer.android.com/training/testing/fundamentals))
+
 ## Random thoughts
