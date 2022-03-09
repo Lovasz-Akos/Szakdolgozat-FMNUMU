@@ -38,28 +38,26 @@ public class ConnectionFragment extends Fragment{
         binding = FragmentConnectionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        connectionViewModel =
-                new ViewModelProvider(this).get(ConnectionViewModel.class);
-
-        return inflater.inflate(R.layout.fragment_connection, container, false);
-    }
-
-    public void onViewCreated(View view, Bundle savedInstanceState){
-
-        Button connect = (Button) view.findViewById(R.id.buttonMqttConnect);
+        Button connect = (Button) root.findViewById(R.id.buttonMqttConnect);
         connect.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Log.d("connect onclick", "onClick: CLICKED");
-                connectMQTT(view);
+                connectMQTT(root);
             }
         });
+
+        connectionViewModel =
+                new ViewModelProvider(this).get(ConnectionViewModel.class);
+
+        return root;
     }
+
 
     public void connectMQTT(View view){
 
-        EditText textBoxMqttAddress = (EditText)view.findViewById(R.id.textboxMqttBrokerAddr);
-        EditText textBoxMqttTopic = (EditText)view.findViewById(R.id.textboxMqttTopic);
-        EditText textBoxMqttMessage = (EditText)view.findViewById(R.id.textBoxMqttMessage);
+        final EditText textBoxMqttAddress = (EditText) view.findViewById(R.id.textboxMqttBrokerAddr);
+        final EditText textBoxMqttTopic = (EditText) view.findViewById(R.id.textboxMqttTopic);
+        final EditText textBoxMqttMessage = (EditText) view.findViewById(R.id.textBoxMqttMessage);
 
         String mqttAddress = textBoxMqttAddress.getText().toString();
         String mqttTopic = textBoxMqttTopic.getText().toString();
