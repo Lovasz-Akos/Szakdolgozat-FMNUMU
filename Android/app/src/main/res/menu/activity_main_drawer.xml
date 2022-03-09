@@ -9,10 +9,6 @@
             android:icon="@android:drawable/ic_menu_save"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
             android:id="@+id/nav_connection"
             android:icon="@android:drawable/ic_menu_share"
             android:title="@string/menu_connection" />
