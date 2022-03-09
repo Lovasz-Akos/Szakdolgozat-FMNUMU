@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.fmnumu.szakdolgozat.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_connection"
+        android:name="com.fmnumu.szakdolgozat.ui.slideshow.ConnectionFragment"
+        android:label="@string/menu_connection"
+        tools:layout="@layout/fragment_connection" />
 </navigation>

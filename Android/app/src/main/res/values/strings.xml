@@ -9,5 +9,6 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_connection">Connection</string>
+    <string name="connectButtonText">Connect</string>
 </resources>
