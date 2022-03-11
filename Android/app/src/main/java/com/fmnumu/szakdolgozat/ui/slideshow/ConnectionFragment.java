@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentConnectionBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -38,11 +39,28 @@ public class ConnectionFragment extends Fragment{
         binding = FragmentConnectionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        final EditText textBoxMqttAddress = (EditText) root.findViewById(R.id.textboxMqttBrokerAddr);
+        final EditText textBoxMqttTopic = (EditText) root.findViewById(R.id.textboxMqttTopic);
+        final EditText textBoxMqttMessage = (EditText) root.findViewById(R.id.textBoxMqttMessage);
+
+        final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+
+
         Button connect = (Button) root.findViewById(R.id.buttonMqttConnect);
         connect.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Log.d("connect onclick", "onClick: CLICKED");
-                connectMQTT(root);
+                String mqttAddress = textBoxMqttAddress.getText().toString();
+                connectMQTT[0] = connectMQTT(root, mqttAddress);
+            }
+        });
+
+        Button publish = (Button) root.findViewById(R.id.buttonMqttPublish);
+        publish.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                String mqttTopic = textBoxMqttTopic.getText().toString();
+                String mqttMessage = textBoxMqttMessage.getText().toString();
+
+                publishMessage(mqttMessage,  connectMQTT[0], mqttTopic);
             }
         });
 
@@ -53,15 +71,8 @@ public class ConnectionFragment extends Fragment{
     }
 
 
-    public void connectMQTT(View view){
+    public MqttAndroidClient connectMQTT(View view, String mqttAddress){
 
-        final EditText textBoxMqttAddress = (EditText) view.findViewById(R.id.textboxMqttBrokerAddr);
-        final EditText textBoxMqttTopic = (EditText) view.findViewById(R.id.textboxMqttTopic);
-        final EditText textBoxMqttMessage = (EditText) view.findViewById(R.id.textBoxMqttMessage);
-
-        String mqttAddress = textBoxMqttAddress.getText().toString();
-        String mqttTopic = textBoxMqttTopic.getText().toString();
-        String mqttMessage = textBoxMqttMessage.getText().toString();
 
         String clientId = MqttClient.generateClientId();
         MqttAndroidClient client = new MqttAndroidClient(getContext() , "tcp://"+mqttAddress+":1883", clientId);
@@ -73,21 +84,28 @@ public class ConnectionFragment extends Fragment{
             client.connect(null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.i("Connection", "connect succeed");
 
-                    publishMessage(mqttMessage, client, mqttTopic);
+                    //publishMessage(mqttMessage, client, mqttTopic);
+                    Snackbar snackbar = Snackbar
+                            .make(view, "Connection Success", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.i("Connection", "connect anyád fasza");
+
+                    Snackbar snackbar = Snackbar
+                            .make(view, "Connection Failed", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
             });
 
         } catch (MqttException e) {
-            e.printStackTrace();
+            Snackbar snackbar = Snackbar
+                    .make(view, "Connection failed, please check host address", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
-
+        return client;
     }
 
     public void publishMessage(String payload, MqttAndroidClient mqttAndroidClient, String topic) {
@@ -102,17 +120,34 @@ public class ConnectionFragment extends Fragment{
             mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.i("Connection", "publish succeed!") ;
+                    Log.i("Connection", "publish succeed!");
+                    Log.i("Connection", "payload: " + payload);
+                    Log.i("Connection", "client: "+ mqttAndroidClient.getClientId());
+                    Log.i("Connection", "topic: " + topic);
+
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Publish success!", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.i("Connection", "publish failed!") ;
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Publish failed!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
             });
         } catch (MqttException e) {
             Log.e("mqttException", e.toString());
-            e.printStackTrace();
+            Snackbar snackbar = Snackbar
+                    .make(getView(), "Fatal MQTT Error", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+        catch (NullPointerException e){
+            Log.e("nullPointerException", e.toString());
+            Snackbar snackbar = Snackbar
+                    .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 

@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.slideshow.ConnectionFragment">
 
+    <Button
+        android:id="@+id/buttonMqttConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Connect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textboxMqttBrokerAddr" />
+
     <EditText
         android:id="@+id/textBoxMqttMessage"
         android:layout_width="wrap_content"
@@ -13,8 +23,10 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="22"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textboxMqttTopic" />
 
@@ -25,30 +37,33 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="Temp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textboxMqttBrokerAddr" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonMqttConnect" />
 
     <EditText
         android:id="@+id/textboxMqttBrokerAddr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="170dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="192.168.0.157"
+        android:minHeight="48dp"
+        android:text="192.168.1.77"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonMqttConnect"
+        android:id="@+id/buttonMqttPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/connectButtonText"
+        android:text="Publish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textBoxMqttMessage" />
