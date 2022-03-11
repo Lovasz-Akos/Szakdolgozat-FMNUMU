@@ -20,10 +20,18 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class ConnectionFragment extends Fragment{
+
+    private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+
+    // Getter
+    public MqttAndroidClient getConnection() {
+        return connectMQTT[0];
+    }
 
 
     private ConnectionViewModel connectionViewModel;
@@ -39,10 +47,9 @@ public class ConnectionFragment extends Fragment{
         View root = binding.getRoot();
 
         final EditText textBoxMqttAddress = (EditText) root.findViewById(R.id.textboxMqttBrokerAddr);
-        final EditText textBoxMqttTopic = (EditText) root.findViewById(R.id.textboxMqttTopic);
-        final EditText textBoxMqttMessage = (EditText) root.findViewById(R.id.textBoxMqttMessage);
 
-        final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+
+
 
 
         Button connect = (Button) root.findViewById(R.id.buttonMqttConnect);
@@ -53,15 +60,7 @@ public class ConnectionFragment extends Fragment{
             }
         });
 
-        Button publish = (Button) root.findViewById(R.id.buttonMqttPublish);
-        publish.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                String mqttTopic = textBoxMqttTopic.getText().toString();
-                String mqttMessage = textBoxMqttMessage.getText().toString();
 
-                publishMessage(mqttMessage,  connectMQTT[0], mqttTopic);
-            }
-        });
 
         connectionViewModel =
                 new ViewModelProvider(this).get(ConnectionViewModel.class);
@@ -72,11 +71,9 @@ public class ConnectionFragment extends Fragment{
 
     public MqttAndroidClient connectMQTT(View view, String mqttAddress){
 
-
         String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client = new MqttAndroidClient(getContext() , "tcp://"+mqttAddress+":1883", clientId);
 
-        Log.d("MQTT PARAMS", "sendMessageMQTT-ADDRESS-LONG: "+ client.getServerURI().toString());
+        MqttAndroidClient client = new MqttAndroidClient(getContext() , "tcp://"+mqttAddress+":1883", clientId);
 
         byte[] encodedPayload = new byte[0];
         try {
@@ -107,48 +104,7 @@ public class ConnectionFragment extends Fragment{
         return client;
     }
 
-    public void publishMessage(String payload, MqttAndroidClient mqttAndroidClient, String topic) {
-        try {
-            if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
-            }
 
-            MqttMessage message = new MqttMessage();
-            message.setPayload(payload.getBytes());
-            message.setQos(0);
-            mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.i("Connection", "publish succeed!");
-                    Log.i("Connection", "payload: " + payload);
-                    Log.i("Connection", "client: "+ mqttAndroidClient.getClientId());
-                    Log.i("Connection", "topic: " + topic);
-
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), "Publish success!", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), "Publish failed!", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }
-            });
-        } catch (MqttException e) {
-            Log.e("mqttException", e.toString());
-            Snackbar snackbar = Snackbar
-                    .make(getView(), "Fatal MQTT Error", Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-        catch (NullPointerException e){
-            Log.e("nullPointerException", e.toString());
-            Snackbar snackbar = Snackbar
-                    .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-    }
 
     @Override
     public void onDestroyView() {
