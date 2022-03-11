@@ -12,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentPublishBinding;
-import com.fmnumu.szakdolgozat.ui.slideshow.ConnectionViewModel;
 
 public class PublishFragment extends Fragment {
 
@@ -25,7 +23,6 @@ public class PublishFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentPublishBinding.inflate(inflater, container, false);
@@ -33,7 +30,6 @@ public class PublishFragment extends Fragment {
 
         publishViewModel =
                 new ViewModelProvider(this).get(PublishViewModel.class);
-
 
         return root;
     }

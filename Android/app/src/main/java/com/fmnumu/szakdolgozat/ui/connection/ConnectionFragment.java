@@ -1,4 +1,4 @@
-package com.fmnumu.szakdolgozat.ui.slideshow;
+package com.fmnumu.szakdolgozat.ui.connection;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 

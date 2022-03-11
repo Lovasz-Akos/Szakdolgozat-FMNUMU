@@ -1,4 +1,4 @@
-package com.fmnumu.szakdolgozat.ui.slideshow;
+package com.fmnumu.szakdolgozat.ui.connection;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
