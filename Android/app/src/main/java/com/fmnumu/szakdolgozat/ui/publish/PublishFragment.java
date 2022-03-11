@@ -103,13 +103,9 @@ public class PublishFragment extends Fragment {
         }
         catch (NullPointerException e){
             Log.e("nullPointerException", e.toString());
-       /*     Snackbar snackbar = Snackbar
+            Snackbar snackbar = Snackbar
                     .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_SHORT);
             snackbar.show();
-*/
-            Snackbar snackbar2 = Snackbar
-                    .make(getView(), "host: "+ mqttAndroidClient.getServerURI(), Snackbar.LENGTH_LONG);
-            snackbar2.show();
         }
     }
 
