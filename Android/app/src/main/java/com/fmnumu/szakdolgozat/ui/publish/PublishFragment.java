@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentPublishBinding;
 import com.fmnumu.szakdolgozat.ui.connection.ConnectionFragment;
@@ -49,9 +50,6 @@ public class PublishFragment extends Fragment {
 
         final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
-        String mqttTopic = textBoxMqttTopic.getText().toString();
-        String mqttMessage = textBoxMqttMessage.getText().toString();
-
         FragmentManager fm = getFragmentManager();
 
         ConnectionFragment connectionFragment = (ConnectionFragment) fm.findFragmentById(R.id.nav_connection);
@@ -59,7 +57,9 @@ public class PublishFragment extends Fragment {
         Button publish = (Button) root.findViewById(R.id.buttonMqttPublish);
         publish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                publishMessage(mqttMessage,  connectionFragment.getConnection(), mqttTopic);
+                String mqttTopic = textBoxMqttTopic.getText().toString();
+                String mqttMessage = textBoxMqttMessage.getText().toString();
+                publishMessage(mqttMessage, ((MainActivity)getActivity()).getClient(), mqttTopic);
             }
         });
 
@@ -84,7 +84,7 @@ public class PublishFragment extends Fragment {
                     Log.i("Connection", "topic: " + topic);
 
                     Snackbar snackbar = Snackbar
-                            .make(getView(), "Publish success!", Snackbar.LENGTH_SHORT);
+                            .make(getView(), "Publish success! ad:"+mqttAndroidClient.getServerURI(), Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
 
@@ -103,9 +103,13 @@ public class PublishFragment extends Fragment {
         }
         catch (NullPointerException e){
             Log.e("nullPointerException", e.toString());
-            Snackbar snackbar = Snackbar
-                    .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_LONG);
+       /*     Snackbar snackbar = Snackbar
+                    .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_SHORT);
             snackbar.show();
+*/
+            Snackbar snackbar2 = Snackbar
+                    .make(getView(), "host: "+ mqttAndroidClient.getServerURI(), Snackbar.LENGTH_LONG);
+            snackbar2.show();
         }
     }
 

@@ -7,19 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.publish.PublishFragment">
 
-    <EditText
-        android:id="@+id/textboxMqttTopic"
+    <Button
+        android:id="@+id/buttonMqttPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Temp"
+        android:layout_marginTop="32dp"
+        android:text="@string/button_publish"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textBoxMqttMessage" />
 
     <EditText
         android:id="@+id/textBoxMqttMessage"
@@ -35,13 +31,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textboxMqttTopic" />
 
-    <Button
-        android:id="@+id/buttonMqttPublish"
+    <EditText
+        android:id="@+id/textboxMqttTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/button_publish"
+        android:layout_marginTop="150dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Temp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBoxMqttMessage" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
