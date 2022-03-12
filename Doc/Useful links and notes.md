@@ -108,3 +108,7 @@ sysv-rc-conf
 [Eclipse docs](https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php)
 
 [Hive quickstart guide](https://www.hivemq.com/blog/mqtt-client-library-enyclopedia-paho-android-service/)
+
+## Android persistent storage
+
+[Prefrences](https://developer.android.com/guide/topics/ui/settings/use-saved-values)
