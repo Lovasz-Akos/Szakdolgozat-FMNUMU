@@ -1,6 +1,7 @@
 package com.fmnumu.szakdolgozat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,9 +22,15 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private final String clientId = MqttClient.generateClientId();
+    private List<String> topics = new ArrayList<String>();
+    private String mqttAddress;
 
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
@@ -31,14 +38,9 @@ public class MainActivity extends AppCompatActivity {
         return connectMQTT[0];
     }
 
-    public MqttAndroidClient setClient(MqttAndroidClient connectMQTT) {
-        return this.connectMQTT[0] = connectMQTT;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         com.fmnumu.szakdolgozat.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -54,11 +56,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        populateTopicList();
+    }
+
+    public void connectMQTT(View view){
+        this.connectMQTT(view, this.mqttAddress);
     }
 
     public MqttAndroidClient connectMQTT(View view, String mqttAddress){
-
-        String clientId = MqttClient.generateClientId();
+        this.mqttAddress = mqttAddress;
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext() , "tcp://"+mqttAddress+":1883", clientId);
 
@@ -66,29 +73,53 @@ public class MainActivity extends AppCompatActivity {
             client.connect(null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    
-                    Snackbar snackbar = Snackbar
-                            .make(view, "Connection Success", Snackbar.LENGTH_LONG);
-                    snackbar.show();
 
+                    Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
+                    subscribeAllTopics();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(view, "Connection Failed", Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    Log.d("CONNECTION", "onSuccess");
                 }
             });
 
         } catch (MqttException e) {
-            Snackbar snackbar = Snackbar
-                    .make(view, "Connection failed, please check host address", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Log.d("CONNECTION", "ERROR");
         }
         return client;
+    }
+
+    private void populateTopicList(){
+        topics.add("Temp");
+        topics.add("Humidity");
+    }
+
+    public void subscribeAllTopics(){
+        MqttAndroidClient mqttAndroidClient = this.getClient();
+        try {
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
+            for (int i = 0; i < topics.size(); i++) {
+                int finalI = i;
+                mqttAndroidClient.subscribe(topics.get(finalI), 0, this.getApplicationContext(), new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        Log.d("RESUB", "subbed to topic: " + topics.get(finalI));
+                    }
+
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        Log.d("RESUB", "failed to resub to topic: " + topics.get(finalI));
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            Log.d("tag","Error :" + e);
+        }
     }
 
 
