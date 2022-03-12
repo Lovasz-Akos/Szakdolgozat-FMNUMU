@@ -58,12 +58,6 @@ public class PublishFragment extends Fragment {
         publishViewModel =
                 new ViewModelProvider(this).get(PublishViewModel.class);
 
-        final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
-
-        FragmentManager fm = getParentFragmentManager();
-
-        ConnectionFragment connectionFragment = (ConnectionFragment) fm.findFragmentById(R.id.nav_connection);
-
         Button publish = root.findViewById(R.id.buttonMqttPublish);
         publish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -77,7 +71,6 @@ public class PublishFragment extends Fragment {
         subscribe.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String mqttTopic = textBoxMqttTopic.getText().toString();
-                String mqttMessage = textBoxMqttMessage.getText().toString();
                 subscribeMQTT(((MainActivity)getActivity()).getClient(), mqttTopic);
             }
         });
@@ -151,6 +144,7 @@ public class PublishFragment extends Fragment {
                     public void connectionLost(Throwable cause) {
                         Snackbar snackbar = Snackbar
                                 .make(getView(), "mqtt connection lost", Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("Reconnect", new snackbarReconnectListener());
                         snackbar.show();
                     }
 
@@ -200,6 +194,28 @@ public class PublishFragment extends Fragment {
 
     private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
         return new String(msg.getPayload(), StandardCharsets.UTF_8);
+    }
+
+
+
+    public class snackbarReconnectListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            //reconnect
+            final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+            try {
+                if (!connectMQTT[0].isConnected()) {
+                    connectMQTT[0].connect();
+                }
+            }
+            catch (MqttException e){
+                Snackbar snackbar = Snackbar
+                        .make(getView(), "Reconnect failed. Please head over to the connection tab", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+
+        }
     }
 
     @Override
