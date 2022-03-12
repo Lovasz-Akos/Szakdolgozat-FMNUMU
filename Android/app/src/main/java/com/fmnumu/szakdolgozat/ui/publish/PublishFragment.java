@@ -75,6 +75,14 @@ public class PublishFragment extends Fragment {
             }
         });
 
+        Button unsubscribe = root.findViewById(R.id.buttonMqttUnsubscribe);
+        unsubscribe.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                String mqttTopic = textBoxMqttTopic.getText().toString();
+                unsubscribeMQTT(((MainActivity)getActivity()).getClient(), mqttTopic);
+            }
+        });
+
         return root;
     }
 
