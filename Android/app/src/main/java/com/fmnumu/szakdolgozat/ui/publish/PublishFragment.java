@@ -59,7 +59,7 @@ public class PublishFragment extends Fragment {
 
         final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getParentFragmentManager();
 
         ConnectionFragment connectionFragment = (ConnectionFragment) fm.findFragmentById(R.id.nav_connection);
 
