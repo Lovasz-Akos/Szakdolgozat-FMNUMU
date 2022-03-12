@@ -123,7 +123,9 @@ public class PublishFragment extends Fragment {
 
     public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
         try {
-            if (mqttAndroidClient.isConnected()) {
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
                 mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
@@ -139,6 +141,8 @@ public class PublishFragment extends Fragment {
                         snackbar.show();
                     }
                 });
+
+                //TODO: move this code to home fragment
                 mqttAndroidClient.setCallback(new MqttCallback() {
                     @Override
                     public void connectionLost(Throwable cause) {
@@ -150,10 +154,9 @@ public class PublishFragment extends Fragment {
 
                     @Override
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-                        //parseMqttMessage(new String(message.getPayload()));
 
                         Snackbar snackbar = Snackbar
-                                .make(getView(), "message received: " + decodeMQTT(message) +" on topic: "+topic, Snackbar.LENGTH_SHORT);
+                                .make(getView(), "message received: " + decodeMQTT(message) + " on topic: " + topic, Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
 
@@ -162,7 +165,6 @@ public class PublishFragment extends Fragment {
 
                     }
                 });
-            }
         } catch (Exception e) {
             Log.d("tag","Error :" + e);
         }
@@ -170,25 +172,29 @@ public class PublishFragment extends Fragment {
 
     public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
         try {
-            IMqttToken unsubToken = mqttAndroidClient.unsubscribe(topic);
-            unsubToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
+                IMqttToken unsubToken = mqttAndroidClient.unsubscribe(topic);
+                unsubToken.setActionCallback(new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken,
+                                          Throwable exception) {
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                });
+            }
+        catch (MqttException e) {
+            Log.d("tag","Error :" + e);
         }
     }
 
@@ -197,7 +203,7 @@ public class PublishFragment extends Fragment {
     }
 
 
-
+    //TODO: move this to home fragment too
     public class snackbarReconnectListener implements View.OnClickListener {
 
         @Override
