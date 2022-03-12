@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class PublishFragment extends Fragment {
@@ -51,8 +52,8 @@ public class PublishFragment extends Fragment {
         binding = FragmentPublishBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final EditText textBoxMqttTopic = (EditText) root.findViewById(R.id.textboxMqttTopic);
-        final EditText textBoxMqttMessage = (EditText) root.findViewById(R.id.textBoxMqttMessage);
+        final EditText textBoxMqttTopic = root.findViewById(R.id.textboxMqttTopic);
+        final EditText textBoxMqttMessage = root.findViewById(R.id.textBoxMqttMessage);
 
         publishViewModel =
                 new ViewModelProvider(this).get(PublishViewModel.class);
@@ -63,7 +64,7 @@ public class PublishFragment extends Fragment {
 
         ConnectionFragment connectionFragment = (ConnectionFragment) fm.findFragmentById(R.id.nav_connection);
 
-        Button publish = (Button) root.findViewById(R.id.buttonMqttPublish);
+        Button publish = root.findViewById(R.id.buttonMqttPublish);
         publish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String mqttTopic = textBoxMqttTopic.getText().toString();
@@ -72,7 +73,7 @@ public class PublishFragment extends Fragment {
             }
         });
 
-        Button subscribe = (Button) root.findViewById(R.id.buttonMqttSubscribe);
+        Button subscribe = root.findViewById(R.id.buttonMqttSubscribe);
         subscribe.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String mqttTopic = textBoxMqttTopic.getText().toString();
@@ -152,7 +153,7 @@ public class PublishFragment extends Fragment {
                                 .make(getView(), "mqtt connection lost", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
-                    
+
                     @Override
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
                         //parseMqttMessage(new String(message.getPayload()));
@@ -198,7 +199,7 @@ public class PublishFragment extends Fragment {
     }
 
     private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
-        return new String(msg.getPayload(), "UTF-8");
+        return new String(msg.getPayload(), StandardCharsets.UTF_8);
     }
 
     @Override

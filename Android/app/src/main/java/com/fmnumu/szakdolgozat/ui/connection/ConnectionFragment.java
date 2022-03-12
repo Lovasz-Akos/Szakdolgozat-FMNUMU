@@ -1,7 +1,6 @@
 package com.fmnumu.szakdolgozat.ui.connection;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentConnectionBinding;
-import com.google.android.material.snackbar.Snackbar;
-
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class ConnectionFragment extends Fragment{
 
@@ -39,9 +29,9 @@ public class ConnectionFragment extends Fragment{
         binding = FragmentConnectionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final EditText textBoxMqttAddress = (EditText) root.findViewById(R.id.textboxMqttBrokerAddr);
+        final EditText textBoxMqttAddress = root.findViewById(R.id.textboxMqttBrokerAddr);
 
-        Button connect = (Button) root.findViewById(R.id.buttonMqttConnect);
+        Button connect = root.findViewById(R.id.buttonMqttConnect);
         connect.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String mqttAddress = textBoxMqttAddress.getText().toString();
@@ -54,8 +44,6 @@ public class ConnectionFragment extends Fragment{
 
         return root;
     }
-
-
 
     @Override
     public void onDestroyView() {

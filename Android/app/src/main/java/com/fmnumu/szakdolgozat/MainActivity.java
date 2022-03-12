@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    private MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+    private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
     public MqttAndroidClient getClient() {
         return connectMQTT[0];
@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
             client.connect(null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-
-                    //publishMessage(mqttMessage, client, mqttTopic);
+                    
                     Snackbar snackbar = Snackbar
                             .make(view, "Connection Success", Snackbar.LENGTH_LONG);
                     snackbar.show();
