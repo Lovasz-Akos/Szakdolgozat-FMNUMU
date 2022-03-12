@@ -149,30 +149,6 @@ public class PublishFragment extends Fragment {
                         snackbar.show();
                     }
                 });
-
-                //TODO: move this code to home fragment
-                mqttAndroidClient.setCallback(new MqttCallback() {
-                    @Override
-                    public void connectionLost(Throwable cause) {
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), "mqtt connection lost", Snackbar.LENGTH_SHORT);
-                        snackbar.setAction("Reconnect", new snackbarReconnectListener());
-                        snackbar.show();
-                    }
-
-                    @Override
-                    public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), "message received: " + decodeMQTT(message) + " on topic: " + topic, Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    }
-
-                    @Override
-                    public void deliveryComplete(IMqttDeliveryToken token) {
-
-                    }
-                });
         } catch (Exception e) {
             Log.d("tag","Error :" + e);
         }
@@ -208,27 +184,6 @@ public class PublishFragment extends Fragment {
 
     private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
         return new String(msg.getPayload(), StandardCharsets.UTF_8);
-    }
-
-
-    //TODO: move this to home fragment too
-    public class snackbarReconnectListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
-            try {
-                if (!client.isConnected()) {
-                    client.connect();
-                }
-            }
-            catch (MqttException e){
-                Snackbar snackbar = Snackbar
-                        .make(getView(), "Reconnect failed. Please head over to the connection tab", Snackbar.LENGTH_LONG);
-                snackbar.show();
-            }
-
-        }
     }
 
     @Override
