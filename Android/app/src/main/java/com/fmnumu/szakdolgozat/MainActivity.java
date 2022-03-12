@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext() , "tcp://"+mqttAddress+":1883", clientId);
 
-        byte[] encodedPayload = new byte[0];
         try {
             client.connect(null, new IMqttActionListener() {
                 @Override

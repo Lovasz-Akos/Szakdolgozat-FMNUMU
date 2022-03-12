@@ -1,8 +1,10 @@
 package com.fmnumu.szakdolgozat.ui.publish;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,9 +26,16 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.Buffer;
+import java.util.Base64;
 
 public class PublishFragment extends Fragment {
 
@@ -60,6 +69,15 @@ public class PublishFragment extends Fragment {
                 String mqttTopic = textBoxMqttTopic.getText().toString();
                 String mqttMessage = textBoxMqttMessage.getText().toString();
                 publishMessage(mqttMessage, ((MainActivity)getActivity()).getClient(), mqttTopic);
+            }
+        });
+
+        Button subscribe = (Button) root.findViewById(R.id.buttonMqttSubscribe);
+        subscribe.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                String mqttTopic = textBoxMqttTopic.getText().toString();
+                String mqttMessage = textBoxMqttMessage.getText().toString();
+                subscribeMQTT(((MainActivity)getActivity()).getClient(), mqttTopic);
             }
         });
 
@@ -109,6 +127,79 @@ public class PublishFragment extends Fragment {
         }
     }
 
+    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+        try {
+            if (mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), "Subscribed to topic: " + topic, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), "Failed to subscribe to topic: " + topic, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                });
+                mqttAndroidClient.setCallback(new MqttCallback() {
+                    @Override
+                    public void connectionLost(Throwable cause) {
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), "mqtt connection lost", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                    
+                    @Override
+                    public void messageArrived(String topic, MqttMessage message) throws Exception {
+                        //parseMqttMessage(new String(message.getPayload()));
+
+                        Snackbar snackbar = Snackbar
+                                .make(getView(), "message received: " + decodeMQTT(message) +" on topic: "+topic, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+
+                    @Override
+                    public void deliveryComplete(IMqttDeliveryToken token) {
+
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.d("tag","Error :" + e);
+        }
+    }
+
+    public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+        try {
+            IMqttToken unsubToken = mqttAndroidClient.unsubscribe(topic);
+            unsubToken.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken,
+                                      Throwable exception) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
+        return new String(msg.getPayload(), "UTF-8");
+    }
 
     @Override
     public void onDestroyView() {
