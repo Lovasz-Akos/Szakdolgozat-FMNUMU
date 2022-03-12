@@ -202,11 +202,10 @@ public class PublishFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            //reconnect
-            final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+            MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
             try {
-                if (!connectMQTT[0].isConnected()) {
-                    connectMQTT[0].connect();
+                if (!client.isConnected()) {
+                    client.connect();
                 }
             }
             catch (MqttException e){
