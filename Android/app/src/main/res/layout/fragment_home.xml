@@ -16,6 +16,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:id="@+id/cardList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:showDividers="middle"
+            android:divider="@drawable/empty_tall_divider">
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabSubscribe"
             android:layout_width="wrap_content"
@@ -27,7 +38,8 @@
             android:src="@android:drawable/ic_input_add"
             app:backgroundTint="@color/primary_mid"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
