@@ -38,7 +38,17 @@ public class MainActivity extends AppCompatActivity {
         return connectMQTT[0];
     }
 
+    public void addTopic(String topic){
+        this.topics.add(topic);
+    }
 
+    public void removeTopic(String topic){
+        topics.remove(topic);
+    }
+
+    public List<String> getAllTopics(){
+        return this.topics;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         populateTopicList();
     }
-    public void addTopic(String topic){
-        this.topics.add(topic);
-    }
-    public void removeTopic(String topic){
-        topics.remove(topic);
-    }
+
 
     public void connectMQTT(View view){
         this.connectMQTT(view, this.mqttAddress);
