@@ -1,6 +1,9 @@
 package com.fmnumu.szakdolgozat.ui.home;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -24,7 +30,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -37,7 +45,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private final String mqttAddress = "192.168.1.77"; //TODO: put this in storage and make conn fragment change it
+    private String dialogResult = "";
 
 
     @Override
@@ -61,18 +69,58 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
         fabSub.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                //TODO: IMPLEMENT ONCLICK SUB
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Enter topic to subscribe to");
+
+                final EditText input = new EditText(getContext());
+
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setWidth(10);
+                builder.setView(input);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialogResult = input.getText().toString();
+                        subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+        try {
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
+            mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    snackBarMaker(getView(), "Subscribed to " + topic);
+                    ((MainActivity)getActivity()).addTopic(topic);
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                   snackBarMaker(getView(), "Failed to subscribe");
+                }
+            });
+        } catch (Exception e) {
+            Log.d("tag","Error :" + e);
+        }
     }
+
 
     private void mqttNotifier(View root, MqttAndroidClient mqttAndroidClient){
 
@@ -80,7 +128,6 @@ public class HomeFragment extends Fragment {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
             }
-            //TODO: move this code to home fragment
             mqttAndroidClient.setCallback(new MqttCallback() {
                 @Override
                 public void connectionLost(Throwable cause) {
@@ -130,6 +177,13 @@ public class HomeFragment extends Fragment {
         Snackbar snackbar = Snackbar
                 .make(view.findViewById(R.id.snackRoot), message, Snackbar.LENGTH_SHORT);
         snackbar.show();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }
