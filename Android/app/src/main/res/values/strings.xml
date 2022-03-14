@@ -13,4 +13,5 @@
 
     <string name="button_connect">Connect</string>
     <string name="button_publish">Publish</string>
+    <string name="button_subscribe">Subscribe</string>
 </resources>
