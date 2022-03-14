@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         return connectMQTT[0];
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         populateTopicList();
+    }
+    public void addTopic(String topic){
+        this.topics.add(topic);
+    }
+    public void removeTopic(String topic){
+        topics.remove(topic);
     }
 
     public void connectMQTT(View view){
@@ -92,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateTopicList(){
-        topics.add("Temp");
-        topics.add("Humidity");
+        addTopic("Humidity");
     }
 
     public void subscribeAllTopics(){
