@@ -112,3 +112,7 @@ sysv-rc-conf
 ## Android persistent storage
 
 [Prefrences](https://developer.android.com/guide/topics/ui/settings/use-saved-values)
+
+## Material design
+
+[Material guideline docs](https://material.io/components/)
