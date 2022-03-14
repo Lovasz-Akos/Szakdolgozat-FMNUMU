@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,32 +65,13 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        CoordinatorLayout layout = (CoordinatorLayout) root.findViewById(R.id.snackRoot);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.cardList);
+        //int tilesToMake = ((MainActivity)getActivity()).getAllTopics().size(); TODO: make this work lol
 
         MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()){
             mqttNotifier(root, mqttAndroidClient);
         }
-
-        Log.d("CARD", "onClick: attempting to add CARD");
-        MaterialCardView materialCardView = new MaterialCardView(getContext());
-        materialCardView.setCardElevation(8);
-        materialCardView.setMinimumWidth(500);
-        materialCardView.setMinimumHeight(500);
-        materialCardView.setPadding(50,50,50,50);
-        materialCardView.setCardBackgroundColor(Color.RED);
-        materialCardView.setRadius(40);
-
-
-        layout.addView(materialCardView);
-
-        materialCardView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                snackBarMaker(view, "CLICC DA SQUARE");
-            }
-        });
-        Log.d("CARD", "onClick: is it there yet?");
 
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
         fabSub.setOnClickListener(new View.OnClickListener(){
@@ -106,8 +89,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialogResult = input.getText().toString();
-                        subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
 
+                        subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
+                        createTile(layout, dialogResult);
 
                     }
                 });
@@ -123,6 +107,37 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void createTile(LinearLayout layout, String topic) {
+        TextView topicDisplay = new TextView(getContext());
+        TextView dataDisplay = new TextView(getContext());
+        MaterialCardView materialCardView = new MaterialCardView(getContext());
+        materialCardView.setCardElevation(8);
+        materialCardView.setMinimumWidth(200);
+        materialCardView.setMinimumHeight(200);
+        materialCardView.setPadding(150,150,150,150);
+        materialCardView.setCardBackgroundColor(Color.LTGRAY);
+        materialCardView.setRadius(50);
+
+        topicDisplay.setText(topic);
+        topicDisplay.setTextSize(25);
+        topicDisplay.setTextColor(Color.BLACK);
+        topicDisplay.setPadding(10, 20, 20, 20);
+        topicDisplay.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        topicDisplay.setGravity(Gravity.CENTER);
+
+        dataDisplay.setText("");
+        dataDisplay.setTextSize(25);
+        dataDisplay.setTextColor(Color.BLACK);
+        dataDisplay.setPadding(20, 20, 20, 20);
+        dataDisplay.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        //dataDisplay.setGravity(Gravity.CENTER);
+
+
+        layout.addView(materialCardView);
+        materialCardView.addView(topicDisplay);
+        materialCardView.addView(dataDisplay);
     }
 
     private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
@@ -167,6 +182,16 @@ public class HomeFragment extends Fragment {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
 
                     snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
+                    LinearLayout layout = (LinearLayout) root.findViewById(R.id.cardList);
+                    int children = layout.getChildCount();
+                    for (int i = 0; i < children; i++) {
+                        MaterialCardView materialCardView = (MaterialCardView) layout.getChildAt(i);
+                        String topicDisplay = (String) ((TextView) materialCardView.getChildAt(0)).getText();
+                        TextView dataDisplay = (TextView) materialCardView.getChildAt(1);
+                        if (topicDisplay.equals(topic)){
+                            dataDisplay.setText(decodeMQTT(message));
+                        }
+                    }
                 }
 
                 @Override
