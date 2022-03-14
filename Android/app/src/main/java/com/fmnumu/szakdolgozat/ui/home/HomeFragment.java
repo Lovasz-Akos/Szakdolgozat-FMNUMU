@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -26,6 +28,7 @@ import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
 import com.fmnumu.szakdolgozat.databinding.FragmentHomeBinding;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -60,11 +63,32 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        CoordinatorLayout layout = (CoordinatorLayout) root.findViewById(R.id.snackRoot);
 
         MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()){
             mqttNotifier(root, mqttAndroidClient);
         }
+
+        Log.d("CARD", "onClick: attempting to add CARD");
+        MaterialCardView materialCardView = new MaterialCardView(getContext());
+        materialCardView.setCardElevation(8);
+        materialCardView.setMinimumWidth(500);
+        materialCardView.setMinimumHeight(500);
+        materialCardView.setPadding(50,50,50,50);
+        materialCardView.setCardBackgroundColor(Color.RED);
+        materialCardView.setRadius(40);
+
+
+        layout.addView(materialCardView);
+
+        materialCardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                snackBarMaker(view, "CLICC DA SQUARE");
+            }
+        });
+        Log.d("CARD", "onClick: is it there yet?");
 
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
         fabSub.setOnClickListener(new View.OnClickListener(){
@@ -78,11 +102,13 @@ public class HomeFragment extends Fragment {
                 input.setWidth(10);
                 builder.setView(input);
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialogResult = input.getText().toString();
                         subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
+
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -140,7 +166,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
 
-                    snackBarMaker(root, "mqtt connection lost");
+                    snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
                 }
 
                 @Override
