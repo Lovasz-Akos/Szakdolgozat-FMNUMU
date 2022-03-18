@@ -118,8 +118,11 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     snackBarMaker(getView(), "Subscribed to " + topic);
-                    ((MainActivity)getActivity()).addTopic(topic);
+                    if (!((MainActivity)getActivity()).getAllTopics().contains(topic)){
+                        ((MainActivity)getActivity()).addTopic(topic);
+                    }
                     createTile(layout, topic);
+
                 }
 
                 @Override
