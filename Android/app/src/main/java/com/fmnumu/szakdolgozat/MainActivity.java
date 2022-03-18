@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
+
                     subscribeAllTopics();
                 }
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateTopicList(){
-        addTopic("Humidity");
+
     }
 
     public void subscribeAllTopics(){

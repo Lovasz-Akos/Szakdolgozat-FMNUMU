@@ -30,16 +30,16 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private String dialogResult = "";
+    private String topic = "";
 
 
     @Override
@@ -55,9 +55,9 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.cardList);
-        //int tilesToMake = ((MainActivity)getActivity()).getAllTopics().size(); TODO: make this work lol
 
         MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
+
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()){
             mqttNotifier(root, mqttAndroidClient);
         }
@@ -77,13 +77,13 @@ public class HomeFragment extends Fragment {
                 builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialogResult = input.getText().toString();
-                        if (dialogResult.equals("")){
+                        topic = input.getText().toString();
+                        if (topic.equals("")){
                             Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                         else{
-                            subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult, layout);
+                            subscribeMQTT(((MainActivity)getActivity()).getClient(), topic);
                         }
                     }
                 });
@@ -101,10 +101,6 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void restoreViewData(){
-
-    }
-
     private void createTile(LinearLayout layout, String topic) {
         View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
@@ -112,7 +108,8 @@ public class HomeFragment extends Fragment {
         layout.addView(mqttCard);
     }
 
-    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic, LinearLayout layout){
+    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+        LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
@@ -121,8 +118,8 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     snackBarMaker(getView(), "Subscribed to " + topic);
-                    createTile(layout, dialogResult);
                     ((MainActivity)getActivity()).addTopic(topic);
+                    createTile(layout, topic);
                 }
 
                 @Override
@@ -156,11 +153,13 @@ public class HomeFragment extends Fragment {
 
                     snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
 
-                    String topicDisplay = (String) ((TextView) root.findViewById(R.id.text_topicDisplay)).getText();
-                    TextView dataDisplay = (TextView) root.findViewById(R.id.text_dataDisplay);
-
-                    if (topicDisplay.equals(topic)){
-                        dataDisplay.setText(decodeMQTT(message));
+                    LinearLayout cardList = root.findViewById(R.id.cardList);
+                    for (int i = 0; i < cardList.getChildCount(); i++) {
+                        String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
+                        TextView dataDisplay = (TextView) cardList.getChildAt(i).findViewById(R.id.text_dataDisplay);
+                        if (topicDisplay.equals(topic)){
+                            dataDisplay.setText(decodeMQTT(message));
+                        }
                     }
                 }
 
@@ -200,11 +199,26 @@ public class HomeFragment extends Fragment {
         snackbar.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        LinearLayout cardList = getView().findViewById(R.id.cardList);
+
+        if (cardList.getChildCount() == 0) {
+            ArrayList<String> allTopics = (ArrayList<String>) ((MainActivity) getActivity()).getAllTopics();
+
+            for (int i = 0; i < allTopics.size(); i++) {
+                subscribeMQTT(((MainActivity) getActivity()).getClient(), allTopics.get(i));
+            }
+        }
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+
 
 }
