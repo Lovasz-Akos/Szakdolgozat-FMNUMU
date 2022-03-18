@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -113,35 +114,13 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private void restoreViewData(){
+
+    }
+
     private void createTile(LinearLayout layout, String topic) {
-        TextView topicDisplay = new TextView(getContext());
-        TextView dataDisplay = new TextView(getContext());
-        MaterialCardView materialCardView = new MaterialCardView(getContext());
-        materialCardView.setCardElevation(8);
-        materialCardView.setMinimumWidth(200);
-        materialCardView.setMinimumHeight(200);
-        materialCardView.setPadding(150,150,150,150);
-        materialCardView.setCardBackgroundColor(Color.LTGRAY);
-        materialCardView.setRadius(50);
-
-        topicDisplay.setText(topic);
-        topicDisplay.setTextSize(25);
-        topicDisplay.setTextColor(Color.BLACK);
-        topicDisplay.setPadding(10, 20, 20, 20);
-        topicDisplay.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        topicDisplay.setGravity(Gravity.CENTER);
-
-        dataDisplay.setText("");
-        dataDisplay.setTextSize(25);
-        dataDisplay.setTextColor(Color.BLACK);
-        dataDisplay.setPadding(20, 20, 20, 20);
-        dataDisplay.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        //dataDisplay.setGravity(Gravity.CENTER);
-
-
-        layout.addView(materialCardView);
-        materialCardView.addView(topicDisplay);
-        materialCardView.addView(dataDisplay);
+        View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card, null);
+        layout.addView(mqttCard);
     }
 
     private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
