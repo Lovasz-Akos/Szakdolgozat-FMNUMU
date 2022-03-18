@@ -120,6 +120,8 @@ public class HomeFragment extends Fragment {
 
     private void createTile(LinearLayout layout, String topic) {
         View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card, null);
+        TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
+        topicDisplay.setText(topic);
         layout.addView(mqttCard);
     }
 
@@ -165,15 +167,12 @@ public class HomeFragment extends Fragment {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
 
                     snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
-                    LinearLayout layout = (LinearLayout) root.findViewById(R.id.cardList);
-                    int children = layout.getChildCount();
-                    for (int i = 0; i < children; i++) {
-                        MaterialCardView materialCardView = (MaterialCardView) layout.getChildAt(i);
-                        String topicDisplay = (String) ((TextView) materialCardView.getChildAt(0)).getText();
-                        TextView dataDisplay = (TextView) materialCardView.getChildAt(1);
-                        if (topicDisplay.equals(topic)){
-                            dataDisplay.setText(decodeMQTT(message));
-                        }
+                    
+                    String topicDisplay = (String) ((TextView) root.findViewById(R.id.text_topicDisplay)).getText();
+                    TextView dataDisplay = (TextView) root.findViewById(R.id.text_dataDisplay);
+
+                    if (topicDisplay.equals(topic)){
+                        dataDisplay.setText(decodeMQTT(message));
                     }
                 }
 
