@@ -89,10 +89,14 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialogResult = input.getText().toString();
-
-                        subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
-                        createTile(layout, dialogResult);
-
+                        if (dialogResult.equals("")){
+                            Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        else{
+                            subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
+                            createTile(layout, dialogResult);
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
