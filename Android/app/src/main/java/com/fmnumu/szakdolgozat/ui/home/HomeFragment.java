@@ -95,8 +95,7 @@ public class HomeFragment extends Fragment {
                             toast.show();
                         }
                         else{
-                            subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult);
-                            createTile(layout, dialogResult);
+                            subscribeMQTT(((MainActivity)getActivity()).getClient(), dialogResult, layout);
                         }
                     }
                 });
@@ -125,7 +124,7 @@ public class HomeFragment extends Fragment {
         layout.addView(mqttCard);
     }
 
-    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic, LinearLayout layout){
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
@@ -134,6 +133,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     snackBarMaker(getView(), "Subscribed to " + topic);
+                    createTile(layout, dialogResult);
                     ((MainActivity)getActivity()).addTopic(topic);
                 }
 
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
 
                     snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
-                    
+
                     String topicDisplay = (String) ((TextView) root.findViewById(R.id.text_topicDisplay)).getText();
                     TextView dataDisplay = (TextView) root.findViewById(R.id.text_dataDisplay);
 
