@@ -182,8 +182,8 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
             MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
             if (!client.isConnected()) {
-               ((MainActivity)getActivity()).connectMQTT(v);
-                snackBarMaker(v, "mqtt connection lost");
+               ((MainActivity)getActivity()).connectMQTT(getView());
+                snackBarMaker(getView(), "mqtt connection lost");
             }
 
         }
