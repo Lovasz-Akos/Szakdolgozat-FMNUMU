@@ -3,6 +3,7 @@ package com.fmnumu.szakdolgozat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -120,18 +121,20 @@ public class MainActivity extends AppCompatActivity {
                 mqttAndroidClient.subscribe(topics.get(finalI), 0, this.getApplicationContext(), new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
-                        Log.d("RESUB", "subbed to topic: " + topics.get(finalI));
+                        Toast toast = Toast.makeText(getApplicationContext(), "Connection Successful", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
 
                     @Override
                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                        Log.d("RESUB", "failed to resub to topic: " + topics.get(finalI));
+                        Toast toast = Toast.makeText(getApplicationContext(), "Connection Failed", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
             }
 
         } catch (Exception e) {
-            Log.d("tag","Error :" + e);
+            Log.d("connect exception","Error :" + e.getMessage());
         }
     }
 
