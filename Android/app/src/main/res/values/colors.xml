@@ -12,4 +12,6 @@
     <color name="primaryLightColor">#6ab7ff</color>
     <color name="primaryDarkColor">#005cb2</color>
     <color name="primaryTextColor">#000000</color>
+
+    <color name="cardGrey">#303030</color>
 </resources>
