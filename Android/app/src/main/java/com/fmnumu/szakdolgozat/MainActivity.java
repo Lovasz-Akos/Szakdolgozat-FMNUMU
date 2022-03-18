@@ -90,13 +90,15 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
-
+                    Toast toast = Toast.makeText(getApplicationContext(), "Connection Successful", Toast.LENGTH_SHORT);
+                    toast.show();
                     subscribeAllTopics();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.d("CONNECTION", "onSuccess");
+                    Toast toast = Toast.makeText(getApplicationContext(), "Connection Failed", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             });
 
