@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -35,7 +36,13 @@ public class ConnectionFragment extends Fragment{
         connect.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String mqttAddress = textBoxMqttAddress.getText().toString();
-                ((MainActivity)getActivity()).connectMQTT(root, mqttAddress);
+                if (mqttAddress.equals("")){
+                    Toast toast = Toast.makeText(getContext(), "Address can't be empty", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else{
+                    ((MainActivity)getActivity()).connectMQTT(root, mqttAddress);
+                }
             }
         });
 
