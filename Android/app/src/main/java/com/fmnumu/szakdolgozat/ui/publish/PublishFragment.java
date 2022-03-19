@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
@@ -98,11 +99,6 @@ public class PublishFragment extends Fragment {
             mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.i("Connection", "publish succeed!");
-                    Log.i("Connection", "payload: " + payload);
-                    Log.i("Connection", "client: "+ mqttAndroidClient.getClientId());
-                    Log.i("Connection", "topic: " + topic);
-
                     Snackbar snackbar = Snackbar
                             .make(getView(), "Publish success! ad:"+mqttAndroidClient.getServerURI(), Snackbar.LENGTH_SHORT);
                     snackbar.show();
@@ -137,9 +133,8 @@ public class PublishFragment extends Fragment {
                 mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), "Subscribed to topic: " + topic, Snackbar.LENGTH_SHORT);
-                        snackbar.show();
+                        Toast toast = Toast.makeText(getContext(), "Subscribed to " + topic, Toast.LENGTH_SHORT);
+                        toast.show();
                     }
 
                     @Override

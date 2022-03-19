@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
                 final EditText input = new EditText(getContext());
 
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
-                input.setWidth(10);
+                input.setGravity(Gravity.CENTER);
                 builder.setView(input);
 
                 builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener() {
@@ -119,7 +120,6 @@ public class HomeFragment extends Fragment {
             mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    snackBarMaker(getView(), "Subscribed to " + topic);
                     if (!((MainActivity)getActivity()).getAllTopics().contains(topic)){
                         ((MainActivity)getActivity()).addTopic(topic);
                     }
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void connectionLost(Throwable cause) {
                     Snackbar snackbar = Snackbar
-                            .make(root.findViewById(R.id.snackRoot), "mqtt connection lost", Snackbar.LENGTH_SHORT);
+                            .make(root.findViewById(R.id.snackRoot), "MQTT Connection lost!", Snackbar.LENGTH_SHORT);
                     snackbar.setAction("Reconnect", new snackBarReconnectListener());
                     snackbar.show();
                 }
@@ -172,7 +172,8 @@ public class HomeFragment extends Fragment {
 
         }
         catch (MqttException e){
-           snackBarMaker(root, "mqtt connection lost");
+            Toast toast = Toast.makeText(getContext(), "MQTT Connection lost" + topic, Toast.LENGTH_SHORT);
+            toast.show();
         }
 
     }
@@ -220,7 +221,7 @@ public class HomeFragment extends Fragment {
             MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
             if (!client.isConnected()) {
                ((MainActivity)getActivity()).connectMQTT(getView());
-                snackBarMaker(getView(), "mqtt connection lost");
+                snackBarMaker(getView(), "mqtt reconnected");
             }
 
         }

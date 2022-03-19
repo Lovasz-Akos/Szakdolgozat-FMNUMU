@@ -90,15 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
-                    Toast toast = Toast.makeText(getApplicationContext(), "Connection Successful on " + mqttAddress, Toast.LENGTH_SHORT);
-                    toast.show();
+                    Snackbar snackbar = Snackbar
+                            .make(view.findViewById(R.id.snackRoot), "Connection Successfully on " + mqttAddress, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                     subscribeAllTopics();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Connection Failed on: " + mqttAddress, Toast.LENGTH_SHORT);
-                    toast.show();
+                    Snackbar snackbar = Snackbar
+                            .make(view.findViewById(R.id.snackRoot), "Connection Failed on " + mqttAddress, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                 }
             });
 
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                        
+
                     }
                 });
             }
