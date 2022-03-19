@@ -123,14 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 mqttAndroidClient.subscribe(topics.get(finalI), 0, this.getApplicationContext(), new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Connection Successful", Toast.LENGTH_SHORT);
-                        toast.show();
+
                     }
 
                     @Override
                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Connection Failed", Toast.LENGTH_SHORT);
-                        toast.show();
+                        
                     }
                 });
             }
