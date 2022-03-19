@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void createTile(LinearLayout layout, String topic) {
-        View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card, null);
+        View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card_text, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
         topicDisplay.setText(topic);
         layout.addView(mqttCard);
