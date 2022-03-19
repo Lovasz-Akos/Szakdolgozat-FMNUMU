@@ -20,8 +20,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentHomeBinding;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -101,8 +103,8 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void createTile(LinearLayout layout, String topic) {
-        View mqttCard = this.getLayoutInflater().inflate(R.layout.mqtt_card_text, null);
+    private void createTile(LinearLayout layout, String topic, int type) {
+        View mqttCard = this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
         topicDisplay.setText(topic);
         layout.addView(mqttCard);
@@ -121,7 +123,7 @@ public class HomeFragment extends Fragment {
                     if (!((MainActivity)getActivity()).getAllTopics().contains(topic)){
                         ((MainActivity)getActivity()).addTopic(topic);
                     }
-                    createTile(layout, topic);
+                    createTile(layout, topic, R.layout.mqtt_card_text);
 
                 }
 
@@ -147,7 +149,7 @@ public class HomeFragment extends Fragment {
                 public void connectionLost(Throwable cause) {
                     Snackbar snackbar = Snackbar
                             .make(root.findViewById(R.id.snackRoot), "mqtt connection lost", Snackbar.LENGTH_SHORT);
-                    snackbar.setAction("Reconnect", new snackbarReconnectListener());
+                    snackbar.setAction("Reconnect", new snackBarReconnectListener());
                     snackbar.show();
                 }
 
@@ -158,11 +160,7 @@ public class HomeFragment extends Fragment {
 
                     LinearLayout cardList = root.findViewById(R.id.cardList);
                     for (int i = 0; i < cardList.getChildCount(); i++) {
-                        String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
-                        TextView dataDisplay = (TextView) cardList.getChildAt(i).findViewById(R.id.text_dataDisplay);
-                        if (topicDisplay.equals(topic)){
-                            dataDisplay.setText(decodeMQTT(message));
-                        }
+                        cardHandlerOnMessageReceived(topic, message, cardList, i);
                     }
                 }
 
@@ -179,7 +177,43 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public class snackbarReconnectListener implements View.OnClickListener {
+    private void cardHandlerOnMessageReceived(String topic, MqttMessage message, LinearLayout cardList, int i) throws UnsupportedEncodingException {
+
+        String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
+        
+        ViewGroup cardRoot = (ViewGroup) cardList.getChildAt(i);
+        ViewGroup cardViewGroup = (ViewGroup) cardRoot.getChildAt(0);
+        ViewGroup cardLayout = (ViewGroup) cardViewGroup.getChildAt(0);
+        
+        View activeElement = cardLayout.getChildAt(1);
+
+        if (topicDisplay.equals(topic)){
+
+            if (activeElement instanceof SwitchMaterial){
+
+                SwitchMaterial switchView = cardList.getChildAt(i).findViewById(R.id.switch_data);
+
+                if (decodeMQTT(message).equals("true")){
+                    switchView.setChecked(true);
+                }
+
+                else if (decodeMQTT(message).equals("false")){
+                    switchView.setChecked(false);
+                }
+            }
+
+            else if (activeElement instanceof MaterialCheckBox){
+                //todo: do something useful with a checkbox?
+            }
+
+            else if(activeElement instanceof TextView){
+                TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_dataDisplay);
+                dataDisplay.setText(decodeMQTT(message));
+            }
+        }
+    }
+
+    public class snackBarReconnectListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
