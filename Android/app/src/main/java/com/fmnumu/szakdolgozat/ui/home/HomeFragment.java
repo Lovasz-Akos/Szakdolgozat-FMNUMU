@@ -3,6 +3,7 @@ package com.fmnumu.szakdolgozat.ui.home;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,6 +41,7 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -168,10 +170,8 @@ public class HomeFragment extends Fragment {
                 */
                 break;
             case R.layout.mqtt_card_button:
-                //TODO: add appropriate listener
                 break;
             case R.layout.mqtt_card_switch:
-                //TODO: add appropriate listener
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
                 switch_data.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,8 +188,62 @@ public class HomeFragment extends Fragment {
                 //TODO: Checkbox card
               //  break;
             case R.layout.mqtt_card_slider:
-                //TODO: add appropriate listener
+                Slider slider_data = (Slider) mqttCard.findViewById(R.id.slider_data);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Enter the slider's range");
+                ViewGroup sliderRangeView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.subscribe_slider, null);
+
+                /*TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
+                  topicDisplay.setText(topic);
+                 layout.addView(mqttCard);*/
+
+                TextInputLayout rangeMaxView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_top_limit);
+                TextInputLayout rangeMinView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_bottom_limit);
+                TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
+
+
+                builder.setView(sliderRangeView);
+                builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
+                        String rangeMin = rangeMinView.getEditText().getText().toString();
+                        String rangeMax = rangeMaxView.getEditText().getText().toString();
+
+                        slider_data.setValueTo(Float.parseFloat(rangeMax));
+                        slider_data.setValue(Float.parseFloat(rangeMin));
+                        slider_data.setValueFrom(Float.parseFloat(rangeMin));
+                        sliderDataDisplay.setText(rangeMin);
+                    }
+                });
+
+                builder.show();
+
+
+
+                final Slider.OnSliderTouchListener touchListener =
+                        new Slider.OnSliderTouchListener() {
+                            @SuppressLint("RestrictedApi")
+                            @Override
+                            public void onStartTrackingTouch(Slider slider) {
+
+                            }
+
+                            @SuppressLint("RestrictedApi")
+                            @Override
+                            public void onStopTrackingTouch(Slider slider) {
+                                String value = String.valueOf(slider_data.getValue()).replace(".0", "");
+                                TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
+                                sliderDataDisplay.setText(value);
+                                publishMessage(((MainActivity)getActivity()).getClient(), topic, value);
+                            }
+                        };
+
+                slider_data.addOnSliderTouchListener(touchListener);
+
+
+                break;
                 //TODO: add more card types?
 
             default:
@@ -251,7 +305,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
     private void mqttNotifier(View root, MqttAndroidClient mqttAndroidClient){
 
         try {
@@ -289,11 +342,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void cardHandlerOnMessageSend(MqttAndroidClient mqttAndroidClient,
-                                          String topic, String payload){
-
-    }
-
     private void cardHandlerOnMessageReceived(String topic, MqttMessage message,
                                               LinearLayout cardList, int i)
             throws UnsupportedEncodingException {
@@ -324,6 +372,8 @@ public class HomeFragment extends Fragment {
             }
             else if(activeElement instanceof Slider){
                 Slider sliderData = cardLayout.getChildAt(i).findViewById(R.id.slider_data);
+                TextView sliderDataDisplay = cardLayout.getChildAt(i).findViewById(R.id.slider_data_display);
+                sliderDataDisplay.setText(decodeMQTT(message));
                 sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
             }
             else if (activeElement instanceof MaterialCheckBox){
@@ -362,9 +412,7 @@ public class HomeFragment extends Fragment {
             mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Toast toast = Toast.makeText(getContext(), "published " + message + " on topic " + topic, Toast.LENGTH_SHORT);
-                    toast.show();
-                    Log.d("PUBLISH", "onSuccess");
+                    Log.d("PUBLISH", "published on: " + topic + " message: " + payload);
                 }
 
                 @Override
@@ -418,4 +466,6 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
