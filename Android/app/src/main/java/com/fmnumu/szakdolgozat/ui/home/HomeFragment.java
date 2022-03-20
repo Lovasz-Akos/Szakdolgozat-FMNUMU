@@ -118,9 +118,6 @@ public class HomeFragment extends Fragment {
                             builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener(){
                                 @Override
                                 public void onClick(DialogInterface dialog, int which){
-                                    Toast toast = Toast.makeText(getContext(), "speeeeeeen like mazespiiiiiin", Toast.LENGTH_SHORT);
-                                    toast.show();
-
                                     subscribeMQTT(((MainActivity)getActivity()).getClient(), topic, actionType[0]);
                                 }
                             });
