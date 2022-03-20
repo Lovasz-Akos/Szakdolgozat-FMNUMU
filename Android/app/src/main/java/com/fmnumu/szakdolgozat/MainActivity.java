@@ -21,14 +21,20 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private final String clientId = MqttClient.generateClientId();
-    private List<String> topics = new ArrayList<String>();
+    private final List<String> topics = new ArrayList<>();
     private String mqttAddress;
+
+    //adding items to this list does not create new interaction types,
+    // new types will need their own xml layout and cases added in HomeFragment.subscribeMQTT method
+    private final List<String> allInteractTypes =
+            new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input"));
 
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
@@ -48,11 +54,17 @@ public class MainActivity extends AppCompatActivity {
         return this.topics;
     }
 
+    public List<String> getAllInteractTypes() { return allInteractTypes; }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.fmnumu.szakdolgozat.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        com.fmnumu.szakdolgozat.databinding.ActivityMainBinding binding =
+                ActivityMainBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
+
         setSupportActionBar(binding.appBarMain.toolbar);
 
         DrawerLayout drawer = binding.drawerLayout;
@@ -63,8 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_publish, R.id.nav_connection)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        NavController navController = Navigation.findNavController(this,
+                        R.id.nav_host_fragment_content_main);
+
+        NavigationUI.setupActionBarWithNavController(this,
+                navController,
+                mAppBarConfiguration);
+
         NavigationUI.setupWithNavController(navigationView, navController);
 
         populateTopicList();
@@ -75,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
         this.connectMQTT(this.mqttAddress);
     }
 
-    public MqttAndroidClient connectMQTT(String mqttAddress){
+    public void connectMQTT(String mqttAddress){
         this.mqttAddress = mqttAddress;
 
-        MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext() , "tcp://"+mqttAddress+":1883", clientId);
+        MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(),
+                "tcp://"+mqttAddress+":1883", clientId);
 
         try {
             client.connect(null, new IMqttActionListener() {
@@ -87,14 +106,19 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
-                    Toast toast = Toast.makeText(getApplicationContext(), "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
+
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
+
                     toast.show();
                     subscribeAllTopics();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Failed to connect to " + mqttAddress, Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Failed to connect to " + mqttAddress, Toast.LENGTH_SHORT);
+
                     toast.show();
                 }
             });
@@ -102,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (MqttException e) {
             Log.d("CONNECTION", "ERROR");
         }
-        return client;
     }
 
     private void populateTopicList(){
@@ -117,17 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 mqttAndroidClient.connect();
             }
             for (int i = 0; i < topics.size(); i++) {
-                int finalI = i;
-                mqttAndroidClient.subscribe(topics.get(finalI), 0, this.getApplicationContext(), new IMqttActionListener() {
+                mqttAndroidClient.subscribe(topics.get(i), 0,
+                        this.getApplicationContext(), new IMqttActionListener() {
                     @Override
-                    public void onSuccess(IMqttToken asyncActionToken) {
-
-                    }
+                    public void onSuccess(IMqttToken asyncActionToken) {}
 
                     @Override
-                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-
-                    }
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {}
                 });
             }
 
@@ -139,9 +158,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
+
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 }
