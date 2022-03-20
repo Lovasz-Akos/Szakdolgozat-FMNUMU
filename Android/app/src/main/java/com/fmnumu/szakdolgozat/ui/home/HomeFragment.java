@@ -222,11 +222,13 @@ public class HomeFragment extends Fragment {
                             createCard(layout, topic, R.layout.mqtt_card_switch);
                             break;
                         case "Input":
-                            //TODO: Input card
+                            createCard(layout, topic, R.layout.mqtt_card_input);
                             break;
                         case "Checkbox":
                             //TODO: Checkbox card
                             break;
+                        case "Slider":
+                            createCard(layout, topic, R.layout.mqtt_card_slider);
 
                         //TODO: add more card types?
 
@@ -287,7 +289,14 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void cardHandlerOnMessageReceived(String topic, MqttMessage message, LinearLayout cardList, int i) throws UnsupportedEncodingException {
+    private void cardHandlerOnMessageSend(MqttAndroidClient mqttAndroidClient,
+                                          String topic, String payload){
+
+    }
+
+    private void cardHandlerOnMessageReceived(String topic, MqttMessage message,
+                                              LinearLayout cardList, int i)
+            throws UnsupportedEncodingException {
 
         String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
         
