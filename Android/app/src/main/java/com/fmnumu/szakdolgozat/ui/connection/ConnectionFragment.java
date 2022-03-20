@@ -41,7 +41,7 @@ public class ConnectionFragment extends Fragment{
                     toast.show();
                 }
                 else{
-                    ((MainActivity)getActivity()).connectMQTT(root, mqttAddress);
+                    ((MainActivity)getActivity()).connectMQTT(mqttAddress);
                 }
             }
         });
