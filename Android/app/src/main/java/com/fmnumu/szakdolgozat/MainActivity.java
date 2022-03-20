@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     //adding items to this list does not create new interaction types,
     // new types will need their own xml layout and cases added in HomeFragment.subscribeMQTT method
     private final List<String> allInteractTypes =
-            new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input"));
+            new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input", "Slider"));
 
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
 
