@@ -299,25 +299,30 @@ public class HomeFragment extends Fragment {
 
         if (topicDisplay.equals(topic)){
 
-            if (activeElement instanceof SwitchMaterial){
+            if (activeElement instanceof SwitchMaterial) {
 
                 SwitchMaterial switchView = cardList.getChildAt(i).findViewById(R.id.switch_data);
 
-                if (decodeMQTT(message).equals("true")){
+                if (decodeMQTT(message).equals("on")) {
                     switchView.setChecked(true);
-                }
-
-                else if (decodeMQTT(message).equals("false")){
+                } else if (decodeMQTT(message).equals("off")) {
                     switchView.setChecked(false);
                 }
             }
-
+            else if(activeElement instanceof TextInputLayout){
+                TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
+                textInputEditText.setText(decodeMQTT(message));
+            }
+            else if(activeElement instanceof Slider){
+                Slider sliderData = cardLayout.getChildAt(i).findViewById(R.id.slider_data);
+                sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
+            }
             else if (activeElement instanceof MaterialCheckBox){
                 //todo: do something useful with a checkbox?
             }
 
             else if(activeElement instanceof TextView){
-                TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_dataDisplay);
+                TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_data);
                 dataDisplay.setText(decodeMQTT(message));
             }
         }
