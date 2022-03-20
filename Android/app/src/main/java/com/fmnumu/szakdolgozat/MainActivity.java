@@ -2,20 +2,17 @@ package com.fmnumu.szakdolgozat;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -74,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void connectMQTT(View view){
-        this.connectMQTT(view, this.mqttAddress);
+    public void connectMQTT(){
+        this.connectMQTT(this.mqttAddress);
     }
 
-    public MqttAndroidClient connectMQTT(View view, String mqttAddress){
+    public MqttAndroidClient connectMQTT(String mqttAddress){
         this.mqttAddress = mqttAddress;
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext() , "tcp://"+mqttAddress+":1883", clientId);
@@ -90,17 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("CONNECTION", "onSuccess");
                     connectMQTT[0] = client;
-                    Snackbar snackbar = Snackbar
-                            .make(view.findViewById(R.id.snackRoot), "Connection Successfully on " + mqttAddress, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
+                    toast.show();
                     subscribeAllTopics();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Snackbar snackbar = Snackbar
-                            .make(view.findViewById(R.id.snackRoot), "Connection Failed on " + mqttAddress, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Failed to connect to " + mqttAddress, Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             });
 
@@ -111,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateTopicList(){
+        //todo: read all saved topic subs from file
 
     }
 
