@@ -42,6 +42,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
 
+                android:stepSize="1"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
@@ -53,11 +54,11 @@
 
             <TextView
                 android:id="@+id/slider_data_display"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:text="0"
+                android:textColor="@color/white"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@+id/slider_data"
                 app:layout_constraintEnd_toEndOf="@+id/slider_data"
                 app:layout_constraintStart_toStartOf="@+id/slider_data" />
