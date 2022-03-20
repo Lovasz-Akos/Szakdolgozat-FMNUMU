@@ -157,10 +157,33 @@ public class HomeFragment extends Fragment {
             mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    if (!((MainActivity)getActivity()).getAllTopics().contains(topic)){
-                        ((MainActivity)getActivity()).addTopic(topic);
+                    if (!((MainActivity)getActivity()).getAllTopics().contains(topic+":"+type)){
+                        ((MainActivity)getActivity()).addTopic(topic+":"+type);
                     }
-                    createTile(layout, topic, R.layout.mqtt_card_text);
+                    switch (type) {
+                        case "Text":
+                            createCard(layout, topic, R.layout.mqtt_card_text);
+                            break;
+                        case "Button":
+                            createCard(layout, topic, R.layout.mqtt_card_button);
+                            break;
+                        case "Switch":
+                            createCard(layout, topic, R.layout.mqtt_card_switch);
+                            break;
+                        case "Input":
+                            //TODO: Input card
+                            break;
+                        case "Checkbox":
+                            //TODO: Checkbox card
+                            break;
+
+                        //TODO: add more card types?
+
+                        default:
+                            Toast toast = Toast.makeText(getContext(), "Failed to create card", Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
+                    }
 
                 }
 
