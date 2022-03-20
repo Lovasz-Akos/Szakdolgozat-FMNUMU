@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -38,6 +39,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -93,10 +95,11 @@ public class HomeFragment extends Fragment {
 
                             builder.setTitle("Pick the action type");
 
-                            final Spinner typeSpinner = new Spinner(getContext(), Spinner.MODE_DIALOG);
+                            final Spinner typeSpinner = new Spinner(getContext());
 
-                            //FIXME: add adapter to spinner
-                            //typeSpinner.setAdapter(new ArrayAdapter<InteractTypes>(this, android.R.layout.simple_spinner_item, InteractTypes.values()));
+                            List<String> allTypes = ((MainActivity)getActivity()).getAllInteractTypes();
+
+                            typeSpinner.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.subscribe_spinner, allTypes));
 
                             builder.setView(typeSpinner);
 
