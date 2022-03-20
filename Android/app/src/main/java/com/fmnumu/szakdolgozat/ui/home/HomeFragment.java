@@ -1,8 +1,10 @@
 package com.fmnumu.szakdolgozat.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +27,11 @@ import com.fmnumu.szakdolgozat.R;
 import com.fmnumu.szakdolgozat.databinding.FragmentHomeBinding;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -141,11 +146,57 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void createCard(LinearLayout layout, String topic, int type) {
-        View mqttCard = this.getLayoutInflater().inflate(type, null);
+        ViewGroup mqttCard = (ViewGroup) this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
         topicDisplay.setText(topic);
         layout.addView(mqttCard);
+
+        switch (type) {
+            case R.layout.mqtt_card_text:
+                //TODO: add appropriate listener
+                /* EXAMPLE LISTENER, ONLY ADD TO APPROPRIATE CARD TYPES
+
+                    TextView text_data = (TextView) mqttCard.findViewById(R.id.text_data);
+                    text_data.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            publishMessage(((MainActivity)getActivity()).getClient(), topic, "message");
+                        }
+                    });
+                */
+                break;
+            case R.layout.mqtt_card_button:
+                //TODO: add appropriate listener
+                break;
+            case R.layout.mqtt_card_switch:
+                //TODO: add appropriate listener
+                SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
+                switch_data.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String message = switch_data.isChecked() ? "on" : "off";
+                        publishMessage(((MainActivity)getActivity()).getClient(), topic, message);
+                    }
+                });
+                break;
+            case R.layout.mqtt_card_input:
+                //TODO: add appropriate listener
+                break;
+            //case "Checkbox":
+                //TODO: Checkbox card
+              //  break;
+            case R.layout.mqtt_card_slider:
+                //TODO: add appropriate listener
+
+                //TODO: add more card types?
+
+            default:
+                Toast toast = Toast.makeText(getContext(), "Failed to create card", Toast.LENGTH_SHORT);
+                toast.show();
+                break;
+        }
     }
 
     private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic, String type){
@@ -279,9 +330,47 @@ public class HomeFragment extends Fragment {
             MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
             if (!client.isConnected()) {
                ((MainActivity)getActivity()).connectMQTT();
-                snackBarMaker(getView(), "mqtt reconnected");
+                snackBarMaker(getView(), "MQTT reconnected");
             }
 
+        }
+    }
+
+    public void publishMessage(MqttAndroidClient mqttAndroidClient, String topic,  String payload) {
+        try {
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
+
+            MqttMessage message = new MqttMessage();
+            message.setPayload(payload.getBytes());
+            message.setQos(0);
+            mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Toast toast = Toast.makeText(getContext(), "published " + message + " on topic " + topic, Toast.LENGTH_SHORT);
+                    toast.show();
+                    Log.d("PUBLISH", "onSuccess");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Toast toast = Toast.makeText(getContext(), "Publish failed! status: MQTT disconnected", Toast.LENGTH_SHORT);
+                    toast.show();
+                    Log.d("PUBLISH", "onFail");
+                }
+            });
+        } catch (MqttException e) {
+            Log.e("mqttException", e.toString());
+
+            Toast toast = Toast.makeText(getContext(), "Fatal MQTT Error", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        catch (NullPointerException e){
+            Log.e("nullPointerException", e.toString());
+
+            Toast toast = Toast.makeText(getContext(), "Publish Failed, MQTT not connected", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
