@@ -3,13 +3,14 @@ package com.fmnumu.szakdolgozat.ui.home;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class HomeFragment extends Fragment {
                 input.setGravity(Gravity.CENTER);
                 builder.setView(input);
 
-                builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         topic = input.getText().toString();
@@ -86,10 +87,46 @@ public class HomeFragment extends Fragment {
                             toast.show();
                         }
                         else{
-                            subscribeMQTT(((MainActivity)getActivity()).getClient(), topic);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            final String[] actionType = new String[1];
+
+                            builder.setTitle("Pick the action type");
+
+                            final Spinner typeSpinner = new Spinner(getContext(), Spinner.MODE_DIALOG);
+
+                            //FIXME: add adapter to spinner
+                            //typeSpinner.setAdapter(new ArrayAdapter<InteractTypes>(this, android.R.layout.simple_spinner_item, InteractTypes.values()));
+
+                            builder.setView(typeSpinner);
+
+                            typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    actionType[0] = typeSpinner.getSelectedItem().toString();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+
+                            builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+                                    Toast toast = Toast.makeText(getContext(), "speeeeeeen like mazespiiiiiin", Toast.LENGTH_SHORT);
+                                    toast.show();
+
+                                    subscribeMQTT(((MainActivity)getActivity()).getClient(), topic, actionType[0]);
+                                }
+                            });
+
+                            builder.show();
                         }
                     }
                 });
+
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -104,14 +141,14 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void createTile(LinearLayout layout, String topic, int type) {
+    private void createCard(LinearLayout layout, String topic, int type) {
         View mqttCard = this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
         topicDisplay.setText(topic);
         layout.addView(mqttCard);
     }
 
-    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic, String type){
         LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
@@ -133,7 +170,8 @@ public class HomeFragment extends Fragment {
                 }
             });
         } catch (Exception e) {
-            Log.d("tag","Error :" + e);
+            Toast toast = Toast.makeText(getContext(), "MQTT is not connected!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -148,16 +186,13 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void connectionLost(Throwable cause) {
                     Snackbar snackbar = Snackbar
-                            .make(root.findViewById(R.id.snackRoot), "MQTT Connection lost!", Snackbar.LENGTH_SHORT);
+                            .make(root.findViewById(R.id.snackRoot), "MQTT Connection lost!", Snackbar.LENGTH_LONG);
                     snackbar.setAction("Reconnect", new snackBarReconnectListener());
                     snackbar.show();
                 }
 
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-                    snackBarMaker(root, "received " + decodeMQTT(message) + " on topic: " + topic);
-
                     LinearLayout cardList = root.findViewById(R.id.cardList);
                     for (int i = 0; i < cardList.getChildCount(); i++) {
                         cardHandlerOnMessageReceived(topic, message, cardList, i);
@@ -172,7 +207,7 @@ public class HomeFragment extends Fragment {
 
         }
         catch (MqttException e){
-            Toast toast = Toast.makeText(getContext(), "MQTT Connection lost" + topic, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "MQTT is not connected!", Toast.LENGTH_SHORT);
             toast.show();
         }
 
@@ -220,7 +255,7 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
             MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
             if (!client.isConnected()) {
-               ((MainActivity)getActivity()).connectMQTT(getView());
+               ((MainActivity)getActivity()).connectMQTT();
                 snackBarMaker(getView(), "mqtt reconnected");
             }
 
@@ -246,7 +281,8 @@ public class HomeFragment extends Fragment {
             ArrayList<String> allTopics = (ArrayList<String>) ((MainActivity) getActivity()).getAllTopics();
 
             for (int i = 0; i < allTopics.size(); i++) {
-                subscribeMQTT(((MainActivity) getActivity()).getClient(), allTopics.get(i));
+                //TODO: reformat resub if viewgroup restoration isn't implemented
+                subscribeMQTT(((MainActivity) getActivity()).getClient(), allTopics.get(i), "Text");
             }
         }
     }
@@ -256,7 +292,4 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
-
 }
