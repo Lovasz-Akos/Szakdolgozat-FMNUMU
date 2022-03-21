@@ -1,7 +1,6 @@
 package com.fmnumu.szakdolgozat.ui.home;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -41,7 +40,6 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -256,9 +254,6 @@ public class HomeFragment extends Fragment {
             mqttAndroidClient.subscribe(cardData.get(0), 0, getContext(), new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    if (!((MainActivity)getActivity()).getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2))){ //data[0]+":"+type
-                        ((MainActivity)getActivity()).addCardData(cardData);
-                    }
                     switch (cardData.get(1)) {
                         case "Text":
                             createCard(layout, cardData, R.layout.mqtt_card_text);
@@ -474,7 +469,6 @@ public class HomeFragment extends Fragment {
     public void onPause(){
         super.onPause();
         LinearLayout cardList = getView().findViewById(R.id.cardList);
-        List<String> cardData = new ArrayList<>();
         for (int i = 0; i < cardList.getChildCount(); i++) {
             ViewGroup cardInstance = (ViewGroup) cardList.getChildAt(i);
 
@@ -517,12 +511,7 @@ public class HomeFragment extends Fragment {
                     cardInstanceType = "Slider";
                     cardInstanceData = minValue+"."+maxValue+"."+currentValue;
             }
-
-            cardData.add(cardInstanceTopic);
-            cardData.add(cardInstanceType);
-            cardData.add(cardInstanceData);
-
-            ((MainActivity)getActivity()).addCardData(cardData);
+            ((MainActivity)getActivity()).addCardDataToPersistentStorage(cardInstanceTopic, cardInstanceType, cardInstanceData);
         }
     }
 

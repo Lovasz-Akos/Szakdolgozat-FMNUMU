@@ -6,15 +6,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
-import com.fmnumu.szakdolgozat.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -45,13 +42,20 @@ public class MainActivity extends AppCompatActivity {
         return connectMQTT[0];
     }
 
-    public void addCardData(List<String> cardData){
+    public void addCardDataToPersistentStorage(String topic, String cardType, String cardData){
 
-        if (!getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2))){ //data[0]+":"+type
-            //TODO: add to storage
-            this.cardDataStore.add(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
-        }
-        //TODO: if card exists, overwrite with data
+            /* FIXME check for duplicates
+            String[] part = this.cardDataStore.get(1).split(":", 0);
+
+            if (part[0].equals(cardData.get(0)) && part[1].equals(cardData.get(1)) && cardData.get(2).equals("null")){ // !getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1))
+                this.cardDataStore.add(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
+            }
+            else{
+                this.cardDataStore.set(cardDataStore.indexOf(cardData.get(0)+":"+cardData.get(1)), cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
+            }
+            */
+        this.cardDataStore.add(topic+":"+cardType+":"+cardData);
+
     }
 
     public void removedCardData(String cardData){
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        populateTopicList();
+        populatePersistentDataFields();
     }
 
     public void connectMQTT(){
@@ -137,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void populateTopicList(){
-        //todo: read all saved topic subs from file
+    private void populatePersistentDataFields(){
+        //todo: read all saved topic subs from file. oh and the mqtt address :)
         //  format: Topic:Type:Data.SubData.*
 
     }
