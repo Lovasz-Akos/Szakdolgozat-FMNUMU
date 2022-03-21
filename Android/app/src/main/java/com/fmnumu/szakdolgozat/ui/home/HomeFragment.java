@@ -430,6 +430,26 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public void subscribeAllTopics(){
+        MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
+        List<String[]> splitCardData = new ArrayList<>();
+        List<String> cardDataStore = ((MainActivity)getActivity()).getCardDataStoreAll();
+
+        try {
+            if (!mqttAndroidClient.isConnected()) {
+                mqttAndroidClient.connect();
+            }
+            for (int i = 0; i < cardDataStore.size(); i++) {
+                splitCardData.add(cardDataStore.get(i).split(":", 0));
+                subscribeMQTT(((MainActivity)getActivity()).getClient(), Arrays.asList(splitCardData.get(i)));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("connect exception","Error :" + e.getMessage());
+        }
+    }
+
     private String decodeMQTT(MqttMessage msg) {
         return new String(msg.getPayload(), StandardCharsets.UTF_8);
     }
@@ -446,7 +466,7 @@ public class HomeFragment extends Fragment {
         LinearLayout cardList = getView().findViewById(R.id.cardList);
 
         if (cardList.getChildCount() == 0) {
-            ((MainActivity)getActivity()).subscribeAllTopics();
+            subscribeAllTopics();
         }
     }
     

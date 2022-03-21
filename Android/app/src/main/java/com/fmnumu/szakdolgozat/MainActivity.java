@@ -61,16 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public List<String[]> getCardDataStore(){
-        List<String[]> splitCardData = new ArrayList<>();
-
-        for (int i = 0; i < this.cardDataStore.size(); i++) {
-            splitCardData.add(cardDataStore.get(i).split(":", 0));
-        }
-
-        return splitCardData;
-    }
-
     public List<String> getCardDataStoreAll(){
         return this.cardDataStore;
     }
@@ -131,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                             "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
 
                     toast.show();
-                    subscribeAllTopics();
                 }
 
                 @Override
@@ -152,27 +141,6 @@ public class MainActivity extends AppCompatActivity {
         //todo: read all saved topic subs from file
         //  format: Topic:Type:Data.SubData.*
 
-    }
-
-    public void subscribeAllTopics(){
-        MqttAndroidClient mqttAndroidClient = this.getClient();
-        List<String[]> splitCardData = new ArrayList<>();
-
-        HomeFragment home = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.home_fragment);
-
-        try {
-            if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
-            }
-            for (int i = 0; i < cardDataStore.size(); i++) {
-                splitCardData.add(cardDataStore.get(i).split(":", 0));
-                home.subscribeMQTT(getClient(), Arrays.asList(splitCardData.get(i)));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("connect exception","Error :" + e.getMessage());
-        }
     }
 
     @Override
