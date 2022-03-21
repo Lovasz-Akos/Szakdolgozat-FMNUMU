@@ -446,12 +446,63 @@ public class HomeFragment extends Fragment {
         LinearLayout cardList = getView().findViewById(R.id.cardList);
 
         if (cardList.getChildCount() == 0) {
-            ArrayList<String> allTopics = (ArrayList<String>) ((MainActivity) getActivity()).getAllTopics();
+            ((MainActivity)getActivity()).subscribeAllTopics();
+        }
+    }
+    
+    @Override
+    public void onPause(){
+        super.onPause();
+        LinearLayout cardList = getView().findViewById(R.id.cardList);
+        List<String> cardData = new ArrayList<>();
+        for (int i = 0; i < cardList.getChildCount(); i++) {
+            ViewGroup cardInstance = (ViewGroup) cardList.getChildAt(i);
 
-            for (int i = 0; i < allTopics.size(); i++) {
-                //TODO: reformat resub if viewgroup restoration isn't implemented
-                subscribeMQTT(((MainActivity) getActivity()).getClient(), allTopics.get(i), "Text");
+            String cardInstanceTopic = "null";
+            String cardInstanceType = "null";
+            String cardInstanceData = "null";
+
+            int cardType = cardInstance.getId();
+            Log.d("PAUSE", "onPause: "+cardType);
+            switch (cardType){
+                case R.id.text_type_card:
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Text";
+                    cardInstanceData = (String) ((TextView) cardInstance.findViewById(R.id.text_data)).getText();
+                    break;
+                case R.id.button_type_card:
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Button";
+                    break;
+                case R.id.switch_type_card:
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Switch";
+                    cardInstanceData = ((SwitchMaterial) cardInstance.findViewById(R.id.switch_data)).isChecked() ? "on" : "off";
+                    break;
+                case R.id.input_type_card:
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Input";
+                    break;
+                case R.id.checkbox_type_card:
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Checkbox";
+                    cardInstanceData = ((CheckBox) cardInstance.findViewById(R.id.checkbox_data)).isChecked() ? "on" : "off";
+                    break;
+                case R.id.slider_type_card:
+                    String currentValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValue()).replace(".0","");
+                    String minValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueFrom()).replace(".0","");
+                    String maxValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueTo()).replace(".0","");;
+
+                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    cardInstanceType = "Slider";
+                    cardInstanceData = minValue+"."+maxValue+"."+currentValue;
             }
+
+            cardData.add(cardInstanceTopic);
+            cardData.add(cardInstanceType);
+            cardData.add(cardInstanceData);
+
+            ((MainActivity)getActivity()).addCardData(cardData);
         }
     }
 
