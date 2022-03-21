@@ -148,7 +148,12 @@ public class HomeFragment extends Fragment {
 
         switch (type) {
             case R.layout.mqtt_card_text: //TODO: ADD WITH DATA
-                //TODO: add appropriate listener
+                TextView text_data = (TextView) mqttCard.findViewById(R.id.text_data);
+                if (!savedCardData.get(2).equals("null")) {
+                    text_data.setText(savedCardData.get(2));
+                } else {
+                    text_data.setText("standby");
+                }
                 /* EXAMPLE LISTENER, ONLY ADD TO APPROPRIATE CARD TYPES
 
                     TextView text_data = (TextView) mqttCard.findViewById(R.id.text_data);
@@ -160,19 +165,39 @@ public class HomeFragment extends Fragment {
                     });
                 */
                 break;
-            case R.layout.mqtt_card_button: //TODO: ADD WITH DATA
+            case R.layout.mqtt_card_button: //TODO: ADD WITH DATA <-- ??? wtf u mean data, it's a button, it doesn't have persistent states weirdchamp
                 break;
-            case R.layout.mqtt_card_switch: //TODO: ADD WITH DATA
+            case R.layout.mqtt_card_switch:
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
+
+                if (!savedCardData.get(2).equals("null")) {
+                    switch_data.setChecked(savedCardData.get(2).equals("on") ? true : false);
+                }
                 switch_data.setOnClickListener(view -> {
                     String message = switch_data.isChecked() ? "on" : "off";
-                    publishMessage(((MainActivity)getActivity()).getClient(), savedCardData.get(0), message);
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), message);
                 });
                 break;
             case R.layout.mqtt_card_input:  //TODO: ADD WITH DATA
-                //TODO: add appropriate listener
+                TextInputEditText inputField = mqttCard.findViewById(R.id.input_data);
+                Button inputButton = mqttCard.findViewById(R.id.input_send_button);
+
+                if (!savedCardData.get(2).equals("null")) {
+                    inputField.setText(savedCardData.get(2));
+                }
+                inputButton.setOnClickListener(view -> {
+                    String inputFieldData = String.valueOf(inputField.getText());
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(1), inputFieldData);
+                });
                 break;
             case R.layout.mqtt_card_checkbox:   //TODO: ADD WITH DATA
+                CheckBox checkBox = mqttCard.findViewById(R.id.checkbox_data);
+                if (!savedCardData.get(2).equals("null")) {
+                    checkBox.setChecked(savedCardData.equals("on") ? true : false);
+                }
+                checkBox.setOnClickListener(View -> {
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), checkBox.isChecked() ? "on" : "off");
+                });
                 //TODO: stuff
                 break;
             case R.layout.mqtt_card_slider:
