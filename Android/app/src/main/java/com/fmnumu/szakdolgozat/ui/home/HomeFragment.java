@@ -3,7 +3,6 @@ package com.fmnumu.szakdolgozat.ui.home;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -46,6 +46,7 @@ import org.w3c.dom.Text;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -53,7 +54,6 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     private String topic = "";
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,87 +76,80 @@ public class HomeFragment extends Fragment {
         }
 
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
-        fabSub.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Enter topic to subscribe to");
+        fabSub.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Enter topic to subscribe to");
 
-                final EditText input = new EditText(getContext());
+            final EditText input = new EditText(getContext());
 
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                input.setGravity(Gravity.CENTER);
-                builder.setView(input);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setGravity(Gravity.CENTER);
+            builder.setView(input);
 
-                builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        topic = input.getText().toString();
-                        if (topic.equals("")){
-                            Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
-                            toast.show();
+            builder.setPositiveButton("Next", (dialog, which) -> {
+                topic = input.getText().toString();
+                if (topic.equals("")){
+                    Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else{
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                    final String[] actionType = new String[1];
+
+                    builder1.setTitle("Pick the action type");
+
+                    final Spinner typeSpinner = new Spinner(getContext());
+
+                    List<String> allTypes = ((MainActivity)getActivity()).getAllInteractTypes();
+
+                    typeSpinner.setAdapter(new ArrayAdapter<>(getContext(), R.layout.subscribe_spinner, allTypes));
+
+                    builder1.setView(typeSpinner);
+
+                    typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view1, int i, long l) {
+                            actionType[0] = typeSpinner.getSelectedItem().toString();
                         }
-                        else{
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            final String[] actionType = new String[1];
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
 
-                            builder.setTitle("Pick the action type");
-
-                            final Spinner typeSpinner = new Spinner(getContext());
-
-                            List<String> allTypes = ((MainActivity)getActivity()).getAllInteractTypes();
-
-                            typeSpinner.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.subscribe_spinner, allTypes));
-
-                            builder.setView(typeSpinner);
-
-                            typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    actionType[0] = typeSpinner.getSelectedItem().toString();
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                }
-                            });
-
-                            builder.setPositiveButton("Subscribe", new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int which){
-                                    subscribeMQTT(((MainActivity)getActivity()).getClient(), topic, actionType[0]);
-                                }
-                            });
-
-                            builder.show();
                         }
-                    }
-                });
+                    });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                    builder1.setPositiveButton("Subscribe", (dialog1, which1) -> {
 
-                builder.show();
-            }
+                        List<String> cardData = new ArrayList<>();
+                        cardData.add(topic);
+                        cardData.add(actionType[0]);
+                        cardData.add("null");
+                        subscribeMQTT(((MainActivity)getActivity()).getClient(), cardData);
+                    });
+
+                    builder1.show();
+                }
+            });
+
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+            builder.show();
         });
 
         return root;
     }
 
+    //TODO: replace R.id's with dynamic type
     @SuppressLint("NonConstantResourceId")
-    private void createCard(LinearLayout layout, String topic, int type) {
+    private void createCard(LinearLayout layout, List<String> savedCardData, int type) {
         ViewGroup mqttCard = (ViewGroup) this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
-        topicDisplay.setText(topic);
+        topicDisplay.setText(savedCardData.get(0));
         layout.addView(mqttCard);
 
         switch (type) {
-            case R.layout.mqtt_card_text:
+            case R.layout.mqtt_card_text: //TODO: ADD WITH DATA
                 //TODO: add appropriate listener
                 /* EXAMPLE LISTENER, ONLY ADD TO APPROPRIATE CARD TYPES
 
@@ -169,44 +162,34 @@ public class HomeFragment extends Fragment {
                     });
                 */
                 break;
-            case R.layout.mqtt_card_button:
+            case R.layout.mqtt_card_button: //TODO: ADD WITH DATA
                 break;
-            case R.layout.mqtt_card_switch:
+            case R.layout.mqtt_card_switch: //TODO: ADD WITH DATA
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
-                switch_data.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String message = switch_data.isChecked() ? "on" : "off";
-                        publishMessage(((MainActivity)getActivity()).getClient(), topic, message);
-                    }
+                switch_data.setOnClickListener(view -> {
+                    String message = switch_data.isChecked() ? "on" : "off";
+                    publishMessage(((MainActivity)getActivity()).getClient(), savedCardData.get(0), message);
                 });
                 break;
-            case R.layout.mqtt_card_input:
+            case R.layout.mqtt_card_input:  //TODO: ADD WITH DATA
                 //TODO: add appropriate listener
                 break;
-            //case "Checkbox":
-                //TODO: Checkbox card
-              //  break;
+            case R.layout.mqtt_card_checkbox:   //TODO: ADD WITH DATA
+                //TODO: stuff
+                break;
             case R.layout.mqtt_card_slider:
                 Slider slider_data = (Slider) mqttCard.findViewById(R.id.slider_data);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Enter the slider's range");
-                ViewGroup sliderRangeView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.subscribe_slider, null);
+                if (savedCardData.get(2).equals("null")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Enter the slider's range");
+                    ViewGroup sliderRangeView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.subscribe_slider, null);
 
-                /*TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
-                  topicDisplay.setText(topic);
-                 layout.addView(mqttCard);*/
+                    TextInputLayout rangeMaxView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_top_limit);
+                    TextInputLayout rangeMinView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_bottom_limit);
 
-                TextInputLayout rangeMaxView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_top_limit);
-                TextInputLayout rangeMinView = (TextInputLayout) sliderRangeView.findViewById(R.id.slider_bottom_limit);
-                TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
-
-
-                builder.setView(sliderRangeView);
-                builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    builder.setView(sliderRangeView);
+                    builder.setPositiveButton("Set", (dialog, which) -> {
                         TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
                         String rangeMin = rangeMinView.getEditText().getText().toString();
                         String rangeMax = rangeMaxView.getEditText().getText().toString();
@@ -215,18 +198,31 @@ public class HomeFragment extends Fragment {
                         slider_data.setValue(Float.parseFloat(rangeMin));
                         slider_data.setValueFrom(Float.parseFloat(rangeMin));
                         sliderDataDisplay.setText(rangeMin);
-                    }
-                });
+                    });
 
-                builder.show();
+                    builder.show();
+                }
+                else {
+                    List<String> sliderSubData = Arrays.asList(savedCardData.get(2).split("\\."));
+                    TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
 
+                    String rangeMin = sliderSubData.get(0);
+                    String rangeMax = sliderSubData.get(1);
+                    String currentVal = sliderSubData.get(2);
+
+                    slider_data.setValueTo(Float.parseFloat(rangeMax));
+                    slider_data.setValue(Float.parseFloat(currentVal));
+                    slider_data.setValueFrom(Float.parseFloat(rangeMin));
+
+                    sliderDataDisplay.setText(currentVal);
+                }
 
 
                 final Slider.OnSliderTouchListener touchListener =
                         new Slider.OnSliderTouchListener() {
                             @SuppressLint("RestrictedApi")
                             @Override
-                            public void onStartTrackingTouch(Slider slider) {
+                            public void onStartTrackingTouch(@NonNull Slider slider) {
 
                             }
 
@@ -236,53 +232,51 @@ public class HomeFragment extends Fragment {
                                 String value = String.valueOf(slider_data.getValue()).replace(".0", "");
                                 TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
                                 sliderDataDisplay.setText(value);
-                                publishMessage(((MainActivity)getActivity()).getClient(), topic, value);
+                                publishMessage(((MainActivity)getActivity()).getClient(), savedCardData.get(0), value);
                             }
                         };
 
                 slider_data.addOnSliderTouchListener(touchListener);
-
-
                 break;
                 //TODO: add more card types?
 
             default:
-                Toast toast = Toast.makeText(getContext(), "Failed to create card", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getContext(), "Failed to create card + " + savedCardData.get(0), Toast.LENGTH_SHORT);
                 toast.show();
                 break;
         }
     }
 
-    private void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic, String type){
+    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, List<String> cardData){
         LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
             }
-            mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
+            mqttAndroidClient.subscribe(cardData.get(0), 0, getContext(), new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    if (!((MainActivity)getActivity()).getAllTopics().contains(topic+":"+type)){
-                        ((MainActivity)getActivity()).addTopic(topic+":"+type);
+                    if (!((MainActivity)getActivity()).getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2))){ //data[0]+":"+type
+                        ((MainActivity)getActivity()).addCardData(cardData);
                     }
-                    switch (type) {
+                    switch (cardData.get(1)) {
                         case "Text":
-                            createCard(layout, topic, R.layout.mqtt_card_text);
+                            createCard(layout, cardData, R.layout.mqtt_card_text);
                             break;
                         case "Button":
-                            createCard(layout, topic, R.layout.mqtt_card_button);
+                            createCard(layout, cardData, R.layout.mqtt_card_button);
                             break;
                         case "Switch":
-                            createCard(layout, topic, R.layout.mqtt_card_switch);
+                            createCard(layout, cardData, R.layout.mqtt_card_switch);
                             break;
                         case "Input":
-                            createCard(layout, topic, R.layout.mqtt_card_input);
+                            createCard(layout, cardData, R.layout.mqtt_card_input);
                             break;
                         case "Checkbox":
-                            //TODO: Checkbox card
+                            createCard(layout, cardData, R.layout.mqtt_card_checkbox);
                             break;
                         case "Slider":
-                            createCard(layout, topic, R.layout.mqtt_card_slider);
+                            createCard(layout, cardData, R.layout.mqtt_card_slider);
 
                         //TODO: add more card types?
 
@@ -436,7 +430,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
+    private String decodeMQTT(MqttMessage msg) {
         return new String(msg.getPayload(), StandardCharsets.UTF_8);
     }
 
