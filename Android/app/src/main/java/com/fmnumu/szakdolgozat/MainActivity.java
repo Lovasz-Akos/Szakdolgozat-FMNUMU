@@ -26,50 +26,56 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private final String clientId = MqttClient.generateClientId();
     private final List<String> cardDataStore = new ArrayList<>();
-    private String mqttAddress;
-
     //adding items to this list does not create new interaction types,
     // new types will need their own xml layout and cases added in HomeFragment.subscribeMQTT method
     private final List<String> allInteractTypes =
-            new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input", "Slider"));
-
+            new ArrayList<>(Arrays.asList("Text", "Switch", "Button",
+                    "Checkbox", "Input", "Slider"));
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+    private AppBarConfiguration mAppBarConfiguration;
+    private String mqttAddress;
 
     public MqttAndroidClient getClient() {
         return connectMQTT[0];
     }
 
-    public void addCardDataToPersistentStorage(String topic, String cardType, String cardData){
+    public void addCardDataToPersistentStorage(String topic, String cardType, String cardData) {
+        boolean found = false;
+        int i = 0;
 
-            /* FIXME check for duplicates
-            String[] part = this.cardDataStore.get(1).split(":", 0);
-
-            if (part[0].equals(cardData.get(0)) && part[1].equals(cardData.get(1)) && cardData.get(2).equals("null")){ // !getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1))
-                this.cardDataStore.add(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
+        if (cardDataStore.size() == 0) {
+            this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);                        //basically init. the list
+        }
+        do {
+            String[] part = this.cardDataStore.get(i).split(":", 0);
+            if ((part[0] + ":" + part[1]).equals(topic + ":" + cardType)) {                         //only add cards that are not duplicates
+                this.cardDataStore.set(i, topic + ":" + cardType + ":" + cardData);
+                found = true;
             }
-            else{
-                this.cardDataStore.set(cardDataStore.indexOf(cardData.get(0)+":"+cardData.get(1)), cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
-            }
-            */
-        this.cardDataStore.add(topic+":"+cardType+":"+cardData);
+            i++;
+        }
+        while (!found && i < cardDataStore.size());
 
+        if (!found) {                                                                               //if no duplicates were found, add the new card
+            this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);
+        }
     }
 
-    public void removedCardData(String cardData){
-        if (this.cardDataStore.contains(cardData)){
+    public void removedCardData(String cardData) {
+        if (this.cardDataStore.contains(cardData)) {
             cardDataStore.remove(cardData);
         }
-
     }
 
-    public List<String> getCardDataStoreAll(){
+    public List<String> getCardDataStoreAll() {
         return this.cardDataStore;
     }
 
-    public List<String> getAllInteractTypes() { return allInteractTypes; }
+    public List<String> getAllInteractTypes() {
+        return allInteractTypes;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NavController navController = Navigation.findNavController(this,
-                        R.id.nav_host_fragment_content_main);
+                R.id.nav_host_fragment_content_main);
 
         NavigationUI.setupActionBarWithNavController(this,
                 navController,
@@ -103,15 +109,15 @@ public class MainActivity extends AppCompatActivity {
         populatePersistentDataFields();
     }
 
-    public void connectMQTT(){
-        this.connectMQTT(this.mqttAddress);
+    public void connectMQTT() {
+        this.connectMQTT(this.mqttAddress);                                                         //simplified connect call that uses the previously stored address
     }
 
-    public void connectMQTT(String mqttAddress){
+    public void connectMQTT(String mqttAddress) {
         this.mqttAddress = mqttAddress;
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(),
-                "tcp://"+mqttAddress+":1883", clientId);
+                "tcp://" + mqttAddress + ":1883", clientId);
 
         try {
             client.connect(null, new IMqttActionListener() {
@@ -141,10 +147,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void populatePersistentDataFields(){
-        //todo: read all saved topic subs from file. oh and the mqtt address :)
-        //  format: Topic:Type:Data.SubData.*
-
+    private void populatePersistentDataFields() {                                                   //gets all the stored data from file and adds them to the runtime data storage
+        //TODO: read from file
     }
 
     @Override
