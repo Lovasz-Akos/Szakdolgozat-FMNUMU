@@ -154,16 +154,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     text_data.setText("standby");
                 }
-                /* EXAMPLE LISTENER, ONLY ADD TO APPROPRIATE CARD TYPES
-
-                    TextView text_data = (TextView) mqttCard.findViewById(R.id.text_data);
-                    text_data.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            publishMessage(((MainActivity)getActivity()).getClient(), topic, "message");
-                        }
-                    });
-                */
                 break;
             case R.layout.mqtt_card_button: //TODO: ADD WITH DATA <-- ??? wtf u mean data, it's a button, it doesn't have persistent states weirdchamp
                 break;
