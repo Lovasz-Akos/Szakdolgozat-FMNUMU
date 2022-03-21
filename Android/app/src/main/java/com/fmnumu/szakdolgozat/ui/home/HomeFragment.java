@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -67,9 +68,9 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.cardList);
 
-        MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
+        MqttAndroidClient mqttAndroidClient = ((MainActivity) getActivity()).getClient();
 
-        if (mqttAndroidClient != null && mqttAndroidClient.isConnected()){
+        if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
             mqttNotifier(root, mqttAndroidClient);
         }
 
@@ -86,11 +87,10 @@ public class HomeFragment extends Fragment {
 
             builder.setPositiveButton("Next", (dialog, which) -> {
                 topic = input.getText().toString();
-                if (topic.equals("")){
+                if (topic.equals("")) {
                     Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
                     toast.show();
-                }
-                else{
+                } else {
 
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
                     final String[] actionType = new String[1];
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
 
                     final Spinner typeSpinner = new Spinner(getContext());
 
-                    List<String> allTypes = ((MainActivity)getActivity()).getAllInteractTypes();
+                    List<String> allTypes = ((MainActivity) getActivity()).getAllInteractTypes();
 
                     typeSpinner.setAdapter(new ArrayAdapter<>(getContext(), R.layout.subscribe_spinner, allTypes));
 
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
                         cardData.add(topic);
                         cardData.add(actionType[0]);
                         cardData.add("null");
-                        subscribeMQTT(((MainActivity)getActivity()).getClient(), cardData);
+                        subscribeMQTT(((MainActivity) getActivity()).getClient(), cardData);
                     });
 
                     builder1.show();
@@ -224,8 +224,7 @@ public class HomeFragment extends Fragment {
                     });
 
                     builder.show();
-                }
-                else {
+                } else {
                     List<String> sliderSubData = Arrays.asList(savedCardData.get(2).split("\\."));
                     TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
 
@@ -255,13 +254,13 @@ public class HomeFragment extends Fragment {
                                 String value = String.valueOf(slider_data.getValue()).replace(".0", "");
                                 TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
                                 sliderDataDisplay.setText(value);
-                                publishMessage(((MainActivity)getActivity()).getClient(), savedCardData.get(0), value);
+                                publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), value);
                             }
                         };
 
                 slider_data.addOnSliderTouchListener(touchListener);
                 break;
-                //TODO: add more card types?
+            //TODO: add more card types?
 
             default:
                 Toast toast = Toast.makeText(getContext(), "Failed to create card + " + savedCardData.get(0), Toast.LENGTH_SHORT);
@@ -270,7 +269,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, List<String> cardData){
+    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, List<String> cardData) {
         LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
@@ -297,20 +296,14 @@ public class HomeFragment extends Fragment {
                             break;
                         case "Slider":
                             createCard(layout, cardData, R.layout.mqtt_card_slider);
-
-                        //TODO: add more card types?
-
                         default:
-                            Toast toast = Toast.makeText(getContext(), "Failed to create card", Toast.LENGTH_SHORT);
-                            toast.show();
                             break;
                     }
-
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                   snackBarMaker(getView(), "Failed to subscribe");
+                    snackBarMaker(getView(), "Failed to subscribe");
                 }
             });
         } catch (Exception e) {
@@ -319,7 +312,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void mqttNotifier(View root, MqttAndroidClient mqttAndroidClient){
+    private void mqttNotifier(View root, MqttAndroidClient mqttAndroidClient) {
 
         try {
             if (!mqttAndroidClient.isConnected()) {
@@ -348,8 +341,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-        }
-        catch (MqttException e){
+        } catch (MqttException e) {
             Toast toast = Toast.makeText(getContext(), "MQTT is not connected!", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -361,14 +353,14 @@ public class HomeFragment extends Fragment {
             throws UnsupportedEncodingException {
 
         String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
-        
+
         ViewGroup cardRoot = (ViewGroup) cardList.getChildAt(i);
         ViewGroup cardViewGroup = (ViewGroup) cardRoot.getChildAt(0);
         ViewGroup cardLayout = (ViewGroup) cardViewGroup.getChildAt(0);
-        
+
         View activeElement = cardLayout.getChildAt(1);
 
-        if (topicDisplay.equals(topic)){
+        if (topicDisplay.equals(topic)) {
 
             if (activeElement instanceof SwitchMaterial) {
 
@@ -379,42 +371,24 @@ public class HomeFragment extends Fragment {
                 } else if (decodeMQTT(message).equals("off")) {
                     switchView.setChecked(false);
                 }
-            }
-            else if(activeElement instanceof TextInputLayout){
+            } else if (activeElement instanceof TextInputLayout) {
                 TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
                 textInputEditText.setText(decodeMQTT(message));
-            }
-            else if(activeElement instanceof Slider){
+            } else if (activeElement instanceof Slider) {
                 Slider sliderData = cardLayout.getChildAt(i).findViewById(R.id.slider_data);
                 TextView sliderDataDisplay = cardLayout.getChildAt(i).findViewById(R.id.slider_data_display);
                 sliderDataDisplay.setText(decodeMQTT(message));
                 sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
-            }
-            else if (activeElement instanceof MaterialCheckBox){
+            } else if (activeElement instanceof MaterialCheckBox) {
                 //todo: do something useful with a checkbox?
-            }
-
-            else if(activeElement instanceof TextView){
+            } else if (activeElement instanceof TextView) {
                 TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_data);
                 dataDisplay.setText(decodeMQTT(message));
             }
         }
     }
 
-    public class snackBarReconnectListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            MqttAndroidClient client = ((MainActivity)getActivity()).getClient();
-            if (!client.isConnected()) {
-               ((MainActivity)getActivity()).connectMQTT();
-                snackBarMaker(getView(), "MQTT reconnected");
-            }
-
-        }
-    }
-
-    public void publishMessage(MqttAndroidClient mqttAndroidClient, String topic,  String payload) {
+    public void publishMessage(MqttAndroidClient mqttAndroidClient, String topic, String payload) {
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
@@ -423,7 +397,7 @@ public class HomeFragment extends Fragment {
             MqttMessage message = new MqttMessage();
             message.setPayload(payload.getBytes());
             message.setQos(0);
-            mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
+            mqttAndroidClient.publish(topic, message, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d("PUBLISH", "published on: " + topic + " message: " + payload);
@@ -441,8 +415,7 @@ public class HomeFragment extends Fragment {
 
             Toast toast = Toast.makeText(getContext(), "Fatal MQTT Error", Toast.LENGTH_SHORT);
             toast.show();
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("nullPointerException", e.toString());
 
             Toast toast = Toast.makeText(getContext(), "Publish Failed, MQTT not connected", Toast.LENGTH_SHORT);
@@ -450,10 +423,10 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void subscribeAllTopics(){
-        MqttAndroidClient mqttAndroidClient = ((MainActivity)getActivity()).getClient();
+    public void subscribeAllTopics() {
+        MqttAndroidClient mqttAndroidClient = ((MainActivity) getActivity()).getClient();
         List<String[]> splitCardData = new ArrayList<>();
-        List<String> cardDataStore = ((MainActivity)getActivity()).getCardDataStoreAll();
+        List<String> cardDataStore = ((MainActivity) getActivity()).getCardDataStoreAll();
 
         try {
             if (!mqttAndroidClient.isConnected()) {
@@ -461,12 +434,12 @@ public class HomeFragment extends Fragment {
             }
             for (int i = 0; i < cardDataStore.size(); i++) {
                 splitCardData.add(cardDataStore.get(i).split(":", 0));
-                subscribeMQTT(((MainActivity)getActivity()).getClient(), Arrays.asList(splitCardData.get(i)));
+                subscribeMQTT(((MainActivity) getActivity()).getClient(), Arrays.asList(splitCardData.get(i)));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("connect exception","Error :" + e.getMessage());
+            Log.d("connect exception", "Error :" + e.getMessage());
         }
     }
 
@@ -474,7 +447,7 @@ public class HomeFragment extends Fragment {
         return new String(msg.getPayload(), StandardCharsets.UTF_8);
     }
 
-    private void snackBarMaker(View view, String message){
+    private void snackBarMaker(View view, String message) {
         Snackbar snackbar = Snackbar
                 .make(view.findViewById(R.id.snackRoot), message, Snackbar.LENGTH_SHORT);
         snackbar.show();
@@ -489,9 +462,9 @@ public class HomeFragment extends Fragment {
             subscribeAllTopics();
         }
     }
-    
+
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         LinearLayout cardList = getView().findViewById(R.id.cardList);
         for (int i = 0; i < cardList.getChildCount(); i++) {
@@ -502,8 +475,8 @@ public class HomeFragment extends Fragment {
             String cardInstanceData = "null";
 
             int cardType = cardInstance.getId();
-            Log.d("PAUSE", "onPause: "+cardType);
-            switch (cardType){
+            Log.d("PAUSE", "onPause: " + cardType);
+            switch (cardType) {
                 case R.id.text_type_card:
                     cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Text";
@@ -521,6 +494,7 @@ public class HomeFragment extends Fragment {
                 case R.id.input_type_card:
                     cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Input";
+                    cardInstanceData = String.valueOf(((TextInputEditText) cardInstance.findViewById(R.id.input_data)).getText());
                     break;
                 case R.id.checkbox_type_card:
                     cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
@@ -528,15 +502,16 @@ public class HomeFragment extends Fragment {
                     cardInstanceData = ((CheckBox) cardInstance.findViewById(R.id.checkbox_data)).isChecked() ? "on" : "off";
                     break;
                 case R.id.slider_type_card:
-                    String currentValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValue()).replace(".0","");
-                    String minValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueFrom()).replace(".0","");
-                    String maxValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueTo()).replace(".0","");;
+                    String currentValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValue()).replace(".0", "");
+                    String minValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueFrom()).replace(".0", "");
+                    String maxValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueTo()).replace(".0", "");
+                    ;
 
                     cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Slider";
-                    cardInstanceData = minValue+"."+maxValue+"."+currentValue;
+                    cardInstanceData = minValue + "." + maxValue + "." + currentValue;
             }
-            ((MainActivity)getActivity()).addCardDataToPersistentStorage(cardInstanceTopic, cardInstanceType, cardInstanceData);
+            ((MainActivity) getActivity()).addCardDataToPersistentStorage(cardInstanceTopic, cardInstanceType, cardInstanceData);
         }
     }
 
@@ -544,6 +519,19 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public class snackBarReconnectListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            MqttAndroidClient client = ((MainActivity) getActivity()).getClient();
+            if (!client.isConnected()) {
+                ((MainActivity) getActivity()).connectMQTT();
+                snackBarMaker(getView(), "MQTT reconnected");
+            }
+
+        }
     }
 
 
