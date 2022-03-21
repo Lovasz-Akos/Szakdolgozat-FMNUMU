@@ -6,12 +6,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
+import com.fmnumu.szakdolgozat.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private final String clientId = MqttClient.generateClientId();
-    private final List<String> topics = new ArrayList<>();
+    private final List<String> cardDataStore = new ArrayList<>();
     private String mqttAddress;
 
     //adding items to this list does not create new interaction types,
@@ -42,16 +45,34 @@ public class MainActivity extends AppCompatActivity {
         return connectMQTT[0];
     }
 
-    public void addTopic(String topic){
-        this.topics.add(topic);
+    public void addCardData(List<String> cardData){
+
+        if (!getCardDataStoreAll().contains(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2))){ //data[0]+":"+type
+            //TODO: add to storage
+            this.cardDataStore.add(cardData.get(0)+":"+cardData.get(1)+":"+cardData.get(2));
+        }
+        //TODO: if card exists, overwrite with data
     }
 
-    public void removeTopic(String topic){
-        topics.remove(topic);
+    public void removedCardData(String cardData){
+        if (this.cardDataStore.contains(cardData)){
+            cardDataStore.remove(cardData);
+        }
+
     }
 
-    public List<String> getAllTopics(){
-        return this.topics;
+    public List<String[]> getCardDataStore(){
+        List<String[]> splitCardData = new ArrayList<>();
+
+        for (int i = 0; i < this.cardDataStore.size(); i++) {
+            splitCardData.add(cardDataStore.get(i).split(":", 0));
+        }
+
+        return splitCardData;
+    }
+
+    public List<String> getCardDataStoreAll(){
+        return this.cardDataStore;
     }
 
     public List<String> getAllInteractTypes() { return allInteractTypes; }
@@ -87,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         populateTopicList();
     }
-
 
     public void connectMQTT(){
         this.connectMQTT(this.mqttAddress);
@@ -130,31 +150,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateTopicList(){
         //todo: read all saved topic subs from file
+        //  format: Topic:Type:Data.SubData.*
 
     }
 
     public void subscribeAllTopics(){
         MqttAndroidClient mqttAndroidClient = this.getClient();
+        List<String[]> splitCardData = new ArrayList<>();
+
+        HomeFragment home = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.home_fragment);
+
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
             }
-            for (int i = 0; i < topics.size(); i++) {
-                mqttAndroidClient.subscribe(topics.get(i), 0,
-                        this.getApplicationContext(), new IMqttActionListener() {
-                    @Override
-                    public void onSuccess(IMqttToken asyncActionToken) {}
-
-                    @Override
-                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {}
-                });
+            for (int i = 0; i < cardDataStore.size(); i++) {
+                splitCardData.add(cardDataStore.get(i).split(":", 0));
+                home.subscribeMQTT(getClient(), Arrays.asList(splitCardData.get(i)));
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             Log.d("connect exception","Error :" + e.getMessage());
         }
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
