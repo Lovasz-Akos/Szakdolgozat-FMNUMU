@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:id="@+id/button_type_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/button_type_card">
+    android:orientation="horizontal">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/cardGrey"
         android:elevation="@dimen/mqttCardElevation"
 
-        android:backgroundTint="@color/cardGrey">
+        app:cardCornerRadius="20dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/text_topicDisplay"
@@ -45,8 +44,8 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="50dp"
-                android:textSize="18sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
