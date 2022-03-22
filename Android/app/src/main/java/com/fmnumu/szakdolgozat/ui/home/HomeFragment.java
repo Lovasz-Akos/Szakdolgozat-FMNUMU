@@ -355,12 +355,18 @@ public class HomeFragment extends Fragment {
                 TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
                 textInputEditText.setText(decodeMQTT(message));
             } else if (activeElement instanceof Slider) {
-                Slider sliderData = cardLayout.getChildAt(i).findViewById(R.id.slider_data);
-                TextView sliderDataDisplay = cardLayout.getChildAt(i).findViewById(R.id.slider_data_display);
-                sliderDataDisplay.setText(decodeMQTT(message));
-                sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
+                Slider sliderData = cardList.getChildAt(i).findViewById(R.id.slider_data);
+                TextView sliderDataDisplay = cardList.getChildAt(i).findViewById(R.id.slider_data_display);
+                if ((Integer.parseInt(decodeMQTT(message)) > sliderData.getValueFrom())
+                        && (Integer.parseInt(decodeMQTT(message)) < sliderData.getValueTo())){
+                    sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
+                    sliderDataDisplay.setText(decodeMQTT(message));
+                }
+                else{
+                    sliderDataDisplay.setText("Data out of range: "+decodeMQTT(message));
+                }
             } else if (activeElement instanceof MaterialCheckBox) {
-                CheckBox checkBox = cardLayout.getChildAt(i).findViewById(R.id.checkbox_data);
+                CheckBox checkBox = cardList.getChildAt(i).findViewById(R.id.checkbox_data);
                 checkBox.setChecked(decodeMQTT(message).equals("on"));
             } else if (activeElement instanceof TextView) {
                 TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_data);
