@@ -8,27 +8,52 @@
     tools:context=".ui.connection.ConnectionFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textBoxMqttMessage_container"
+        android:id="@+id/username_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-
         android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="-128dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:errorEnabled="true">
+
 
         <com.google.android.material.textfield.TextInputEditText
 
-            android:id="@+id/textboxMqttBrokerAddr"
+            android:id="@+id/username_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Host IP addres"
+            android:hint="@string/username"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/address_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/address_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/host_ip_address"
             android:singleLine="true"
-            android:text="192.168.1.101" />
+            android:text="@string/_192_168_0_200" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -39,7 +64,17 @@
         android:text="@string/button_connect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBoxMqttMessage_container" />
+        app:layout_constraintTop_toBottomOf="@+id/address_container" />
+
+    <Button
+        android:id="@+id/buttonDELETE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TÖRÖLD KI AZ ÖSSZES FÁJLT A GECIBE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
