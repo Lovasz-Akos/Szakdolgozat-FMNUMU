@@ -21,5 +21,13 @@ An Orange PI running linux hosts the Node-RED server and the MQTT Broker (Mosqui
      (on the dedicated hardware, config file soon to be uploaded)
      cd /etc
      mosquitto -c mqtt.conf -v
-    
->note that the mqtt config contains the host device's static ipv4 address, this may need to be changed for it to function as intended
+     
+### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)
+
+The first entry just runs node-red-start
+
+The second entry runs the following shell script to generate a config file for the mqtt broker, then runs the broker with this newly generated file
+```bash
+echo -n "listener 1883 " > mqtt.conf; ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' >> mqtt.conf; echo $"allow_anonymous true" >> mqtt.conf
+```
+> opens a listener on the 1883 port (mqtt default), then adds the server's current ipv4 address, and finally allows anonym connections* (*subject to change)
