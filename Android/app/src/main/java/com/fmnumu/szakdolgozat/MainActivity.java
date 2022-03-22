@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String clientId = MqttClient.generateClientId();
     private final List<String> allInteractTypes = new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input", "Slider"));
-    private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+    private final MqttAndroidClient[] mqttClient = new MqttAndroidClient[1];
     private List<String> cardDataStore = new ArrayList<>();
     private String username = "";
     private AppBarConfiguration mAppBarConfiguration;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public MqttAndroidClient getClient() {
-        return connectMQTT[0];
+        return mqttClient[0];
     }
 
     public void addCardDataToPersistentStorage(String topic, String cardType, String cardData) {
@@ -116,10 +116,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void connectMQTT() {
-        this.connectMQTT(this.mqttAddress);                                                         //simplified connect call that uses the previously stored address
+        this.connectMQTT(this.mqttAddress, true);                                                   //simplified connect call that uses the previously stored address
     }
 
     public void connectMQTT(String mqttAddress) {
+        connectMQTT(mqttAddress, false);
+    }
+    public void connectMQTT(String mqttAddress, boolean isReconnect) {
         this.mqttAddress = mqttAddress;
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(),
@@ -129,13 +132,14 @@ public class MainActivity extends AppCompatActivity {
             client.connect(null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-
                     Log.d("CONNECTION", "onSuccess");
-                    connectMQTT[0] = client;
-
-                    Toast toast = Toast.makeText(getApplicationContext(),
+                    mqttClient[0] = client;
+                    Toast toast = Toast.makeText(getBaseContext(),
                             "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
                     toast.show();
+                    if (isReconnect){
+
+                    }
                 }
 
                 @Override

@@ -265,6 +265,7 @@ public class HomeFragment extends Fragment {
             mqttAndroidClient.subscribe(cardData.get(0), 0, getContext(), new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.d("SUB", "onSuccess: ");
                     switch (cardData.get(1)) {
                         case "Text":
                             createCard(layout, cardData, R.layout.mqtt_card_text);
@@ -290,7 +291,8 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    snackBarMaker(getView(), "Failed to subscribe");
+                    Log.d("ONFAIL", "onFailure: " + mqttAndroidClient.isConnected());
+                    snackBarMaker(getView(), "Connection timed out!");
                 }
             });
         } catch (Exception e) {
@@ -416,6 +418,12 @@ public class HomeFragment extends Fragment {
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
+                long startTime = System.currentTimeMillis();
+                while(!mqttAndroidClient.isConnected() && (System.currentTimeMillis()-startTime)<2000)
+                {
+                    Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
+                }
+                snackBarMaker(getView(), "Connected!");
             }
             for (int i = 0; i < cardDataStore.size(); i++) {
                 splitCardData.add(cardDataStore.get(i).split(":", 0));
@@ -512,9 +520,12 @@ public class HomeFragment extends Fragment {
             MqttAndroidClient client = ((MainActivity) getActivity()).getClient();
             if (!client.isConnected()) {
                 ((MainActivity) getActivity()).connectMQTT();
+                LinearLayout cardListAsLayout = getView().findViewById(R.id.cardList);
+                cardListAsLayout.removeAllViews();
+
+                onResume();
                 snackBarMaker(getView(), "MQTT reconnected");
             }
-
         }
     }
 }
