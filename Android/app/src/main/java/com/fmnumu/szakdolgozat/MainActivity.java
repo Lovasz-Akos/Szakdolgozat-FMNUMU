@@ -1,5 +1,7 @@
 package com.fmnumu.szakdolgozat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,22 +22,56 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String clientId = MqttClient.generateClientId();
-    private final List<String> cardDataStore = new ArrayList<>();
-    //adding items to this list does not create new interaction types,
-    // new types will need their own xml layout and cases added in HomeFragment.subscribeMQTT method
-    private final List<String> allInteractTypes =
-            new ArrayList<>(Arrays.asList("Text", "Switch", "Button",
-                    "Checkbox", "Input", "Slider"));
+    private List<String> cardDataStore = new ArrayList<>();
+    private String username = "";
+    private final List<String> allInteractTypes = new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input", "Slider"));
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
     private AppBarConfiguration mAppBarConfiguration;
     private String mqttAddress;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        com.fmnumu.szakdolgozat.databinding.ActivityMainBinding binding =
+                ActivityMainBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.appBarMain.toolbar);
+
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_publish, R.id.nav_connection)
+                .setOpenableLayout(drawer)
+                .build();
+
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
+
+        NavigationUI.setupActionBarWithNavController(this,
+                navController,
+                mAppBarConfiguration);
+
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+    }
 
     public MqttAndroidClient getClient() {
         return connectMQTT[0];
@@ -75,38 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
     public List<String> getAllInteractTypes() {
         return allInteractTypes;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        com.fmnumu.szakdolgozat.databinding.ActivityMainBinding binding =
-                ActivityMainBinding.inflate(getLayoutInflater());
-
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.appBarMain.toolbar);
-
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_publish, R.id.nav_connection)
-                .setOpenableLayout(drawer)
-                .build();
-
-        NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
-
-        NavigationUI.setupActionBarWithNavController(this,
-                navController,
-                mAppBarConfiguration);
-
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        populatePersistentDataFields();
     }
 
     public void connectMQTT() {
