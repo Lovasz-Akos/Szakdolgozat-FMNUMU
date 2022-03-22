@@ -14,4 +14,9 @@
     <string name="button_connect">Connect</string>
     <string name="button_publish">Publish</string>
     <string name="button_subscribe">Subscribe</string>
+    <string name="host_ip_address">Host IP address</string>
+    <string name="_192_168_0_200">192.168.0.200</string>
+    <string name="username">Username</string>
+
+    <string name="mqttAdrr"></string>
 </resources>
