@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
+        android:elevation="@dimen/mqttCardElevation"
 
         android:backgroundTint="@color/cardGrey">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +28,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="50dp"
+                android:ellipsize="end"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constrainedWidth="true"
