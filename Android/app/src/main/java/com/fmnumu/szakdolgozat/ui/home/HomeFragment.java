@@ -318,7 +318,7 @@ public class HomeFragment extends Fragment {
                 public void messageArrived(String topic, MqttMessage message) {
                     LinearLayout cardList = root.findViewById(R.id.cardList);
                     for (int i = 0; i < cardList.getChildCount(); i++) {
-                        cardHandlerOnMessageReceived(topic, message, cardList, i);
+                        messageReceivedHandler(topic, message, cardList, i);
                     }
                 }
 
@@ -335,8 +335,8 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void cardHandlerOnMessageReceived(String topic, MqttMessage message,
-                                              LinearLayout cardList, int i) {
+    private void messageReceivedHandler(String topic, MqttMessage message,
+                                        LinearLayout cardList, int i) {
 
         String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
 
@@ -357,8 +357,8 @@ public class HomeFragment extends Fragment {
             } else if (activeElement instanceof Slider) {
                 Slider sliderData = cardList.getChildAt(i).findViewById(R.id.slider_data);
                 TextView sliderDataDisplay = cardList.getChildAt(i).findViewById(R.id.slider_data_display);
-                if ((Integer.parseInt(decodeMQTT(message)) > sliderData.getValueFrom())
-                        && (Integer.parseInt(decodeMQTT(message)) < sliderData.getValueTo())) {
+                if ((Integer.parseInt(decodeMQTT(message)) >= sliderData.getValueFrom())
+                        && (Integer.parseInt(decodeMQTT(message)) <= sliderData.getValueTo())) {
                     sliderDataDisplay.setText(decodeMQTT(message));
                 } else {
                     sliderDataDisplay.setText("Data out of range: " + decodeMQTT(message));
