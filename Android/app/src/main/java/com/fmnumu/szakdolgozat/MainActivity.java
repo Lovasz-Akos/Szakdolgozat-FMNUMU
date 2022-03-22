@@ -97,12 +97,16 @@ public class MainActivity extends AppCompatActivity {
         if (!found) {                                                                               //if no duplicates were found, add the new card
             this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);
         }
+
+        writeToFile(this.username+".txt", this.cardDataStore);
     }
 
     public void removedCardData(String cardData) {
-        if (this.cardDataStore.contains(cardData)) {
-            cardDataStore.remove(cardData);
-        }
+        //TODO REMOVE CARD FROM cardDataStore
+    }
+
+    public void emptyCardMemory(){
+        cardDataStore.clear();
     }
 
     public List<String> getCardDataStoreAll() {
@@ -133,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
-
                     toast.show();
                 }
 
@@ -198,6 +201,26 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    public void listAllFiles(){
+        File folder = new File(getFilesDir()+"/");
+        File[] listOfFiles = folder.listFiles();
+        Log.d("LOOKUP", "listAllFiles: ");
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                Log.d("LOOKUP", "Files: " + listOfFiles[i].getName());
+            } else if (listOfFiles[i].isDirectory()) {
+                Log.d("LOOKUP", "Dirs: " + listOfFiles[i].getName());
+            }
+        }
+    }
+
+    public void deleteAllFiles(){
+        File folder = new File(getFilesDir()+"/");
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            listOfFiles[i].delete();
+        }
     }
 
     @Override
