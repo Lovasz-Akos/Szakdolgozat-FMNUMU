@@ -151,8 +151,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void populatePersistentDataFields() {                                                   //gets all the stored data from file and adds them to the runtime data storage
-        //TODO: read from file
+    public void populatePersistentDataFields(String username) throws IOException {                  //gets all the stored data from file and adds them to the runtime data storage
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+        this.username = username;
+        this.cardDataStore = readFile(username+".txt");
+
+        String defaultValue = getResources().getString(R.string._192_168_0_200);
+        this.mqttAddress = sharedPref.getString(getString(R.string.mqttAdrr), defaultValue);
+    }
+
+    public void saveMqttAddress() throws IOException {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.mqttAdrr), this.mqttAddress);
+        editor.apply();
+    }
+
+    public void writeToFile(String filename, List<String> data) {
+        try {
+            FileWriter writer = new FileWriter(getFilesDir()+"/"+filename);
+            for (int i = 0; i < data.size(); i++) {
+                writer.write(data.get(i) + System.lineSeparator());
+            }
+            writer.flush();
+            writer.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    public List<String> readFile(String filename) throws IOException {
+        Scanner s = new Scanner(new File(getFilesDir()+"/"+filename)).useDelimiter(System.lineSeparator());
+        ArrayList<String> list = new ArrayList<String>();
+        File user = new File(getFilesDir()+"/"+filename);
+        if (user.length()==0){
+            Log.d("TAG", "readFile: ");
+        }
+
+        while (s.hasNext()){
+            list.add(s.next());
+        }
+        s.close();
+        return list;
+    }
+
     }
 
     @Override
