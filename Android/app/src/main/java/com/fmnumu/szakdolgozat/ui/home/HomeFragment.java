@@ -358,12 +358,10 @@ public class HomeFragment extends Fragment {
                 Slider sliderData = cardList.getChildAt(i).findViewById(R.id.slider_data);
                 TextView sliderDataDisplay = cardList.getChildAt(i).findViewById(R.id.slider_data_display);
                 if ((Integer.parseInt(decodeMQTT(message)) > sliderData.getValueFrom())
-                        && (Integer.parseInt(decodeMQTT(message)) < sliderData.getValueTo())){
-                    sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
+                        && (Integer.parseInt(decodeMQTT(message)) < sliderData.getValueTo())) {
                     sliderDataDisplay.setText(decodeMQTT(message));
-                }
-                else{
-                    sliderDataDisplay.setText("Data out of range: "+decodeMQTT(message));
+                } else {
+                    sliderDataDisplay.setText("Data out of range: " + decodeMQTT(message));
                 }
             } else if (activeElement instanceof MaterialCheckBox) {
                 CheckBox checkBox = cardList.getChildAt(i).findViewById(R.id.checkbox_data);
