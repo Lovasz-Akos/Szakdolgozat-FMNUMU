@@ -22,9 +22,7 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,10 +33,10 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
 
     private final String clientId = MqttClient.generateClientId();
-    private List<String> cardDataStore = new ArrayList<>();
-    private String username = "";
     private final List<String> allInteractTypes = new ArrayList<>(Arrays.asList("Text", "Switch", "Button", "Checkbox", "Input", "Slider"));
     private final MqttAndroidClient[] connectMQTT = new MqttAndroidClient[1];
+    private List<String> cardDataStore = new ArrayList<>();
+    private String username = "";
     private AppBarConfiguration mAppBarConfiguration;
     private String mqttAddress;
 
@@ -98,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
             this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);
         }
 
-        writeToFile(this.username+".txt", this.cardDataStore);
+        writeToFile(this.username + ".txt", this.cardDataStore);
     }
 
     public void removedCardData(String cardData) {
         //TODO REMOVE CARD FROM cardDataStore
     }
 
-    public void emptyCardMemory(){
+    public void emptyCardMemory() {
         cardDataStore.clear();
     }
 
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         this.username = username;
-        this.cardDataStore = readFile(username+".txt");
+        this.cardDataStore = readFile(username + ".txt");
 
         String defaultValue = getResources().getString(R.string._192_168_0_200);
         this.mqttAddress = sharedPref.getString(getString(R.string.mqttAdrr), defaultValue);
@@ -174,48 +172,47 @@ public class MainActivity extends AppCompatActivity {
 
     public void writeToFile(String filename, List<String> data) {
         try {
-            FileWriter writer = new FileWriter(getFilesDir()+"/"+filename);
+            FileWriter writer = new FileWriter(getFilesDir() + "/" + filename);
             for (int i = 0; i < data.size(); i++) {
                 writer.write(data.get(i) + System.lineSeparator());
             }
             writer.flush();
             writer.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.getMessage());
         }
     }
 
     public List<String> readFile(String filename) throws IOException {
-        Scanner s = new Scanner(new File(getFilesDir()+"/"+filename)).useDelimiter(System.lineSeparator());
-        ArrayList<String> list = new ArrayList<String>();
-        File user = new File(getFilesDir()+"/"+filename);
-        if (user.length()==0){
+        Scanner s = new Scanner(new File(getFilesDir() + "/" + filename)).useDelimiter(System.lineSeparator());
+        ArrayList<String> list = new ArrayList<>();
+        File user = new File(getFilesDir() + "/" + filename);
+        if (user.length() == 0) {
             Log.d("TAG", "readFile: ");
         }
 
-        while (s.hasNext()){
+        while (s.hasNext()) {
             list.add(s.next());
         }
         s.close();
         return list;
     }
 
-    public void listAllFiles(){
-        File folder = new File(getFilesDir()+"/");
+    public void listAllFiles() {
+        File folder = new File(getFilesDir() + "/");
         File[] listOfFiles = folder.listFiles();
         Log.d("LOOKUP", "listAllFiles: ");
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                Log.d("LOOKUP", "Files: " + listOfFiles[i].getName());
-            } else if (listOfFiles[i].isDirectory()) {
-                Log.d("LOOKUP", "Dirs: " + listOfFiles[i].getName());
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                Log.d("LOOKUP", "Files: " + listOfFile.getName());
+            } else if (listOfFile.isDirectory()) {
+                Log.d("LOOKUP", "Dirs: " + listOfFile.getName());
             }
         }
     }
 
-    public void deleteAllFiles(){
-        File folder = new File(getFilesDir()+"/");
+    public void deleteAllFiles() {
+        File folder = new File(getFilesDir() + "/");
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {

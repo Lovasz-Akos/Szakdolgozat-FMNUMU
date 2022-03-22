@@ -25,9 +25,6 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-
 public class PublishFragment extends Fragment {
 
     private PublishViewModel publishViewModel;
@@ -49,28 +46,22 @@ public class PublishFragment extends Fragment {
                 new ViewModelProvider(this).get(PublishViewModel.class);
 
         Button publish = root.findViewById(R.id.buttonMqttPublish);
-        publish.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                String mqttTopic = textBoxMqttTopic.getText().toString();
-                String mqttMessage = textBoxMqttMessage.getText().toString();
-                publishMessage(mqttMessage, ((MainActivity)getActivity()).getClient(), mqttTopic);
-            }
+        publish.setOnClickListener(view -> {
+            String mqttTopic = textBoxMqttTopic.getText().toString();
+            String mqttMessage = textBoxMqttMessage.getText().toString();
+            publishMessage(mqttMessage, ((MainActivity) getActivity()).getClient(), mqttTopic);
         });
 
         Button subscribe = root.findViewById(R.id.buttonMqttSubscribe);
-        subscribe.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                String mqttTopic = textBoxMqttTopic.getText().toString();
-                subscribeMQTT(((MainActivity)getActivity()).getClient(), mqttTopic);
-            }
+        subscribe.setOnClickListener(view -> {
+            String mqttTopic = textBoxMqttTopic.getText().toString();
+            subscribeMQTT(((MainActivity) getActivity()).getClient(), mqttTopic);
         });
 
         Button unsubscribe = root.findViewById(R.id.buttonMqttUnsubscribe);
-        unsubscribe.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                String mqttTopic = textBoxMqttTopic.getText().toString();
-                unsubscribeMQTT(((MainActivity)getActivity()).getClient(), mqttTopic);
-            }
+        unsubscribe.setOnClickListener(view -> {
+            String mqttTopic = textBoxMqttTopic.getText().toString();
+            unsubscribeMQTT(((MainActivity) getActivity()).getClient(), mqttTopic);
         });
 
         return root;
@@ -85,11 +76,11 @@ public class PublishFragment extends Fragment {
             MqttMessage message = new MqttMessage();
             message.setPayload(payload.getBytes());
             message.setQos(0);
-            mqttAndroidClient.publish(topic, message,null, new IMqttActionListener() {
+            mqttAndroidClient.publish(topic, message, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Snackbar snackbar = Snackbar
-                            .make(getView(), "Publish success! ad:"+mqttAndroidClient.getServerURI(), Snackbar.LENGTH_SHORT);
+                            .make(getView(), "Publish success! ad:" + mqttAndroidClient.getServerURI(), Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
 
@@ -105,8 +96,7 @@ public class PublishFragment extends Fragment {
             Snackbar snackbar = Snackbar
                     .make(getView(), "Fatal MQTT Error", Snackbar.LENGTH_SHORT);
             snackbar.show();
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("nullPointerException", e.toString());
             Snackbar snackbar = Snackbar
                     .make(getView(), "Publish Failed, please check host address", Snackbar.LENGTH_SHORT);
@@ -114,60 +104,55 @@ public class PublishFragment extends Fragment {
         }
     }
 
-    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+    public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic) {
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
             }
-                mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
-                    @Override
-                    public void onSuccess(IMqttToken asyncActionToken) {
-                        Toast toast = Toast.makeText(getContext(), "Subscribed to " + topic, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
+            mqttAndroidClient.subscribe(topic, 0, getContext(), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Toast toast = Toast.makeText(getContext(), "Subscribed to " + topic, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
-                    @Override
-                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), "Failed to subscribe to topic: " + topic, Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    }
-                });
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Failed to subscribe to topic: " + topic, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            });
         } catch (Exception e) {
-            Log.d("tag","Error :" + e);
+            Log.d("tag", "Error :" + e);
         }
     }
 
-    public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic){
+    public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic) {
         try {
             if (!mqttAndroidClient.isConnected()) {
                 mqttAndroidClient.connect();
             }
-                IMqttToken unsubToken = mqttAndroidClient.unsubscribe(topic);
-                unsubToken.setActionCallback(new IMqttActionListener() {
-                    @Override
-                    public void onSuccess(IMqttToken asyncActionToken) {
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    }
+            IMqttToken unsubToken = mqttAndroidClient.unsubscribe(topic);
+            unsubToken.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
 
-                    @Override
-                    public void onFailure(IMqttToken asyncActionToken,
-                                          Throwable exception) {
-                        Snackbar snackbar = Snackbar
-                                .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    }
-                });
-            }
-        catch (MqttException e) {
-            Log.d("tag","Error :" + e);
+                @Override
+                public void onFailure(IMqttToken asyncActionToken,
+                                      Throwable exception) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            });
+        } catch (MqttException e) {
+            Log.d("tag", "Error :" + e);
         }
-    }
-
-    private String decodeMQTT(MqttMessage msg) throws UnsupportedEncodingException {
-        return new String(msg.getPayload(), StandardCharsets.UTF_8);
     }
 
     @Override

@@ -42,7 +42,6 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,7 +151,7 @@ public class HomeFragment extends Fragment {
                 if (!savedCardData.get(2).equals("null")) {
                     text_data.setText(savedCardData.get(2));
                 } else {
-                    text_data.setText("standby");
+                    text_data.setText(R.string.waitingForData);
                 }
                 break;
             case R.layout.mqtt_card_button:
@@ -185,9 +184,7 @@ public class HomeFragment extends Fragment {
                 if (!savedCardData.get(2).equals("null")) {
                     checkBox.setChecked(savedCardData.get(2).equals("on"));
                 }
-                checkBox.setOnClickListener(View -> {
-                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), checkBox.isChecked() ? "on" : "off");
-                });
+                checkBox.setOnClickListener(View -> publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), checkBox.isChecked() ? "on" : "off"));
                 //TODO: stuff
                 break;
             case R.layout.mqtt_card_slider:
@@ -240,7 +237,7 @@ public class HomeFragment extends Fragment {
 
                             @SuppressLint("RestrictedApi")
                             @Override
-                            public void onStopTrackingTouch(Slider slider) {
+                            public void onStopTrackingTouch(@NonNull Slider slider) {
                                 String value = String.valueOf(slider_data.getValue()).replace(".0", "");
                                 TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
                                 sliderDataDisplay.setText(value);
@@ -318,7 +315,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                public void messageArrived(String topic, MqttMessage message) {
                     LinearLayout cardList = root.findViewById(R.id.cardList);
                     for (int i = 0; i < cardList.getChildCount(); i++) {
                         cardHandlerOnMessageReceived(topic, message, cardList, i);
@@ -339,8 +336,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void cardHandlerOnMessageReceived(String topic, MqttMessage message,
-                                              LinearLayout cardList, int i)
-            throws UnsupportedEncodingException {
+                                              LinearLayout cardList, int i) {
 
         String topicDisplay = (String) ((TextView) cardList.getChildAt(i).findViewById(R.id.text_topicDisplay)).getText();
 
@@ -353,14 +349,8 @@ public class HomeFragment extends Fragment {
         if (topicDisplay.equals(topic)) {
 
             if (activeElement instanceof SwitchMaterial) {
-
                 SwitchMaterial switchView = cardList.getChildAt(i).findViewById(R.id.switch_data);
-
-                if (decodeMQTT(message).equals("on")) {
-                    switchView.setChecked(true);
-                } else if (decodeMQTT(message).equals("off")) {
-                    switchView.setChecked(false);
-                }
+                switchView.setChecked(decodeMQTT(message).equals("on"));
             } else if (activeElement instanceof TextInputLayout) {
                 TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
                 textInputEditText.setText(decodeMQTT(message));
@@ -370,7 +360,8 @@ public class HomeFragment extends Fragment {
                 sliderDataDisplay.setText(decodeMQTT(message));
                 sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
             } else if (activeElement instanceof MaterialCheckBox) {
-                //todo: do something useful with a checkbox?
+                CheckBox checkBox = cardLayout.getChildAt(i).findViewById(R.id.checkbox_data);
+                checkBox.setChecked(decodeMQTT(message).equals("on"));
             } else if (activeElement instanceof TextView) {
                 TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_data);
                 dataDisplay.setText(decodeMQTT(message));
