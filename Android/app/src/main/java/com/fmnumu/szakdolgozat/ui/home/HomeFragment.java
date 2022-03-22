@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment {
         layout.addView(mqttCard);
 
         switch (type) {
-            case R.layout.mqtt_card_text: //TODO: ADD WITH DATA
+            case R.layout.mqtt_card_text:
                 TextView text_data = (TextView) mqttCard.findViewById(R.id.text_data);
                 if (!savedCardData.get(2).equals("null")) {
                     text_data.setText(savedCardData.get(2));
@@ -155,20 +155,20 @@ public class HomeFragment extends Fragment {
                     text_data.setText("standby");
                 }
                 break;
-            case R.layout.mqtt_card_button: //TODO: ADD WITH DATA <-- ??? wtf u mean data, it's a button, it doesn't have persistent states weirdchamp
+            case R.layout.mqtt_card_button:
                 break;
             case R.layout.mqtt_card_switch:
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
 
                 if (!savedCardData.get(2).equals("null")) {
-                    switch_data.setChecked(savedCardData.get(2).equals("on") ? true : false);
+                    switch_data.setChecked(savedCardData.get(2).equals("on"));
                 }
                 switch_data.setOnClickListener(view -> {
                     String message = switch_data.isChecked() ? "on" : "off";
                     publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), message);
                 });
                 break;
-            case R.layout.mqtt_card_input:  //TODO: ADD WITH DATA
+            case R.layout.mqtt_card_input:
                 TextInputEditText inputField = mqttCard.findViewById(R.id.input_data);
                 Button inputButton = mqttCard.findViewById(R.id.input_send_button);
 
@@ -180,10 +180,10 @@ public class HomeFragment extends Fragment {
                     publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(1), inputFieldData);
                 });
                 break;
-            case R.layout.mqtt_card_checkbox:   //TODO: ADD WITH DATA
+            case R.layout.mqtt_card_checkbox:
                 CheckBox checkBox = mqttCard.findViewById(R.id.checkbox_data);
                 if (!savedCardData.get(2).equals("null")) {
-                    checkBox.setChecked(savedCardData.equals("on") ? true : false);
+                    checkBox.setChecked(savedCardData.get(2).equals("on"));
                 }
                 checkBox.setOnClickListener(View -> {
                     publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), checkBox.isChecked() ? "on" : "off");
@@ -447,7 +447,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LinearLayout cardList = getView().findViewById(R.id.cardList);
-
         if (cardList.getChildCount() == 0) {
             subscribeAllTopics();
         }
@@ -492,10 +491,10 @@ public class HomeFragment extends Fragment {
                     cardInstanceData = ((CheckBox) cardInstance.findViewById(R.id.checkbox_data)).isChecked() ? "on" : "off";
                     break;
                 case R.id.slider_type_card:
-                    String currentValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValue()).replace(".0", "");
-                    String minValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueFrom()).replace(".0", "");
-                    String maxValue = String.valueOf(((Slider) cardInstance.findViewById(R.id.slider_data)).getValueTo()).replace(".0", "");
-                    ;
+                    Slider slider_data = cardInstance.findViewById(R.id.slider_data);
+                    String currentValue = String.valueOf((slider_data.getValue())).replace(".0", "");
+                    String minValue = String.valueOf((slider_data).getValueFrom()).replace(".0", "");
+                    String maxValue = String.valueOf((slider_data).getValueTo()).replace(".0", "");
 
                     cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Slider";
@@ -523,6 +522,4 @@ public class HomeFragment extends Fragment {
 
         }
     }
-
-
 }
