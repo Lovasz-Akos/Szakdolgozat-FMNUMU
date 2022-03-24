@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavInflater;
 
 import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
@@ -72,6 +73,10 @@ public class HomeFragment extends Fragment {
 
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
             mqttNotifier(root, mqttAndroidClient);
+            subscribeAllTopics();
+        }
+        else{
+            Log.d("CONNECTION STARTUP", "onCreateView: NULL CLIENT");
         }
 
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
@@ -134,7 +139,6 @@ public class HomeFragment extends Fragment {
 
             builder.show();
         });
-
         return root;
     }
 
@@ -265,7 +269,7 @@ public class HomeFragment extends Fragment {
         LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
-                reconnectToMQTT(mqttAndroidClient);
+                ((MainActivity)getActivity()).reconnectToMQTT(mqttAndroidClient);
             }
             mqttAndroidClient.subscribe(cardData.get(0), 0, getContext(), new IMqttActionListener() {
                 @Override
@@ -309,7 +313,7 @@ public class HomeFragment extends Fragment {
     public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic) {
         try {
             if (!mqttAndroidClient.isConnected()) {
-                reconnectToMQTT(mqttAndroidClient);
+                ((MainActivity)getActivity()).reconnectToMQTT(mqttAndroidClient);
             }
             IMqttToken unsubscribeToken = mqttAndroidClient.unsubscribe(topic);
             unsubscribeToken.setActionCallback(new IMqttActionListener() {
@@ -337,7 +341,7 @@ public class HomeFragment extends Fragment {
 
         try {
             if (!mqttAndroidClient.isConnected()) {
-                reconnectToMQTT(mqttAndroidClient);
+                ((MainActivity)getActivity()).reconnectToMQTT(mqttAndroidClient);
             }
             mqttAndroidClient.setCallback(new MqttCallback() {
                 @Override
@@ -410,7 +414,7 @@ public class HomeFragment extends Fragment {
     public void publishMessage(MqttAndroidClient mqttAndroidClient, String topic, String payload) {
         try {
             if (!mqttAndroidClient.isConnected()) {
-                reconnectToMQTT(mqttAndroidClient);
+                ((MainActivity)getActivity()).reconnectToMQTT(mqttAndroidClient);
             }
 
             MqttMessage message = new MqttMessage();
@@ -449,7 +453,7 @@ public class HomeFragment extends Fragment {
 
         try {
             if (!mqttAndroidClient.isConnected()) {
-                reconnectToMQTT(mqttAndroidClient);
+                ((MainActivity)getActivity()).reconnectToMQTT(mqttAndroidClient);
             }
             for (int i = 0; i < cardDataStore.size(); i++) {
                 splitCardData.add(cardDataStore.get(i).split(":", 0));
@@ -460,15 +464,6 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
             Log.d("connect exception", "Error :" + e.getMessage());
         }
-    }
-
-    private void reconnectToMQTT(MqttAndroidClient mqttAndroidClient) throws MqttException {
-        mqttAndroidClient.connect();
-        long startTime = System.currentTimeMillis();
-        while (!mqttAndroidClient.isConnected() && (System.currentTimeMillis() - startTime) < 2000) {
-            Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
-        }
-        snackBarMaker(getView(), "Connected!");
     }
 
     private String decodeMQTT(MqttMessage msg) {
@@ -551,10 +546,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View card,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add(R.string.editCard).setOnMenuItemClickListener(menuItem -> {
-            //TODO: show card editing UI
-            return true;
-        });
 
         menu.add(R.string.unsubscribeCard).setOnMenuItemClickListener(menuItem -> {
 
