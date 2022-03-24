@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -43,7 +42,6 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -467,8 +465,7 @@ public class HomeFragment extends Fragment {
     private void reconnectToMQTT(MqttAndroidClient mqttAndroidClient) throws MqttException {
         mqttAndroidClient.connect();
         long startTime = System.currentTimeMillis();
-        while(!mqttAndroidClient.isConnected() && (System.currentTimeMillis()-startTime)<2000)
-        {
+        while (!mqttAndroidClient.isConnected() && (System.currentTimeMillis() - startTime) < 2000) {
             Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
         }
         snackBarMaker(getView(), "Connected!");
@@ -551,6 +548,51 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View card,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add(R.string.editCard).setOnMenuItemClickListener(menuItem -> {
+            //TODO: show card editing UI
+            return true;
+        });
+
+        menu.add(R.string.unsubscribeCard).setOnMenuItemClickListener(menuItem -> {
+
+            String topic;
+            String type = "null";
+
+            View material_card_view = ((ViewGroup) card).getChildAt(0);
+            View card_internal_layout = ((ViewGroup) material_card_view).getChildAt(0);
+            TextView topicDisplay = (TextView) ((ViewGroup) card_internal_layout).getChildAt(0);
+
+            View cardType = ((ViewGroup) card_internal_layout).getChildAt(1);
+
+            if (cardType instanceof SwitchMaterial) {
+                type = "Switch";
+            } else if (cardType instanceof TextInputLayout) {
+                type = "Input";
+            } else if (cardType instanceof Slider) {
+                type = "Slider";
+                Slider slider = ((Slider) cardType);
+            } else if (cardType instanceof CheckBox) {
+                type = "Checkbox";
+
+            } else if (cardType instanceof Button) {
+                type = "Button";
+            } else if (cardType instanceof TextView) {
+                type = "Text";
+
+            }
+
+            topic = (String) topicDisplay.getText();
+            unsubscribeMQTT(((MainActivity) getActivity()).getClient(), topic);
+
+            ((MainActivity) getActivity()).removeCardData(topic, type);
+            ((ViewGroup) card.getParent()).removeView(card);
+            return true;
+        });
+    }
+
     public class snackBarReconnectListener implements View.OnClickListener {
 
         @Override
@@ -564,50 +606,5 @@ public class HomeFragment extends Fragment {
                 snackBarMaker(getView(), "MQTT reconnected");
             }
         }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View card,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add(R.string.editCard).setOnMenuItemClickListener(menuItem -> {
-            //TODO: show card editing UI
-            return true;
-        });
-        
-        menu.add(R.string.unsubscribeCard).setOnMenuItemClickListener(menuItem -> {
-
-            String topic;
-            String type = "null";
-
-            View material_card_view = ((ViewGroup) card).getChildAt(0);
-            View card_internal_layout = ((ViewGroup) material_card_view).getChildAt(0);
-            TextView topicDisplay = (TextView) ((ViewGroup) card_internal_layout).getChildAt(0);
-
-            View cardType = ((ViewGroup)card_internal_layout).getChildAt(1);
-
-            if (cardType instanceof SwitchMaterial) {
-                type = "Switch";
-            } else if (cardType instanceof TextInputLayout) {
-                type = "Input";
-            } else if (cardType instanceof Slider) {
-                type = "Slider";
-                Slider slider = ((Slider)cardType);
-            } else if (cardType instanceof CheckBox) {
-                type = "Checkbox";
-
-            } else if (cardType instanceof Button){
-                type = "Button";
-            }  else if (cardType instanceof TextView) {
-                type = "Text";
-
-            }
-
-            topic = (String) topicDisplay.getText();
-            unsubscribeMQTT(((MainActivity)getActivity()).getClient(), topic);
-
-            ((MainActivity)getActivity()).removeCardData(topic, type);
-            ((ViewGroup)card.getParent()).removeView(card);
-            return true;
-        });
     }
 }

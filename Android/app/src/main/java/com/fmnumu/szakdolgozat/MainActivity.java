@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     public void connectMQTT() {
         connectMQTT(this.mqttAddress);
     }
+
     public void connectMQTT(String mqttAddress) {
         this.mqttAddress = mqttAddress;
 
