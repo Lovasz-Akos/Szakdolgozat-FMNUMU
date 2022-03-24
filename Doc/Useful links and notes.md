@@ -116,3 +116,7 @@ sysv-rc-conf
 ## Material design
 
 [Material guideline docs](https://material.io/components/)
+
+## Android color picker
+
+I'm considering to add [this](https://github.com/Pes8/android-material-color-picker-dialog) color picker library to my project but I don't like using outside libs so not sure if I end up using it.
