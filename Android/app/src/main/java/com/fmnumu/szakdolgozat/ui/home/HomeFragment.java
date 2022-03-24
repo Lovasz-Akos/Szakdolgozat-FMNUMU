@@ -308,6 +308,33 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public void unsubscribeMQTT(MqttAndroidClient mqttAndroidClient, String topic) {
+        try {
+            if (!mqttAndroidClient.isConnected()) {
+                reconnectToMQTT(mqttAndroidClient);
+            }
+            IMqttToken unsubscribeToken = mqttAndroidClient.unsubscribe(topic);
+            unsubscribeToken.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken,
+                                      Throwable exception) {
+                    Snackbar snackbar = Snackbar
+                            .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            });
+        } catch (MqttException e) {
+            Log.d("tag", "Error :" + e);
+        }
+    }
+
     private void mqttNotifier(View root, MqttAndroidClient mqttAndroidClient) {
 
         try {
