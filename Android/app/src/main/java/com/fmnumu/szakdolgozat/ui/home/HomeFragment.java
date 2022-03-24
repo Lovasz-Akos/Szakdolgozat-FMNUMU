@@ -150,9 +150,7 @@ public class HomeFragment extends Fragment {
         //TODO: Register cards for context menu
         //TODO: make inflatable context menu. Format: {pencil} Edit; ----divider----; {cross} Unsubscribe
         registerForContextMenu(mqttCard);
-
         topicDisplay.setText(savedCardData.get(0));
-        layout.addView(mqttCard);
 
         switch (type) {
             case R.layout.mqtt_card_text:
@@ -162,8 +160,10 @@ public class HomeFragment extends Fragment {
                 } else {
                     text_data.setText(R.string.waitingForData);
                 }
+                layout.addView(mqttCard);
                 break;
             case R.layout.mqtt_card_button:
+                layout.addView(mqttCard);
                 break;
             case R.layout.mqtt_card_switch:
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
@@ -175,6 +175,7 @@ public class HomeFragment extends Fragment {
                     String message = switch_data.isChecked() ? "on" : "off";
                     publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), message);
                 });
+                layout.addView(mqttCard);
                 break;
             case R.layout.mqtt_card_input:
                 TextInputEditText inputField = mqttCard.findViewById(R.id.input_data);
@@ -187,14 +188,18 @@ public class HomeFragment extends Fragment {
                     String inputFieldData = String.valueOf(inputField.getText());
                     publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(1), inputFieldData);
                 });
+                layout.addView(mqttCard);
                 break;
             case R.layout.mqtt_card_checkbox:
                 CheckBox checkBox = mqttCard.findViewById(R.id.checkbox_data);
                 if (!savedCardData.get(2).equals("null")) {
                     checkBox.setChecked(savedCardData.get(2).equals("on"));
                 }
-                checkBox.setOnClickListener(View -> publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), checkBox.isChecked() ? "on" : "off"));
-                //TODO: stuff
+                checkBox.setOnClickListener(View -> {
+                    publishMessage(((MainActivity) getActivity()).getClient(),
+                            savedCardData.get(0), checkBox.isChecked() ? "on" : "off");
+                });
+                layout.addView(mqttCard);
                 break;
             case R.layout.mqtt_card_slider:
                 Slider slider_data = (Slider) mqttCard.findViewById(R.id.slider_data);
@@ -212,14 +217,22 @@ public class HomeFragment extends Fragment {
                         TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
                         String rangeMin = rangeMinView.getEditText().getText().toString();
                         String rangeMax = rangeMaxView.getEditText().getText().toString();
-
-                        slider_data.setValueTo(Float.parseFloat(rangeMax));
-                        slider_data.setValue(Float.parseFloat(rangeMin));
-                        slider_data.setValueFrom(Float.parseFloat(rangeMin));
-                        sliderDataDisplay.setText(rangeMin);
+                        if (Integer.parseInt(rangeMax) <= Integer.parseInt(rangeMin))
+                        {
+                            Toast toast = Toast.makeText(getContext(),
+                                    "Range max can't be less or equal to range min", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        else{
+                            slider_data.setValueTo(Float.parseFloat(rangeMax));
+                            slider_data.setValue(Float.parseFloat(rangeMin));
+                            slider_data.setValueFrom(Float.parseFloat(rangeMin));
+                            sliderDataDisplay.setText(rangeMin);
+                            layout.addView(mqttCard);
+                        }
                     });
-
                     builder.show();
+
                 } else {
                     List<String> sliderSubData = Arrays.asList(savedCardData.get(2).split("\\."));
                     TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
@@ -233,6 +246,7 @@ public class HomeFragment extends Fragment {
                     slider_data.setValueFrom(Float.parseFloat(rangeMin));
 
                     sliderDataDisplay.setText(currentVal);
+                    layout.addView(mqttCard);
                 }
 
 
@@ -263,6 +277,7 @@ public class HomeFragment extends Fragment {
                 toast.show();
                 break;
         }
+
     }
 
     public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, List<String> cardData) {
@@ -319,17 +334,12 @@ public class HomeFragment extends Fragment {
             unsubscribeToken.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), "Unsubscribed from topic " + topic, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
+                    snackBarMaker(getView(), "Unsubscribed from topic " + topic);
                 }
 
                 @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    Snackbar snackbar = Snackbar
-                            .make(getView(), topic + " topic unsubscribe failed!", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    snackBarMaker(getView(), topic + " topic unsubscribe failed!");
                 }
             });
         } catch (MqttException e) {
@@ -395,12 +405,15 @@ public class HomeFragment extends Fragment {
             } else if (activeElement instanceof Slider) {
                 Slider sliderData = cardList.getChildAt(i).findViewById(R.id.slider_data);
                 TextView sliderDataDisplay = cardList.getChildAt(i).findViewById(R.id.slider_data_display);
+
                 if ((Integer.parseInt(decodeMQTT(message)) >= sliderData.getValueFrom())
                         && (Integer.parseInt(decodeMQTT(message)) <= sliderData.getValueTo())) {
                     sliderDataDisplay.setText(decodeMQTT(message));
+                    sliderData.setValue(Integer.parseInt(decodeMQTT(message)));
                 } else {
                     sliderDataDisplay.setText("Data out of range: " + decodeMQTT(message));
                 }
+
             } else if (activeElement instanceof MaterialCheckBox) {
                 CheckBox checkBox = cardList.getChildAt(i).findViewById(R.id.checkbox_data);
                 checkBox.setChecked(decodeMQTT(message).equals("on"));

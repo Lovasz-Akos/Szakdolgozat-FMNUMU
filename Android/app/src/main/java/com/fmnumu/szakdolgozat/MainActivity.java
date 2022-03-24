@@ -130,19 +130,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void removeCardData(String topic, String cardType) {
-        //TODO: find line with cardData and rewrite txt
-        boolean found = false;
-        int i = 0;
-
-        do {
+        for (int i = 0; i < cardDataStore.size(); i++) {
             String[] part = this.cardDataStore.get(i).split(":", 0);
             if ((part[0] + ":" + part[1]).equals(topic + ":" + cardType)) {
                 this.cardDataStore.remove(i);
-                found = true;
             }
-            i++;
         }
-        while (!found && i < cardDataStore.size());
 
         writeToFile(this.username + ".txt", this.cardDataStore);
     }
@@ -176,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d("CONNECTION", "onSuccess");
                     mqttClient[0] = client;
-                    Toast toast = Toast.makeText(getBaseContext(),
+                    Toast toast = Toast.makeText(getApplicationContext(),
                             "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
                     toast.show();
                 }
