@@ -71,6 +71,34 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        SharedPreferences addressPref = getSharedPreferences("address", Context.MODE_PRIVATE);
+        SharedPreferences usernamePref = getSharedPreferences("username", Context.MODE_PRIVATE);
+
+        mqttAddress = addressPref.getString(getString(R.string.mqttAddressPersistent), null);
+        username = usernamePref.getString(getString(R.string.usernamePersistent), null);
+
+        /* FIXME auto connect on startup if there was an address saved beforehand
+         ?  possible workaround for the async connection is wasting the user's time
+         ?  by asking for their username on startup.
+        if (mqttAddress != null && username != null) {
+            connectMQTT(mqttAddress);
+            //TODO wait for connection or 1 sec
+            long startTime = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - startTime) < 1000) {
+                Log.d("WAITING", " waiting until connection is established or 1 second pass");
+            }
+            emptyCardMemory();
+            try {
+                HomeFragment fragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.home_fragment);
+
+                populatePersistentDataFields(username);
+                saveUserAndServer(username, mqttAddress);
+                fragment.subscribeAllTopics();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        */
     }
 
     public MqttAndroidClient getClient() {
@@ -244,6 +272,18 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < listOfFiles.length; i++) {
             listOfFiles[i].delete();
         }
+    }
+
+
+    public void reconnectToMQTT(MqttAndroidClient mqttAndroidClient) throws MqttException {
+        mqttAndroidClient.connect();
+        long startTime = System.currentTimeMillis();
+        while (!mqttAndroidClient.isConnected() && (System.currentTimeMillis() - startTime) < 2000) {
+            Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
+        }
+        Toast toast = Toast.makeText(getBaseContext(),
+                "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
