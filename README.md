@@ -7,7 +7,11 @@ Eszterházy Károly Katolikus Egyetem.
 
 ## The idea
 
-An Orange PI running linux hosts the Node-RED server and the MQTT Broker (Mosquitto), while the Android app is the primary control surface for the system. The Android app's main screen hosts the subscribed topics contained in seperate cards and the connection screen is for configuring the host address (saved between sessions, optimally a one-time setup). From the app all of the topics are freely accessible, and are able to be controlled with hand picked interfaces such as switches, buttons, text inputs etc. You can read more about it in [this document](https://github.com/Lovasz-Akos/Szakdolgozat-FMNUMU/blob/main/Doc/Szakdolgozat%20%C3%96sszegz%C3%A9s.pdf) (hungarian, english release tbd).
+During our hobby project developments, me and my friends bumped into a significant gap in available software for mobile that could essentially act as a central control hub for a smart home or similar MQTT based network of devices. Looking to fill this gap, I decided to make this app as my thesis work, this way I could make my homebrew projects come to life that are waiting for such an app to be created and at the same time I could present something useful and unique to the world of android apps.
+
+## The execution
+
+An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED server and an MQTT Broker (Mosquitto), while the Android app is the primary control surface for the system. The Android app's main screen hosts the subscribed topics contained in seperate cards with hand picked interaction types such as switches, buttons, text inputs etc. and the connection screen is for configuring the host address (saved between sessions, optimally a one-time setup) and username. The subscribed topics, thus the primary control surface's cards are saved on a per user basis, so picking your user name on the connection will retain your subscribed topics between sessions. You can read more about it in [this document](https://github.com/Lovasz-Akos/Szakdolgozat-FMNUMU/blob/main/Doc/Szakdolgozat%20%C3%96sszegz%C3%A9s.pdf) (hungarian, english release tbd).
 
 ## Starting the servers:
 
