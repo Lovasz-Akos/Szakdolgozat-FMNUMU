@@ -99,8 +99,22 @@ public class MainActivity extends AppCompatActivity {
         writeToFile(this.username + ".txt", this.cardDataStore);
     }
 
-    public void removedCardData(String cardData) {
-        //TODO REMOVE CARD FROM cardDataStore
+    public void removeCardData(String topic, String cardType) {
+        //TODO: find line with cardData and rewrite txt
+        boolean found = false;
+        int i = 0;
+
+        do {
+            String[] part = this.cardDataStore.get(i).split(":", 0);
+            if ((part[0] + ":" + part[1]).equals(topic + ":" + cardType)) {
+                this.cardDataStore.remove(i);
+                found = true;
+            }
+            i++;
+        }
+        while (!found && i < cardDataStore.size());
+
+        writeToFile(this.username + ".txt", this.cardDataStore);
     }
 
     public void emptyCardMemory() {
@@ -115,14 +129,11 @@ public class MainActivity extends AppCompatActivity {
         return allInteractTypes;
     }
 
-    public void connectMQTT() {
-        this.connectMQTT(this.mqttAddress, true);                                                   //simplified connect call that uses the previously stored address
-    }
 
-    public void connectMQTT(String mqttAddress) {
-        connectMQTT(mqttAddress, false);
+    public void connectMQTT() {
+        connectMQTT(this.mqttAddress);
     }
-    public void connectMQTT(String mqttAddress, boolean isReconnect) {
+    public void connectMQTT(String mqttAddress) {
         this.mqttAddress = mqttAddress;
 
         MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(),
@@ -137,9 +148,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getBaseContext(),
                             "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
                     toast.show();
-                    if (isReconnect){
-
-                    }
                 }
 
                 @Override
