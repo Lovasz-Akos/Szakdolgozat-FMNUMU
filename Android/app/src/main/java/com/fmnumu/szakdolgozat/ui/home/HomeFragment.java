@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -41,6 +43,7 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -142,6 +145,10 @@ public class HomeFragment extends Fragment {
     private void createCard(LinearLayout layout, List<String> savedCardData, int type) {
         ViewGroup mqttCard = (ViewGroup) this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
+        //TODO: Register cards for context menu
+        //TODO: make inflatable context menu. Format: {pencil} Edit; ----divider----; {cross} Unsubscribe
+        registerForContextMenu(mqttCard);
+
         topicDisplay.setText(savedCardData.get(0));
         layout.addView(mqttCard);
 
