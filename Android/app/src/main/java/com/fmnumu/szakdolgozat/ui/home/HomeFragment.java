@@ -565,4 +565,49 @@ public class HomeFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View card,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add(R.string.editCard).setOnMenuItemClickListener(menuItem -> {
+            //TODO: show card editing UI
+            return true;
+        });
+        
+        menu.add(R.string.unsubscribeCard).setOnMenuItemClickListener(menuItem -> {
+
+            String topic;
+            String type = "null";
+
+            View material_card_view = ((ViewGroup) card).getChildAt(0);
+            View card_internal_layout = ((ViewGroup) material_card_view).getChildAt(0);
+            TextView topicDisplay = (TextView) ((ViewGroup) card_internal_layout).getChildAt(0);
+
+            View cardType = ((ViewGroup)card_internal_layout).getChildAt(1);
+
+            if (cardType instanceof SwitchMaterial) {
+                type = "Switch";
+            } else if (cardType instanceof TextInputLayout) {
+                type = "Input";
+            } else if (cardType instanceof Slider) {
+                type = "Slider";
+                Slider slider = ((Slider)cardType);
+            } else if (cardType instanceof CheckBox) {
+                type = "Checkbox";
+
+            } else if (cardType instanceof Button){
+                type = "Button";
+            }  else if (cardType instanceof TextView) {
+                type = "Text";
+
+            }
+
+            topic = (String) topicDisplay.getText();
+            unsubscribeMQTT(((MainActivity)getActivity()).getClient(), topic);
+
+            ((MainActivity)getActivity()).removeCardData(topic, type);
+            ((ViewGroup)card.getParent()).removeView(card);
+            return true;
+        });
+    }
 }
