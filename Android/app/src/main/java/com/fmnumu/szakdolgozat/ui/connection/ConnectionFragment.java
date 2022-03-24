@@ -42,14 +42,17 @@ public class ConnectionFragment extends Fragment {
         TextInputLayout addressField = (TextInputLayout) root.findViewById(R.id.address_container);
         TextInputLayout usernameField = (TextInputLayout) root.findViewById(R.id.username_container);
 
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String defaultValue = getResources().getString(R.string._192_168_0_200);
-        addressField.getEditText().setText(sharedPref.getString(getString(R.string.mqttAdrr), defaultValue));
+        SharedPreferences addressPref = getContext().getSharedPreferences("address", Context.MODE_PRIVATE);
+        SharedPreferences usernamePref = getContext().getSharedPreferences("username", Context.MODE_PRIVATE);
+
+        addressField.getEditText().setText(addressPref.getString(getString(R.string.mqttAddressPersistent), null));
+        usernameField.getEditText().setText(usernamePref.getString(getString(R.string.usernamePersistent), null));
 
         Button connect = root.findViewById(R.id.buttonMqttConnect);
         connect.setOnClickListener(view -> {
             String username = String.valueOf(usernameField.getEditText().getText());
             String mqttAddress = String.valueOf(addressField.getEditText().getText());
+
             if (!username.equals("")) {
                 if (mqttAddress.equals("")) {
                     Toast toast = Toast.makeText(getContext(), "Address can't be empty", Toast.LENGTH_SHORT);
@@ -59,7 +62,7 @@ public class ConnectionFragment extends Fragment {
                     try {
                         ((MainActivity) getActivity()).emptyCardMemory();
                         ((MainActivity) getActivity()).populatePersistentDataFields(username);
-                        ((MainActivity) getActivity()).saveMqttAddress();
+                        ((MainActivity) getActivity()).saveUserAndServer(username, mqttAddress);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

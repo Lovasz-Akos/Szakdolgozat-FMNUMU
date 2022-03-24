@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.fmnumu.szakdolgozat.databinding.ActivityMainBinding;
+import com.fmnumu.szakdolgozat.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -21,6 +22,7 @@ import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttToken;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> cardDataStore = new ArrayList<>();
     private String username = "";
     private AppBarConfiguration mAppBarConfiguration;
-    private String mqttAddress;
+    private String mqttAddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,21 +168,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populatePersistentDataFields(String username) throws IOException {                  //gets all the stored data from file and adds them to the runtime data storage
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences addressPref = getSharedPreferences("address", Context.MODE_PRIVATE);
+        SharedPreferences usernamePref = getSharedPreferences("username", Context.MODE_PRIVATE);
 
-        this.username = username;
         this.cardDataStore = readFile(username + ".txt");
 
-        String defaultValue = getResources().getString(R.string._192_168_0_200);
-        this.mqttAddress = sharedPref.getString(getString(R.string.mqttAdrr), defaultValue);
+        this.mqttAddress = addressPref.getString(getString(R.string.mqttAddressPersistent), null);
+        this.username = usernamePref.getString(getString(R.string.usernamePersistent), null);
+
     }
 
-    public void saveMqttAddress() throws IOException {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+    public void saveUserAndServer(String username, String mqttAddress) throws IOException {
+        SharedPreferences addressPref = getSharedPreferences("address", Context.MODE_PRIVATE);
+        SharedPreferences usernamePref = getSharedPreferences("username", Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.mqttAdrr), this.mqttAddress);
-        editor.apply();
+        this.username = username;
+        this.mqttAddress = mqttAddress;
+
+        addressPref.edit()
+                .putString(getString(R.string.mqttAddressPersistent), this.mqttAddress)
+                .commit();
+
+        usernamePref.edit()
+                .putString(getString(R.string.mqttAddressPersistent), this.username)
+                .commit();
+
+
     }
 
     public void writeToFile(String filename, List<String> data) {
