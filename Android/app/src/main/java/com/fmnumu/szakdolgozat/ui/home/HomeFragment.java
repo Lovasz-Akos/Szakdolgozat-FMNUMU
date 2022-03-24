@@ -267,7 +267,7 @@ public class HomeFragment extends Fragment {
         LinearLayout layout = (LinearLayout) getView().findViewById(R.id.cardList);
         try {
             if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
+                reconnectToMQTT(mqttAndroidClient);
             }
             mqttAndroidClient.subscribe(cardData.get(0), 0, getContext(), new IMqttActionListener() {
                 @Override
@@ -312,7 +312,7 @@ public class HomeFragment extends Fragment {
 
         try {
             if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
+                reconnectToMQTT(mqttAndroidClient);
             }
             mqttAndroidClient.setCallback(new MqttCallback() {
                 @Override
@@ -385,7 +385,7 @@ public class HomeFragment extends Fragment {
     public void publishMessage(MqttAndroidClient mqttAndroidClient, String topic, String payload) {
         try {
             if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
+                reconnectToMQTT(mqttAndroidClient);
             }
 
             MqttMessage message = new MqttMessage();
@@ -424,13 +424,7 @@ public class HomeFragment extends Fragment {
 
         try {
             if (!mqttAndroidClient.isConnected()) {
-                mqttAndroidClient.connect();
-                long startTime = System.currentTimeMillis();
-                while(!mqttAndroidClient.isConnected() && (System.currentTimeMillis()-startTime)<2000)
-                {
-                    Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
-                }
-                snackBarMaker(getView(), "Connected!");
+                reconnectToMQTT(mqttAndroidClient);
             }
             for (int i = 0; i < cardDataStore.size(); i++) {
                 splitCardData.add(cardDataStore.get(i).split(":", 0));
@@ -441,6 +435,16 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
             Log.d("connect exception", "Error :" + e.getMessage());
         }
+    }
+
+    private void reconnectToMQTT(MqttAndroidClient mqttAndroidClient) throws MqttException {
+        mqttAndroidClient.connect();
+        long startTime = System.currentTimeMillis();
+        while(!mqttAndroidClient.isConnected() && (System.currentTimeMillis()-startTime)<2000)
+        {
+            Log.d("WAITING", " waiting until connection is established or 2 seconds pass");
+        }
+        snackBarMaker(getView(), "Connected!");
     }
 
     private String decodeMQTT(MqttMessage msg) {
@@ -529,7 +533,6 @@ public class HomeFragment extends Fragment {
                 ((MainActivity) getActivity()).connectMQTT();
                 LinearLayout cardListAsLayout = getView().findViewById(R.id.cardList);
                 cardListAsLayout.removeAllViews();
-
                 onResume();
                 snackBarMaker(getView(), "MQTT reconnected");
             }
