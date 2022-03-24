@@ -15,30 +15,33 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 
 ## Screenshots
 
-<img src="screenshots/connect.jpg" alt="connection" width="200"/>
-<img src="screenshots/screen.jpg" alt="main screen" width="200"/>
-<img src="screenshots/type.jpg" alt="main screen" width="200"/>
-<img src="screenshots/range.jpg" alt="main screen" width="200"/>
+|Connection screen                              |  Home screen                            | Context action
+:----------------------------------------------:|:---------------------------------------:|:-------------------------------------------:|
+![connection screen](screenshots/connect.jpg)   | ![main screen](screenshots/screen.jpg)  | ![context action](screenshots/context.jpg)
+|Subscription dialog                            | Card type selection                     | Slider range selection
+|![subscription](screenshots/subscribe.jpg)     | ![type selection](screenshots/type.jpg) | ![slider range selection](screenshots/range.jpg)
 
-## Starting the servers:
+## Starting the servers
 
-### Node-RED Server:
+### Node-RED Server
 
-     Auto-configured on the dedicated hardware it's currently running on. (Orange PI)
+Auto-configured on the dedicated hardware it's currently running on. (Orange PI)
 
+### MQTT Broker
 
-### MQTT Broker:
+```bash
+#auto starts with a custom config file generator seen below
+mosquitto -c mqtt.conf -v
+```
 
-     (on the dedicated hardware, config file soon to be uploaded)
-     cd /etc
-     mosquitto -c mqtt.conf -v
-     
 ### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)
 
 The first entry just runs node-red-start
 
 The second entry runs the following shell script to generate a config file for the mqtt broker, then runs the broker with this newly generated file
+
 ```bash
 echo -n "listener 1883 " > mqtt.conf; ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' >> mqtt.conf; echo $"allow_anonymous true" >> mqtt.conf
 ```
+
 > opens a listener on the 1883 port (mqtt default), then adds the server's current ipv4 address, and finally allows anonym connections* (*subject to change)
