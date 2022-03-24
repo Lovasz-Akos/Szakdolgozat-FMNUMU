@@ -21,4 +21,7 @@
     <string name="mqttAdrr"></string>
 
     <string name="waitingForData">Standby</string>
+
+    <string name="editCard">Edit</string>
+    <string name="unsubscribeCard">Unsubscribe</string>
 </resources>
