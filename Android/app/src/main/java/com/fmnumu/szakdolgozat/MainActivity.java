@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_publish, R.id.nav_connection)
+                R.id.nav_home, R.id.nav_publish, R.id.nav_connection, R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -169,9 +169,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d("CONNECTION", "onSuccess");
                     mqttClient[0] = client;
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
-                    toast.show();
                 }
 
                 @Override
