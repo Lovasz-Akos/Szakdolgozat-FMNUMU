@@ -164,6 +164,10 @@ public class HomeFragment extends Fragment {
                 break;
             case R.layout.mqtt_card_button:
                 layout.addView(mqttCard);
+                Button button_data = (Button) mqttCard.findViewById(R.id.button_data);
+                button_data.setOnClickListener(view -> {
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), savedCardData.get(0));
+                });
                 break;
             case R.layout.mqtt_card_switch:
                 SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
@@ -249,7 +253,6 @@ public class HomeFragment extends Fragment {
                     layout.addView(mqttCard);
                 }
 
-
                 final Slider.OnSliderTouchListener touchListener =
                         new Slider.OnSliderTouchListener() {
                             @SuppressLint("RestrictedApi")
@@ -270,14 +273,11 @@ public class HomeFragment extends Fragment {
 
                 slider_data.addOnSliderTouchListener(touchListener);
                 break;
-            //TODO: add more card types?
-
             default:
                 Toast toast = Toast.makeText(getContext(), "Failed to create card + " + savedCardData.get(0), Toast.LENGTH_SHORT);
                 toast.show();
                 break;
         }
-
     }
 
     public void subscribeMQTT(MqttAndroidClient mqttAndroidClient, List<String> cardData) {
