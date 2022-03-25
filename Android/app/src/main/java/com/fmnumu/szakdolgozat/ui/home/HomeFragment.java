@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavInflater;
 
 import com.fmnumu.szakdolgozat.MainActivity;
 import com.fmnumu.szakdolgozat.R;
@@ -82,34 +81,34 @@ public class HomeFragment extends Fragment {
 
         FloatingActionButton fabSub = root.findViewById(R.id.fabSubscribe);
         fabSub.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Enter topic to subscribe to");
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+            dialogBuilder.setTitle("Enter topic to subscribe to");
 
             final EditText input = new EditText(getContext());
 
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             input.setGravity(Gravity.CENTER);
-            builder.setView(input);
+            dialogBuilder.setView(input);
 
-            builder.setPositiveButton("Next", (dialog, which) -> {
+            dialogBuilder.setPositiveButton("Next", (dialog, which) -> {
                 topic = input.getText().toString();
                 if (topic.equals("")) {
                     Toast toast = Toast.makeText(getContext(), "Topic can't be empty", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
 
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                    AlertDialog.Builder subDialogBuilder = new AlertDialog.Builder(getContext());
                     final String[] actionType = new String[1];
 
-                    builder1.setTitle("Pick the action type");
+                    subDialogBuilder.setTitle("Pick the action type");
 
                     final Spinner typeSpinner = new Spinner(getContext());
 
                     List<String> allTypes = ((MainActivity) getActivity()).getAllInteractTypes();
 
-                    typeSpinner.setAdapter(new ArrayAdapter<>(getContext(), R.layout.subscribe_spinner, allTypes));
+                    typeSpinner.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_spinner, allTypes));
 
-                    builder1.setView(typeSpinner);
+                    subDialogBuilder.setView(typeSpinner);
 
                     typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -123,7 +122,7 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
-                    builder1.setPositiveButton("Subscribe", (dialog1, which1) -> {
+                    subDialogBuilder.setPositiveButton("Subscribe", (dialog1, which1) -> {
 
                         List<String> cardData = new ArrayList<>();
                         cardData.add(topic);
@@ -132,13 +131,13 @@ public class HomeFragment extends Fragment {
                         subscribeMQTT(((MainActivity) getActivity()).getClient(), cardData);
                     });
 
-                    builder1.show();
+                    subDialogBuilder.show();
                 }
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+            dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
-            builder.show();
+            dialogBuilder.show();
         });
         return root;
     }
@@ -148,8 +147,6 @@ public class HomeFragment extends Fragment {
     private void createCard(LinearLayout layout, List<String> savedCardData, int type) {
         ViewGroup mqttCard = (ViewGroup) this.getLayoutInflater().inflate(type, null);
         TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
-        //TODO: Register cards for context menu
-        //TODO: make inflatable context menu. Format: {pencil} Edit; ----divider----; {cross} Unsubscribe
         registerForContextMenu(mqttCard);
         topicDisplay.setText(savedCardData.get(0));
 
