@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
                 layout.addView(mqttCard);
                 Button button_data = (Button) mqttCard.findViewById(R.id.button_data);
                 button_data.setOnClickListener(view -> {
-                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), savedCardData.get(0));
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), "1");
                 });
                 break;
             case R.layout.mqtt_card_switch:
