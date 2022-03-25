@@ -1,6 +1,7 @@
 package com.fmnumu.szakdolgozat.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -554,6 +555,12 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //isubscribeAllTopics();
     }
 
     @Override
