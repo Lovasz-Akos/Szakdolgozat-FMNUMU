@@ -242,27 +242,32 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
-    public void listAllFiles() {
+    public List<String> getAllProfiles() {
         File folder = new File(getFilesDir() + "/");
         File[] listOfFiles = folder.listFiles();
+        List<String> profiles = new ArrayList<>();
+
         Log.d("LOOKUP", "listAllFiles: ");
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
                 Log.d("LOOKUP", "Files: " + listOfFile.getName());
-            } else if (listOfFile.isDirectory()) {
-                Log.d("LOOKUP", "Dirs: " + listOfFile.getName());
+                profiles.add(listOfFile.getName().replace(".txt",""));
             }
         }
+        return profiles;
     }
 
-    public void deleteAllFiles() {
+    public void deleteUserProfile(String username) {
         File folder = new File(getFilesDir() + "/");
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {
-            listOfFiles[i].delete();
+            if (listOfFiles[i].getName().equals(username + ".txt")){
+                listOfFiles[i].delete();
+            }
         }
     }
+
 
 
     public void reconnectToMQTT(MqttAndroidClient mqttAndroidClient) throws MqttException {

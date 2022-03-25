@@ -34,10 +34,9 @@ public class ConnectionFragment extends Fragment {
         binding = FragmentConnectionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((MainActivity) getActivity()).listAllFiles();
+        ((MainActivity) getActivity()).getAllProfiles();
 
         Button deleteAllFiles = root.findViewById(R.id.buttonDELETE);
-        deleteAllFiles.setOnClickListener(view -> ((MainActivity) getActivity()).deleteAllFiles());
 
         TextInputLayout addressField = (TextInputLayout) root.findViewById(R.id.address_container);
         TextInputLayout usernameField = (TextInputLayout) root.findViewById(R.id.username_container);
