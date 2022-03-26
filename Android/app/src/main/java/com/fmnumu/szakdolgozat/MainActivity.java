@@ -25,6 +25,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttToken;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -228,17 +229,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public List<String> readFile(String filename) throws IOException {
-        Scanner s = new Scanner(new File(getFilesDir() + "/" + filename)).useDelimiter(System.lineSeparator());
-        ArrayList<String> list = new ArrayList<>();
         File user = new File(getFilesDir() + "/" + filename);
-        if (user.length() == 0) {
-            Log.d("TAG", "readFile: ");
-        }
+        ArrayList<String> list = new ArrayList<>();
+        try{
+            Scanner s = new Scanner(new File(getFilesDir() + "/" + filename)).useDelimiter(System.lineSeparator());
+            if (user.length() == 0) {
+                Log.d("TAG", "readFile: ");
+            }
 
-        while (s.hasNext()) {
-            list.add(s.next());
+            while (s.hasNext()) {
+                list.add(s.next());
+            }
+            s.close();
         }
-        s.close();
+        catch (FileNotFoundException e){
+            user.createNewFile();
+        }
         return list;
     }
 
