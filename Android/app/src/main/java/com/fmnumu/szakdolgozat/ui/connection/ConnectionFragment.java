@@ -49,8 +49,8 @@ public class ConnectionFragment extends Fragment {
 
         Button connect = root.findViewById(R.id.buttonMqttConnect);
         connect.setOnClickListener(view -> {
-            String username = String.valueOf(usernameField.getEditText().getText());
-            String mqttAddress = String.valueOf(addressField.getEditText().getText());
+            String username = usernameField.getEditText().getText().toString();
+            String mqttAddress = addressField.getEditText().getText().toString();
 
             if (!username.equals("")) {
                 if (mqttAddress.equals("")) {
