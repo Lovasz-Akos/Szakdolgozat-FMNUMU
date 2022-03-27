@@ -27,13 +27,14 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 
 ### Node-RED Server
 
-Auto-configured on the dedicated hardware it's currently running on. (Orange PI)
+```bash
+node-red
+```
 
 ### MQTT Broker
 
 ```bash
-#auto starts with a custom config file generator seen below
-mosquitto -c mqtt.conf -v
+mosquitto -c mqtt.conf -d
 ```
 
 ### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)
