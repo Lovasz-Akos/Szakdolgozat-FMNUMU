@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Szakdolgozat</string>
+    <string name="app_name">Smarthome Hub</string>
     <string name="nav_header_title">Lovász Ákos</string>
     <string name="nav_header_subtitle">MQTT Android controller szakdolgozat</string>
     <string name="nav_header_desc">Navigation header</string>
