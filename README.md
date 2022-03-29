@@ -5,6 +5,8 @@ Smarthome hub and controller.
 Thesis work of Lovász Ákos.
 Eszterházy Károly Katolikus Egyetem.
 
+Planned features and progress can be tracked on this repo's [Trello board](https://trello.com/b/OiBK6wOh/szakdolgozat)
+
 ## The idea
 
 During our hobby project developments, me and my friends bumped into a significant gap in available software for mobile that could essentially act as a central control hub for a smart home or similar MQTT based network of devices. Looking to fill this gap, I decided to make this app as my thesis work, this way I could make my homebrew projects come to life that are waiting for such an app to be created and at the same time I could present something useful and unique to the world of android apps.
@@ -25,13 +27,14 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 
 ### Node-RED Server
 
-Auto-configured on the dedicated hardware it's currently running on. (Orange PI)
+```bash
+node-red
+```
 
 ### MQTT Broker
 
 ```bash
-#auto starts with a custom config file generator seen below
-mosquitto -c mqtt.conf -v
+mosquitto -c mqtt.conf -d
 ```
 
 ### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)

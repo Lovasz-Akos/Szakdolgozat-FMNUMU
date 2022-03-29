@@ -71,9 +71,8 @@ public class HomeFragment extends Fragment {
 
         MqttAndroidClient mqttAndroidClient = ((MainActivity) getActivity()).getClient();
 
-        if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
+        if (mqttAndroidClient != null) {
             mqttNotifier(root, mqttAndroidClient);
-            subscribeAllTopics();
         }
         else{
             Log.d("CONNECTION STARTUP", "onCreateView: NULL CLIENT");
@@ -397,10 +396,8 @@ public class HomeFragment extends Fragment {
             if (activeElement instanceof SwitchMaterial) {
                 SwitchMaterial switchView = cardList.getChildAt(i).findViewById(R.id.switch_data);
                 switchView.setChecked(decodeMQTT(message).equals("on"));
-            } else if (activeElement instanceof TextInputLayout) {
-                TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
-                textInputEditText.setText(decodeMQTT(message));
-            } else if (activeElement instanceof Slider) {
+            }
+            else if (activeElement instanceof Slider) {
                 Slider sliderData = cardList.getChildAt(i).findViewById(R.id.slider_data);
                 TextView sliderDataDisplay = cardList.getChildAt(i).findViewById(R.id.slider_data_display);
 
@@ -412,10 +409,16 @@ public class HomeFragment extends Fragment {
                     sliderDataDisplay.setText("Data out of range: " + decodeMQTT(message));
                 }
 
-            } else if (activeElement instanceof MaterialCheckBox) {
+            }
+            else if (activeElement instanceof TextInputLayout) {
+                TextInputEditText textInputEditText = cardList.getChildAt(i).findViewById(R.id.input_data);
+                textInputEditText.setText(decodeMQTT(message));
+            }
+            else if (activeElement instanceof MaterialCheckBox) {
                 CheckBox checkBox = cardList.getChildAt(i).findViewById(R.id.checkbox_data);
                 checkBox.setChecked(decodeMQTT(message).equals("on"));
-            } else if (activeElement instanceof TextView) {
+            }
+            else if (activeElement instanceof TextView) {
                 TextView dataDisplay = cardList.getChildAt(i).findViewById(R.id.text_data);
                 dataDisplay.setText(decodeMQTT(message));
             }
