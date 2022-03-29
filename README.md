@@ -1,6 +1,5 @@
 # Szakdolgozat-FMNUMU
-
-Smarthome hub and controller. 
+<img src="/screenshots/logo.png" width="200"> Smarthome hub and controller. 
 
 Thesis work of Lovász Ákos.
 Eszterházy Károly Katolikus Egyetem.
