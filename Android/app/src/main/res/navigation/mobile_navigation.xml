@@ -18,12 +18,6 @@
         tools:layout="@layout/fragment_connection" />
 
     <fragment
-        android:id="@+id/nav_publish"
-        android:name="com.fmnumu.szakdolgozat.ui.publish.PublishFragment"
-        android:label="@string/menu_publish"
-        tools:layout="@layout/fragment_publish" />
-
-    <fragment
         android:id="@+id/nav_settings"
         android:name="com.fmnumu.szakdolgozat.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"

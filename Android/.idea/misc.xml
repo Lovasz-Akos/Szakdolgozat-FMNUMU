@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.248" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable/empty_tall_divider.xml" value="0.248" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable/ic_custom_logo.xml" value="0.2585" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.248" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/activity_main.xml" value="0.13453947368421051" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/app_bar_main.xml" value="0.1444078947368421" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/content_main.xml" value="0.36770833333333336" />
@@ -10,15 +14,19 @@
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_home.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_publish.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_settings.xml" value="0.23223684210526316" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/item_spinner.xml" value="0.1912568306010929" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_button.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_checkbox.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_input.xml" value="0.1140917905623788" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_slider.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_switch.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/mqtt_card_text.xml" value="0.1" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/nav_header_main.xml" value="0.1912568306010929" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/subscribe_slider.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/subscribe_spinner.xml" value="0.16256830601092895" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/menu/activity_main_drawer.xml" value="0.23223684210526316" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2455" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2455" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3325" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable-v24/mqtt_card.xml" value="0.3145" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/drawable/empty_tall_divider.xml" value="0.181" />
