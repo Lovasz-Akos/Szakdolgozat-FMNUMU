@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/primary_mid</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="cardBackgroundColor">@color/cardGreyLight</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary_dark</item>
         <item name="colorSecondaryVariant">@color/secondary_light</item>

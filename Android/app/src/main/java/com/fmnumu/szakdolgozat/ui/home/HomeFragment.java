@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment {
                 TextInputEditText inputField = mqttCard.findViewById(R.id.input_data);
                 Button inputButton = mqttCard.findViewById(R.id.input_send_button);
 
-                if (!savedCardData.get(2).equals("null")) {
+                if (savedCardData.size() == 3) {
                     inputField.setText(savedCardData.get(2));
                 }
                 inputButton.setOnClickListener(view -> {
