@@ -71,6 +71,9 @@ public class SettingsFragment extends Fragment {
             dialogBuilder.setPositiveButton("Delete", (dialog1, which1) -> {
                 ((MainActivity)getActivity()).deleteUserProfile(selectedProfile[0]);
             });
+            dialogBuilder.setNegativeButton("Cancel", ((dialogInterface, i) -> {
+
+            }));
 
             dialogBuilder.show();
         });
