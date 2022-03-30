@@ -94,22 +94,35 @@ A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange PI Zero 
 	\caption{A Node-RED-hez és az MQTT brókerhez használt eszköz}
 	\label{fig:image2}
 \end{figure}
-Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
+Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, 
+de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, 
+melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
 
 \section{Az Android alkalmazás}
-Az Androidos alkalmazás célja a felhasználónak hozzáférést nyújtani az összes elérhető eszközhöz, azok állapotát megjeleníteni és felületet biztosítani azok irányítására, állapotuk megváltoztatására. 
+Az Androidos alkalmazás célja a felhasználónak hozzáférést nyújtani az összes elérhető eszközhöz, 
+azok állapotát megjeleníteni és felületet biztosítani azok irányítására, állapotuk megváltoztatására. 
 
 A kiszolgálóval való kommunikációt az Eclipse nyílt forráskódú Paho\cite{paho} Androidos kliens oldali MQTT implementációját használatba véve valósítja meg az alkalmazás. 
 
-A kommunikáció két irányú, azaz nem csak az alkalmazás tudja az okos eszközöket irányítani, hanem fogad üzeneteket a kiszolgálótól, így tud naprakész információt prezentálni az eszközök állapotáról a felhasználó számára.
+A kommunikáció két irányú, azaz nem csak az alkalmazás tudja az okos eszközöket irányítani, 
+hanem fogad üzeneteket a kiszolgálótól, így tud naprakész információt prezentálni az eszközök állapotáról a felhasználó számára.
 
-A felület rugalmasságából adódóan az alkamazás nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren való kommunikációra képes, viszont miven a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, így erre a célra használva a legoptimálisabb a felhasználói élmény.
+A felület rugalmasságából adódóan az alkamazás nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren való kommunikációra képes,
+viszont miven a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, így erre a célra használva a legoptimálisabb a felhasználói élmény.
 
 \section{Node-RED}
-A Node-RED egy nyílt forráskódú, ,,flow'' alapú programozási eszköz az IBM Emerging Technologies\cite{ibmET} által fejlesztve az OpenJS Foundation\cite{openjs} részeként. Ez egy Node.js alapú fejlesztési eszköz, aminek a felületét egy böngészőn keresztül lehet elérni ahol ,,node''-okat elhelyezve a felületen  egy funkcióhálózatot létrehozva lehet úgymond programozni. Ez a funkcióhálózat egy ,,Deploy'' gomb hatására bekerül a futási környezetbe, így effektíve az eddigi viselkedést felülírva, változtatásainkat elmentve.
+A Node-RED egy nyílt forráskódú, ,,flow'' alapú programozási eszköz az IBM Emerging Technologies\cite{ibmET} által fejlesztve az OpenJS Foundation\cite{openjs} részeként. 
+Ez egy Node.js alapú fejlesztési eszköz, aminek a felületét egy böngészőn keresztül lehet elérni ahol ,,node''-okat elhelyezve a felületen  egy funkcióhálózatot létrehozva lehet úgymond programozni. 
+Ez a funkcióhálózat egy ,,Deploy'' gomb hatására bekerül a futási környezetbe, így effektíve az eddigi viselkedést felülírva, változtatásainkat elmentve.
 
 \section{MQTT}
-Az MQTT (Message Queueing Telemetry Transport)\cite{mqtt} egy OASIS szabványú kommunikációs protokoll, melyet IoT (Internet of Things) eszközök kommunikációjához fejlesztettek ki. A protokoll alapja a ,,Publish/Subscribe'' alapú kommunikáció, azaz egy eszköznek lehetősége van egy adott ,,topic''-ra üzenetet továbbítani, vagy feliratkozni, azaz az adott ,,topic''-on beérkező üzeneteket megkapni. Ezek az üzenetek egy brókeren keresztül érik el céljukat, mivel a bróker tárolja hogy mely eszkör milyen témára iratkozott fel, ez alapján tudja a megfelelő klienseknek továbbítani a megfelelő üzenetet. Mivel az MQTT IoT eszközök kommunikációjához készült, így fejlesztése alatt különös figyelmet fordítottak az erőforrások megspórolásához, ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilyen eszköz használatba tudja venni.
+Az MQTT (Message Queueing Telemetry Transport)\cite{mqtt} egy OASIS szabványú kommunikációs protokoll, 
+melyet IoT (Internet of Things) eszközök kommunikációjához fejlesztettek ki. 
+A protokoll alapja a ,,Publish/Subscribe'' alapú kommunikáció, azaz egy eszköznek lehetősége van egy adott ,,topic''-ra üzenetet továbbítani, 
+vagy feliratkozni, azaz az adott ,,topic''-on beérkező üzeneteket megkapni. Ezek az üzenetek egy brókeren keresztül érik el céljukat, 
+mivel a bróker tárolja hogy mely eszkör milyen témára iratkozott fel, ez alapján tudja a megfelelő klienseknek továbbítani a megfelelő üzenetet. 
+Mivel az MQTT IoT eszközök kommunikációjához készült, így fejlesztése alatt különös figyelmet fordítottak az erőforrások megspórolásához, 
+ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilyen eszköz használatba tudja venni.
 
 \section{Okos eszközök}
 kis eszköz amivel lehet okos eszközt szimulálni

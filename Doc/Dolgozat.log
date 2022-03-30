@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.8)  30 MAR 2022 16:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.8)  30 MAR 2022 16:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -629,30 +629,30 @@ Package pdftex.def Info: images/OPIZero.png  used on input line 90.
 ] [11
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 159.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 172.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 10000) in paragraph at lines 198--201
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 10000) in paragraph at lines 198--201
 \T1/lmtt/m/n/12 Rajendraparasad & Srimannarayana, Nerella. (2020). IoT based Smart
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 10000) in paragraph at lines 198--201
 \T1/lmtt/m/n/12 Environment Using Node-Red and MQTT. Journal of Advanced Research in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 10000) in paragraph at lines 198--201
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 189.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 202.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [12
@@ -668,7 +668,7 @@ Here is how much of TeX's memory you used:
  35609 multiletter control sequences out of 15000+600000
  459660 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,77p,976b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,8n,77p,499b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
 Output written on Dolgozat.pdf (13 pages, 320189 bytes).
 PDF statistics:
