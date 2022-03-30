@@ -81,15 +81,36 @@ ami elsősorban olcsóbb, de ugyanakkor nem túlbonyolított, felhasználóbará
 hiányosságok egyszerűen pótolhatók.
 
 \chapter{A rendszer alapjai}
-backend hardver, frontend android, node red, mqtt, bővíthető, könnyen karbantartható stb stb
+A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange PI Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkamazás közötti kommunikációt.
+
 \section{A kiszolgáló hardver}
-OrangePY, azon mosquitto, nodered.
+
+\begin{figure}[h]
+	\begin{subfigure}{0.5\textwidth}
+	\includegraphics[width=1\textwidth]{images/OPIZero.png}
+	\caption{Orange Pi Zero\cite{orange}}
+	\label{fig:subim2}
+	\end{subfigure}
+	\caption{A Node-RED-hez és az MQTT brókerhez használt eszköz}
+	\label{fig:image2}
+\end{figure}
+Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
+
 \section{Az Android alkalmazás}
-felület, kommunikáció, beállítások
+Az Androidos alkalmazás célja a felhasználónak hozzáférést nyújtani az összes elérhető eszközhöz, azok állapotát megjeleníteni és felületet biztosítani azok irányítására, állapotuk megváltoztatására. 
+
+A kiszolgálóval való kommunikációt az Eclipse nyílt forráskódú Paho\cite{paho} Androidos kliens oldali MQTT implementációját használatba véve valósítja meg az alkalmazás. 
+
+A kommunikáció két irányú, azaz nem csak az alkalmazás tudja az okos eszközöket irányítani, hanem fogad üzeneteket a kiszolgálótól, így tud naprakész információt prezentálni az eszközök állapotáról a felhasználó számára.
+
+A felület rugalmasságából adódóan az alkamazás nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren való kommunikációra képes, viszont miven a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, így erre a célra használva a legoptimálisabb a felhasználói élmény.
+
 \section{Node-RED}
-kommunikáció kezelése, üzenetfeldolgozás, felületes nodered bemutató
+A Node-RED egy nyílt forráskódú, ,,flow'' alapú programozási eszköz az IBM Emerging Technologies\cite{ibmET} által fejlesztve az OpenJS Foundation\cite{openjs} részeként. Ez egy Node.js alapú fejlesztési eszköz, aminek a felületét egy böngészőn keresztül lehet elérni ahol ,,node''-okat elhelyezve a felületen  egy funkcióhálózatot létrehozva lehet úgymond programozni. Ez a funkcióhálózat egy ,,Deploy'' gomb hatására bekerül a futási környezetbe, így effektíve az eddigi viselkedést felülírva, változtatásainkat elmentve.
+
 \section{MQTT}
-hálózati kapcsolat management, felületes mqtt bemutató
+Az MQTT (Message Queueing Telemetry Transport)\cite{mqtt} egy OASIS szabványú kommunikációs protokoll, melyet IoT (Internet of Things) eszközök kommunikációjához fejlesztettek ki. A protokoll alapja a ,,Publish/Subscribe'' alapú kommunikáció, azaz egy eszköznek lehetősége van egy adott ,,topic''-ra üzenetet továbbítani, vagy feliratkozni, azaz az adott ,,topic''-on beérkező üzeneteket megkapni. Ezek az üzenetek egy brókeren keresztül érik el céljukat, mivel a bróker tárolja hogy mely eszkör milyen témára iratkozott fel, ez alapján tudja a megfelelő klienseknek továbbítani a megfelelő üzenetet. Mivel az MQTT IoT eszközök kommunikációjához készült, így fejlesztése alatt különös figyelmet fordítottak az erőforrások megspórolásához, ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilyen eszköz használatba tudja venni.
+
 \section{Okos eszközök}
 kis eszköz amivel lehet okos eszközt szimulálni
 (vagy intergrálásával akár készíteni persze)
@@ -101,6 +122,8 @@ orangepy, bármi android telefon, okos eszközök (esp32)
 olyan mint a raspberry csak olcsóbb
 \section{Okos eszközök}
 esp32
+\section{Androidos telefon}
+min andr 6.0 kell
 
 \chapter{Szoftver}
 nodered, mqtt, android
@@ -132,6 +155,46 @@ Köszönöm magyarországnak hogy jobban teljesít
 Köszönöm a covidnak, hogy átmentem nummatból
 
 \begin{thebibliography}{2}
-\end{thebibliography}
+\bibitem{nodeRed}Node Red forrás,
+\\\texttt{\url{https://nodered.org}}
 
+\bibitem{dashboard}Node Red Dashboard forrás,
+\\\texttt{\url{https://flows.nodered.org/node/node-red-dashboard}}
+
+\bibitem{orange}Orange Pi forrás,
+\\\texttt{\url{http://www.orangepi.org/}}
+
+\bibitem{mqtt}MQTT protokol forrás,
+\\\texttt{\url{https://mqtt.org}}
+
+\bibitem{mosquitto}Mosquitto bróker forrás,
+\\\texttt{\url{https://mosquitto.org}}
+
+\bibitem{paho}Paho Android MQTT implementáció,
+\\\texttt{\url{https://www.eclipse.org/paho/index.php}}
+
+\bibitem{material}Material design forrás
+\\\texttt{\url{https://material.io/components/}}
+
+\bibitem{android}Android fejlesztői dokumentáció
+\\\texttt{\url{https://developer.android.com/guide}}
+
+\bibitem{armbian}Armbian operációs rendszer
+\\\texttt{\url{https://www.armbian.com/}}
+
+\bibitem{iot}IoT based Smart Environment Using Node-Red and MQTT
+\\\texttt{Deepthi, B. \& Kolluru, Venkata Ratnam \& Varghese, George \& Narne, Rajendraparasad \& Srimannarayana, Nerella. (2020). IoT based Smart Environment Using Node-Red and MQTT. Journal of Advanced Research in Dynamical and Control Systems. 12. 10.5373/JARDCS/V12I5/20201684.}
+\\\texttt{\url{https://www.researchgate.net/publication/342327250_IoT_based_Smart_Environment_Using_Node-Red_and_MQTT}}
+	
+\bibitem{android refrences book}Android\texttrademark Notes for Professionals book
+\\\texttt{\url{https://books.goalkicker.com/AndroidBook/}}
+
+\bibitem{ibmET}IMB Emerging Technologies
+\\\texttt{\url{https://emerging-technology.co.uk/}}
+
+\bibitem{openjs}OpenJS Foundation
+\\\texttt{\url{https://openjsf.org/}}
+
+\end{thebibliography}
+%\includepdf{nyilatkozat.pdf}
 \end{document}
