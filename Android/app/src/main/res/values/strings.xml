@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Lovász Ákos Szakdolgozat</string>
+    <string name="app_name">Lovász Ákos Thesis</string>
     <string name="nav_header_title">Lovász Ákos</string>
-    <string name="nav_header_subtitle">MQTT Android controller szakdolgozat</string>
+    <string name="nav_header_subtitle">MQTT Android controller thesis project</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_publish">Publish</string>
-    <string name="menu_connection">Connection</string>
+    <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
 
     <string name="button_connect">Connect</string>
