@@ -80,8 +80,10 @@ ami elsősorban olcsóbb, de ugyanakkor nem túlbonyolított, felhasználóbará
 és a széleskörű kompatibilitás lehetősége, hogy a felhasználó biztos lehessen abban, hogy a jövőben felmerülő
 hiányosságok egyszerűen pótolhatók.
 
+
+
 \chapter{A rendszer alapjai}
-A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange PI Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkamazás közötti kommunikációt.
+A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkamazás közötti kommunikációt.
 
 \section{A kiszolgáló hardver}
 
@@ -125,39 +127,67 @@ Mivel az MQTT IoT eszközök kommunikációjához készült, így fejlesztése a
 ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilyen eszköz használatba tudja venni.
 
 \section{Okos eszközök}
-kis eszköz amivel lehet okos eszközt szimulálni
-(vagy intergrálásával akár készíteni persze)
+Okos eszköznek számít bármilyen berendezés, mely rendelkezik hálózati kommunikációra képes alkatrészekkel, 
+ebben az esetben egy MQTT protokollt használatba vevő eszköz. Az MQTT protokoll rugalmasságából adódóan már a renszer tesztelése során is több eszköztípust 
+vettem használatba, pédául Androidos tableteket, telefonokat és ESP D1 Mini mikrokontrollereket.
+
 
 
 \chapter{Hardver}
-orangepy, bármi android telefon, okos eszközök (esp32)
 \section{Orange Pi Zero}
-olyan mint a raspberry csak olcsóbb
+Egy egykártyás számítógép az Orange Pi felhozatalából a Zero model, ami beépített WiFi modullal, Ethernet porttal, 
+512MB RAM-al és egy 4 magos ARM processzorral ellátva tesztjeim alapján egy kisebb ház okos eszközeinek ellátására elegendő, 
+viszont természetesen van lehetőség erősebb hardveren futtatni a kiszolgáló szolgáltatásokat. Ezek a szolgáltatások 
+Linux és Windows operációs rendszert futtató hardverek bármelykén képesek futni, így lehetőségünk van akár 
+régi, már nem használt androidos telefonon, vagy ellentétsen, csak erre a célra kitűzött szervergépet kialakítani. Természetesen 
+a végletek között rengeteg lehetőségünk van igényeink szerint válatsztani kiszolgáló hardvert, például egy Orange Pi Zero, Raspberry Pi 4, vagy Seeed Odyssey.
+Az Orange Pi Zero-ra esett a választásom alacsony ára mellett nyújtott lehetőségei tárháza miatt.
 \section{Okos eszközök}
-esp32
-\section{Androidos telefon}
-min andr 6.0 kell
+\subsection{ESP 8266}
+Okos eszköz fejlesztéséra egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
+programozható, WiFi moduljának és a hivatalos Arduino MQTT könyvtárnak köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani.
+\subsection{Androidos eszköz}
+Mivel az Androidos alkamazások bizonyos könyvtárai és fejlesztői eszközei az alkalmazott Android verziótól függnek, így az alkalmazás fejlesztése során
+kitűzött minimum Android verziót el kell érnie a használni kívánt eszköznek. Ebben az esetben a minimum támogatott Android verzió a Marshmallow, azaz Android 6.0.
+Ez a legrégebbi Android megjelenés amit bevett szokásként támogatnak a modern alkamazások, ennél korábbi verziót támogatni nehézkes, általában nem éri meg, mivel
+a felhasználók kevesebb mint 1\%-a használ olyan eszközt, ami 6.0-nál régebbi Androidot futtat.
+\subsection{Egyéb eszközök}
+Minden olyan okos eszköz integrálható a rendszerbe, amely képes MQTT protokollon keresztül kommunikálni egy helyi hálózaton.
+
+
 
 \chapter{Szoftver}
 nodered, mqtt, android
 \section{Node-RED}
-kifejtés az aktuális rendszerről
+rooms, handling, ui
 \section{MQTT}
-kifejtés az aktuális rendszerről
+mosquitto broker, bash generator
 \section{Android}
-kifejtés az aktuális rendszerről
+this is the juice of the thesis
 \section{Tesztelés}
+
+
 
 \chapter{A renszer működése}
 Itt írom le a kész rendszer működését, 
-\section{Első indításra felkészítés}
+\section{Első indítás}
+hátugye nem minden létezik first start
+\subsection{Szerver}
+mostly preconfigured de a flow lehet kell noderedbe meg mqtt config idk, meg ezeket telepíteni
+\subsection{Android}
+alkalmazást telepíteni, először nincs user de onnan minden magától megy
 \section{Telefon csatlakoztatása kiszolgálóhoz}
-\section{Okos eszközök csatlakoztatása kiszolgálóhoz}
+ip
 \section{Okos eszközök kezelése az alkalmazásban}
+\section{Okos eszközök kezelése a webes felületen}
+
+
 
 \chapter{Továbbfejlesztési lehetőségek}
 user access? felület új eszköztípusok felvételéhez?
 cloud service for out of home control
+
+
 
 \chapter*{Köszönetnyilvánítás}
 \par
