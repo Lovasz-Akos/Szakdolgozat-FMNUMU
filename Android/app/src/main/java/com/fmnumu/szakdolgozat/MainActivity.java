@@ -170,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d("CONNECTION", "onSuccess");
                     mqttClient[0] = client;
+                    Toast toast = Toast.makeText(getBaseContext(),
+                            "Connected to " + mqttAddress, Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
                 @Override
