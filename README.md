@@ -16,11 +16,17 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 
 ## Screenshots
 
+### Android
+
 |Connection screen                              |  Home screen                            | Context action
 :----------------------------------------------:|:---------------------------------------:|:-------------------------------------------:|
 ![connection screen](screenshots/connect.jpg)   | ![main screen](screenshots/screen.jpg)  | ![context action](screenshots/context.jpg)
 |Subscription dialog                            | Card type selection                     | Slider range selection
 |![subscription](screenshots/subscribe.jpg)     | ![type selection](screenshots/type.jpg) | ![slider range selection](screenshots/range.jpg)
+
+### Web dashboard
+
+![web UI](screenshots/dashboard.jpg)
 
 ## Starting the servers
 
