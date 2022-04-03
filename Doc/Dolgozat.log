@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  2 APR 2022 18:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  3 APR 2022 19:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -429,42 +429,49 @@ File: pppdftex.def 2021/03/06 v0.5t Pdfpages driver for pdfTeX (AM)
 Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
 \c@subfigure=\count305
 \c@subtable=\count306
+) (c:/texlive/2021/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count307
+\float@exts=\toks32
+\float@box=\box57
+\@float@everytoks=\toks33
+\@floatcapt=\box58
 ) (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (c:/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
-\c@tetel=\count307
+\c@tetel=\count308
  (c:/texlive/2021/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
  (c:/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )) (c:/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count308
-\l__pdf_internal_box=\box57
+\l__color_backend_stack_int=\count309
+\l__pdf_internal_box=\box59
 ) (./Dolgozat.aux)
 \openout1 = `Dolgozat.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-Package hyperref Info: Link coloring OFF on input line 45.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+Package hyperref Info: Link coloring OFF on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -472,11 +479,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (c:/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count309
+\c@section@level=\count310
 )
-LaTeX Info: Redefining \ref on input line 45.
-LaTeX Info: Redefining \pageref on input line 45.
-LaTeX Info: Redefining \nameref on input line 45.
+LaTeX Info: Redefining \ref on input line 46.
+LaTeX Info: Redefining \pageref on input line 46.
+LaTeX Info: Redefining \nameref on input line 46.
  (./Dolgozat.out) (./Dolgozat.out)
 \@outlinefile=\write3
 \openout3 = `Dolgozat.out'.
@@ -516,67 +523,68 @@ LaTeX Info: Redefining \nameref on input line 45.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 45.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 46.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )<<ot1.cmap>>
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 45.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )<<oml.cmap>>
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 45.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )<<oms.cmap>>
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 45.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 45.
+(Font)              <12> on input line 46.
 <<omx.cmap>>
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 45.
+(Font)              <8> on input line 46.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 45.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
+(Font)              <6> on input line 46.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 46.
  (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/lmex/m/n --> OMX/cmex/m/n on input line 45.
+(Font)                  OMX/lmex/m/n --> OMX/cmex/m/n on input line 46.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/lmex/m/n --> OMX/cmex/m/n on input line 45.
+(Font)                  OMX/lmex/m/n --> OMX/cmex/m/n on input line 46.
  (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count310
+\scratchcounter=\count311
 \scratchdimen=\dimen189
-\scratchbox=\box58
-\nofMPsegments=\count311
-\nofMParguments=\count312
-\everyMPshowfont=\toks32
-\MPscratchCnt=\count313
+\scratchbox=\box60
+\nofMPsegments=\count312
+\nofMParguments=\count313
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count314
 \MPscratchDim=\dimen190
-\MPnumerator=\count314
-\makeMPintoPDFobject=\count315
-\everyMPtoPDFconversion=\toks33
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
+\everyMPtoPDFconversion=\toks35
 ) (c:/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (c:/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count316
+\c@lstlisting=\count317
  (c:/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
-\inpenc@prehook=\toks34
-\inpenc@posthook=\toks35
+\inpenc@prehook=\toks36
+\inpenc@posthook=\toks37
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
  (c:/texlive/2021/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
@@ -588,95 +596,117 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 LaTeX Info: Redefining \cal on input line 577.
 LaTeX Info: Redefining \mit on input line 578.
 )
-<eszterhazy-logo-hu.pdf, id=109, 256.07971pt x 88.04292pt>
+<eszterhazy-logo-hu.pdf, id=157, 256.07971pt x 88.04292pt>
 File: eszterhazy-logo-hu.pdf Graphic file (type pdf)
 <use eszterhazy-logo-hu.pdf>
-Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 52.
+Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 53.
 (pdftex.def)             Requested size: 256.07907pt x 88.0427pt.
  [1
 
 
-{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <c:/texlive/2021/texmf-dist/tex/latex/thesis-ekf/eszterhazy-logo-hu.pdf>] (./Dolgozat.toc)
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <c:/texlive/2021/texmf-dist/tex/latex/thesis-ekf/eszterhazy-logo-hu.pdf>] (./Dolgozat.toc [2
+
+])
 \tf@toc=\write4
 \openout4 = `Dolgozat.toc'.
 
- [2
-
-] [3
+ [3] [4
 
 ]
 1. fejezet.
-<images/OPIZero.png, id=159, 235.63031pt x 246.9225pt>
+<images/OPIZero.png, id=224, 235.63031pt x 246.9225pt>
 File: images/OPIZero.png Graphic file (type png)
 <use images/OPIZero.png>
-Package pdftex.def Info: images/OPIZero.png  used on input line 92.
+Package pdftex.def Info: images/OPIZero.png  used on input line 91.
 (pdftex.def)             Requested size: 220.50887pt x 231.07857pt.
-[4
+[5
 
- <./images/OPIZero.png>] [5] [6]
+] [6 <./images/OPIZero.png>] [7]
 2. fejezet.
-[7
+[8
 
-] [8]
+] [9]
 3. fejezet.
-[9
-
-]
-4. fejezet.
+<images/pm2.png, id=264, 661.72218pt x 107.65219pt>
+File: images/pm2.png Graphic file (type png)
+<use images/pm2.png>
+Package pdftex.def Info: images/pm2.png  used on input line 162.
+(pdftex.def)             Requested size: 441.01773pt x 71.74548pt.
 [10
+
+ <./images/pm2.png>]
+<images/flow.png, id=273, 891.33pt x 479.54156pt>
+File: images/flow.png Graphic file (type png)
+<use images/flow.png>
+Package pdftex.def Info: images/flow.png  used on input line 181.
+(pdftex.def)             Requested size: 441.01773pt x 237.2677pt.
+ [11 <./images/flow.png>]
+<images/dashboard.jpg, id=280, 1006.51031pt x 630.85687pt>
+File: images/dashboard.jpg Graphic file (type jpg)
+<use images/dashboard.jpg>
+Package pdftex.def Info: images/dashboard.jpg  used on input line 210.
+(pdftex.def)             Requested size: 352.81552pt x 221.1305pt.
+ [12 <./images/dashboard.jpg>] (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 232.
+ (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [13] [14]
+4. fejezet.
+[15
 
 ]
 5. fejezet.
-[11
+[16
 
-] [12
+] [17
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 202.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 298.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 228--231
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--231
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 \T1/lmtt/m/n/12 Rajendraparasad & Srimannarayana, Nerella. (2020). IoT based Smart
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--231
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 \T1/lmtt/m/n/12 Environment Using Node-Red and MQTT. Journal of Advanced Research in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--231
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 232.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [13
+[18
 
-] [14] (./Dolgozat.aux)
+] [19] (./Dolgozat.aux)
 Package rerunfilecheck Info: File `Dolgozat.out' has not changed.
-(rerunfilecheck)             Checksum: DED68D868463822B6C7E63889A5A8A58;4134.
+(rerunfilecheck)             Checksum: 486FCADE822962B83141BD88FE2B3E60;5961.
  ) 
 Here is how much of TeX's memory you used:
- 17212 strings out of 478599
- 266223 string characters out of 5858101
- 780665 words of memory out of 5000000
- 34701 multiletter control sequences out of 15000+600000
- 459660 words of font info for 76 fonts, out of 8000000 for 9000
+ 17715 strings out of 478599
+ 271305 string characters out of 5858101
+ 841288 words of memory out of 5000000
+ 35157 multiletter control sequences out of 15000+600000
+ 467246 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,80p,521b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Dolgozat.pdf (14 pages, 324450 bytes).
+ 75i,7n,80p,521b,1465s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on Dolgozat.pdf (19 pages, 472105 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
- 231 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 408 PDF objects out of 1000 (max. 8388607)
+ 358 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 342 words of extra memory for PDF output out of 10000 (max. 10000000)
 

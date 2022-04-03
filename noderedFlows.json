@@ -1,0 +1,1830 @@
+[
+    {
+        "id": "ad6ea18d.87b5b",
+        "type": "tab",
+        "label": "House Monitoring",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "481ae9613e4640be",
+        "type": "tab",
+        "label": "Living Room",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "38a5cdb29862a751",
+        "type": "tab",
+        "label": "Kitchen",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "657a9bd4df182c46",
+        "type": "tab",
+        "label": "Bedroom",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3553ecf6.f29c34",
+        "type": "subflow",
+        "name": "Subflow 1",
+        "info": "",
+        "in": [],
+        "out": []
+    },
+    {
+        "id": "99ff42df.677c5",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.0.200",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "638dac62.6ed774",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Arial,Arial,Helvetica,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#0ba800",
+                "baseFont": "Arial Black,Arial Black,Gadget,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#05b4ff",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#0ba800",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0ba800",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": true
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#10f400",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0ba800",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Arial Black,Arial Black,Gadget,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "true",
+            "allowSwipe": "true",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 60,
+                "sy": 50,
+                "gx": 40,
+                "gy": 40,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7daab84e.d27fe8",
+        "type": "AnamicoAlarmPanel",
+        "name": "Alarm"
+    },
+    {
+        "id": "2f871635.2da28a",
+        "type": "websocket-listener",
+        "path": "/ws/publish",
+        "wholemsg": "true"
+    },
+    {
+        "id": "7d6f4a7b.598fd4",
+        "type": "websocket-listener",
+        "path": "/ws/receive",
+        "wholemsg": "true"
+    },
+    {
+        "id": "86fddaf0.a74648",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "9082842f.8fcaf8",
+        "type": "scene",
+        "name": "default",
+        "overlay": false
+    },
+    {
+        "id": "4c86ed70.74b7b4",
+        "type": "material",
+        "name": "default",
+        "diffuse": "#000000",
+        "specular": "#000000",
+        "alpha": "0.5"
+    },
+    {
+        "id": "4a229fbd.785c5",
+        "type": "material",
+        "name": "default",
+        "diffuse": "#a21616",
+        "specular": "#000000",
+        "alpha": "0.5"
+    },
+    {
+        "id": "6bcbaa39.f25314",
+        "type": "scene",
+        "name": "default2",
+        "overlay": false
+    },
+    {
+        "id": "38b65a17.6b4966",
+        "type": "ui_group",
+        "name": "Szoba",
+        "tab": "86fddaf0.a74648",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "953cc3bc4dc4b370",
+        "type": "ui_group",
+        "name": "Kitchen",
+        "tab": "86fddaf0.a74648",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cae9e3daadac550d",
+        "type": "ui_group",
+        "name": "Living Room",
+        "tab": "86fddaf0.a74648",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "035d90d9b265cd2a",
+        "type": "ui_group",
+        "name": "Bedroom",
+        "tab": "86fddaf0.a74648",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "7b4448dcc797064f",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "livingroom/lamp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 380,
+        "wires": [
+            [
+                "9c26f269d2030c7e"
+            ]
+        ]
+    },
+    {
+        "id": "2c4f440df8cdedd4",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "livingroom/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 440,
+        "wires": [
+            [
+                "9c26f269d2030c7e"
+            ]
+        ]
+    },
+    {
+        "id": "cea368d47e266ae8",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "livingroom/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "9c26f269d2030c7e"
+            ]
+        ]
+    },
+    {
+        "id": "0d2094eba34347b0",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "bedroom/lamp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "3cd3bf5e8a427a5b"
+            ]
+        ]
+    },
+    {
+        "id": "cd7ea6dd31a1bdfc",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "bedroom/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "3cd3bf5e8a427a5b"
+            ]
+        ]
+    },
+    {
+        "id": "bbd33f82002611ab",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "bedroom/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 730,
+        "y": 520,
+        "wires": [
+            [
+                "3cd3bf5e8a427a5b"
+            ]
+        ]
+    },
+    {
+        "id": "b5eabab9be14fcb4",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "bedroom/thermostat",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 730,
+        "y": 580,
+        "wires": [
+            [
+                "3cd3bf5e8a427a5b"
+            ]
+        ]
+    },
+    {
+        "id": "9c26f269d2030c7e",
+        "type": "debug",
+        "z": "ad6ea18d.87b5b",
+        "name": "living room",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3cd3bf5e8a427a5b",
+        "type": "debug",
+        "z": "ad6ea18d.87b5b",
+        "name": "bedroom",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a12c5c5586952dfc",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "thermostat",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "16f571ba6b38c349"
+            ]
+        ]
+    },
+    {
+        "id": "ad494c0f46288cc7",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "kitchen/lamp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "81bc714b5607d3ab"
+            ]
+        ]
+    },
+    {
+        "id": "d03111ee49788c22",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "kitchen/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 580,
+        "y": 120,
+        "wires": [
+            [
+                "81bc714b5607d3ab"
+            ]
+        ]
+    },
+    {
+        "id": "380df331d6a83a11",
+        "type": "mqtt in",
+        "z": "ad6ea18d.87b5b",
+        "name": "",
+        "topic": "kitchen/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "81bc714b5607d3ab"
+            ]
+        ]
+    },
+    {
+        "id": "16f571ba6b38c349",
+        "type": "debug",
+        "z": "ad6ea18d.87b5b",
+        "name": "house thermostat",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 290,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "81bc714b5607d3ab",
+        "type": "debug",
+        "z": "ad6ea18d.87b5b",
+        "name": "kitchen",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b63b3bae08025dc7",
+        "type": "mqtt in",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "livingroom/lamp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "20840c231c41ace6"
+            ]
+        ]
+    },
+    {
+        "id": "e796589a4678922a",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "livingroom/lamp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 540,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "20840c231c41ace6",
+        "type": "ui_switch",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "label": "Lamp",
+        "tooltip": "",
+        "group": "cae9e3daadac550d",
+        "order": 2,
+        "width": "4",
+        "height": "2",
+        "passthru": false,
+        "decouple": "true",
+        "topic": "Lamp",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 310,
+        "y": 40,
+        "wires": [
+            [
+                "e796589a4678922a"
+            ]
+        ]
+    },
+    {
+        "id": "47daf4b0b2d3b0b1",
+        "type": "random",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "low": "0",
+        "high": "100",
+        "inte": "true",
+        "property": "payload",
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "8a436ce049646f9f"
+            ]
+        ]
+    },
+    {
+        "id": "fac1da50da7df246",
+        "type": "inject",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "47daf4b0b2d3b0b1"
+            ]
+        ]
+    },
+    {
+        "id": "ece94742b4158554",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "livingroom/humidity",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 890,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "5e620dfa6ab6a6b1",
+        "type": "ui_gauge",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "group": "cae9e3daadac550d",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ffd500",
+            "#0fe600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 880,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8a436ce049646f9f",
+        "type": "smooth",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "3",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 500,
+        "y": 140,
+        "wires": [
+            [
+                "4af3d48769902806"
+            ]
+        ]
+    },
+    {
+        "id": "fa79b8a2f19d5fdc",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "livingroom/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 980,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8754cfb35fec4758",
+        "type": "function",
+        "z": "481ae9613e4640be",
+        "name": "temp to celsius",
+        "func": "msg.payload += ' °C';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 220,
+        "wires": [
+            [
+                "fa79b8a2f19d5fdc",
+                "011bdfcfe585ca95",
+                "9b5b7769a139d4e9"
+            ]
+        ]
+    },
+    {
+        "id": "011bdfcfe585ca95",
+        "type": "ui_gauge",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "group": "cae9e3daadac550d",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "35",
+        "colors": [
+            "#00fbff",
+            "#0aff0e",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 970,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d3999360dd53fee2",
+        "type": "mqtt in",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "thermostat",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 220,
+        "wires": [
+            [
+                "e0f99b81c2c1bbf1"
+            ]
+        ]
+    },
+    {
+        "id": "816afefead246643",
+        "type": "smooth",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "8754cfb35fec4758"
+            ]
+        ]
+    },
+    {
+        "id": "2182d1b6cb3f42b7",
+        "type": "msg-resend",
+        "z": "481ae9613e4640be",
+        "interval": "1",
+        "intervalUnit": "secs",
+        "maximum": "10",
+        "bytopic": false,
+        "clone": true,
+        "firstDelayed": false,
+        "addCounters": false,
+        "waitForResend": false,
+        "highRate": true,
+        "outputCountField": "",
+        "outputMaxField": "",
+        "name": "",
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "816afefead246643"
+            ]
+        ]
+    },
+    {
+        "id": "4af3d48769902806",
+        "type": "function",
+        "z": "481ae9613e4640be",
+        "name": "humidity %",
+        "func": "msg.payload += ' %';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 140,
+        "wires": [
+            [
+                "ece94742b4158554",
+                "5e620dfa6ab6a6b1"
+            ]
+        ]
+    },
+    {
+        "id": "733a1916d1434602",
+        "type": "mqtt in",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "reset-router",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "8efa19a7582441b8"
+            ]
+        ]
+    },
+    {
+        "id": "ef43e21ea8f9a988",
+        "type": "ui_button",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "group": "cae9e3daadac550d",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Reset router",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "",
+        "x": 110,
+        "y": 560,
+        "wires": [
+            [
+                "8efa19a7582441b8"
+            ]
+        ]
+    },
+    {
+        "id": "da33cd7e196ab8af",
+        "type": "ui_switch",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "label": "Router",
+        "tooltip": "",
+        "group": "cae9e3daadac550d",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 950,
+        "y": 500,
+        "wires": [
+            [
+                "ce1f7008692c7dfe"
+            ]
+        ]
+    },
+    {
+        "id": "e0f99b81c2c1bbf1",
+        "type": "ui_slider",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "label": "Thermostat",
+        "tooltip": "",
+        "group": "cae9e3daadac550d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "min": "10",
+        "max": "35",
+        "step": 1,
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "2182d1b6cb3f42b7"
+            ]
+        ]
+    },
+    {
+        "id": "8efa19a7582441b8",
+        "type": "function",
+        "z": "481ae9613e4640be",
+        "name": "reset router off",
+        "func": "msg.payload = \"off\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 500,
+        "wires": [
+            [
+                "da33cd7e196ab8af",
+                "77470cd78852647c",
+                "c3168c4502c135a8"
+            ]
+        ]
+    },
+    {
+        "id": "77470cd78852647c",
+        "type": "delay",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 560,
+        "wires": [
+            [
+                "2aa9f7d864a88291"
+            ]
+        ]
+    },
+    {
+        "id": "2aa9f7d864a88291",
+        "type": "function",
+        "z": "481ae9613e4640be",
+        "name": "reset router on",
+        "func": "msg.payload = \"on\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 560,
+        "wires": [
+            [
+                "da33cd7e196ab8af",
+                "e77d23d4f7fe4b14"
+            ]
+        ]
+    },
+    {
+        "id": "9b5b7769a139d4e9",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "kitchen/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 970,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6cec94b0782cb050",
+        "type": "mqtt in",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "router",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 790,
+        "y": 440,
+        "wires": [
+            [
+                "da33cd7e196ab8af"
+            ]
+        ]
+    },
+    {
+        "id": "ce1f7008692c7dfe",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "router",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 1090,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c3168c4502c135a8",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "router",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 570,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e77d23d4f7fe4b14",
+        "type": "mqtt out",
+        "z": "481ae9613e4640be",
+        "name": "",
+        "topic": "router",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 1030,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "2dbef92ac98c012d",
+        "type": "ui_switch",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "label": "Lamp",
+        "tooltip": "",
+        "group": "953cc3bc4dc4b370",
+        "order": 1,
+        "width": "4",
+        "height": "2",
+        "passthru": false,
+        "decouple": "true",
+        "topic": "Lamp",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 330,
+        "y": 180,
+        "wires": [
+            [
+                "188a14124f9bb556"
+            ]
+        ]
+    },
+    {
+        "id": "11b0678559921033",
+        "type": "mqtt in",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "kitchen/lamp",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "2dbef92ac98c012d"
+            ]
+        ]
+    },
+    {
+        "id": "188a14124f9bb556",
+        "type": "mqtt out",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "kitchen/lamp",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 530,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "bafb423595575e7c",
+        "type": "random",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "low": "0",
+        "high": "100",
+        "inte": "true",
+        "property": "payload",
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "7ec23f8f1e517877"
+            ]
+        ]
+    },
+    {
+        "id": "b1bd3c84196d5045",
+        "type": "inject",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "bafb423595575e7c"
+            ]
+        ]
+    },
+    {
+        "id": "7f119583fcb6d783",
+        "type": "mqtt out",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "kitchen/humidity",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 880,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7ec23f8f1e517877",
+        "type": "smooth",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "3",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 520,
+        "y": 100,
+        "wires": [
+            [
+                "ca271a12a5fd673f"
+            ]
+        ]
+    },
+    {
+        "id": "311cd34b5b63dccb",
+        "type": "function",
+        "z": "38a5cdb29862a751",
+        "name": "temp to celsius",
+        "func": "msg.payload += ' °C';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 260,
+        "wires": [
+            [
+                "376c237fd92d4a47",
+                "7a727814f08627cd"
+            ]
+        ]
+    },
+    {
+        "id": "2ebc57aaa3048df6",
+        "type": "mqtt in",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "thermostat",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "9c024ee5cafb5fed"
+            ]
+        ]
+    },
+    {
+        "id": "edf819b86732578b",
+        "type": "smooth",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 500,
+        "y": 260,
+        "wires": [
+            [
+                "311cd34b5b63dccb"
+            ]
+        ]
+    },
+    {
+        "id": "9c024ee5cafb5fed",
+        "type": "msg-resend",
+        "z": "38a5cdb29862a751",
+        "interval": "1",
+        "intervalUnit": "secs",
+        "maximum": "10",
+        "bytopic": false,
+        "clone": true,
+        "firstDelayed": false,
+        "addCounters": false,
+        "waitForResend": false,
+        "highRate": true,
+        "outputCountField": "",
+        "outputMaxField": "",
+        "name": "",
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "edf819b86732578b"
+            ]
+        ]
+    },
+    {
+        "id": "376c237fd92d4a47",
+        "type": "mqtt out",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "kitchen/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 890,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ca271a12a5fd673f",
+        "type": "function",
+        "z": "38a5cdb29862a751",
+        "name": "humidity %",
+        "func": "msg.payload += ' %';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "7f119583fcb6d783",
+                "29e727bf1f41a6df"
+            ]
+        ]
+    },
+    {
+        "id": "1d0eef7bd4573907",
+        "type": "mqtt in",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "topic": "kitchen/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "7a727814f08627cd"
+            ]
+        ]
+    },
+    {
+        "id": "7a727814f08627cd",
+        "type": "ui_gauge",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "group": "953cc3bc4dc4b370",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "35",
+        "colors": [
+            "#00fbff",
+            "#0aff0e",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 890,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "29e727bf1f41a6df",
+        "type": "ui_gauge",
+        "z": "38a5cdb29862a751",
+        "name": "",
+        "group": "953cc3bc4dc4b370",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ffd500",
+            "#0fe600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 860,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4e63beda00ea5163",
+        "type": "mqtt out",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "topic": "bedroom/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 1000,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "9dafb96f3575def4",
+        "type": "function",
+        "z": "657a9bd4df182c46",
+        "name": "temp to celsius",
+        "func": "msg.payload += ' °C';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 120,
+        "wires": [
+            [
+                "4e63beda00ea5163",
+                "a7f2ce43247fdfdc"
+            ]
+        ]
+    },
+    {
+        "id": "b9df3779736eedc5",
+        "type": "mqtt in",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "topic": "bedroom/lamp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "59ce2c44a4e6b8ec"
+            ]
+        ]
+    },
+    {
+        "id": "59ce2c44a4e6b8ec",
+        "type": "ui_switch",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "label": "Lamp",
+        "tooltip": "",
+        "group": "035d90d9b265cd2a",
+        "order": 2,
+        "width": "4",
+        "height": "2",
+        "passthru": false,
+        "decouple": "true",
+        "topic": "Lamp",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "9af8abb1752b6047"
+            ]
+        ]
+    },
+    {
+        "id": "9af8abb1752b6047",
+        "type": "mqtt out",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "topic": "bedroom/lamp",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 600,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e52759fd0f0f453d",
+        "type": "mqtt in",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "topic": "bedroom/thermostat",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "99ff42df.677c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "c0b9ab75b0a4d9d8"
+            ]
+        ]
+    },
+    {
+        "id": "9d65ba95fb7a10c8",
+        "type": "smooth",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "9dafb96f3575def4"
+            ]
+        ]
+    },
+    {
+        "id": "673eb872b2bc4982",
+        "type": "msg-resend",
+        "z": "657a9bd4df182c46",
+        "interval": "1",
+        "intervalUnit": "secs",
+        "maximum": "10",
+        "bytopic": false,
+        "clone": true,
+        "firstDelayed": false,
+        "addCounters": false,
+        "waitForResend": false,
+        "highRate": true,
+        "outputCountField": "",
+        "outputMaxField": "",
+        "name": "",
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "9d65ba95fb7a10c8"
+            ]
+        ]
+    },
+    {
+        "id": "98fda9599c9bed33",
+        "type": "random",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "low": "0",
+        "high": "100",
+        "inte": "true",
+        "property": "payload",
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "167bf432b379e70e"
+            ]
+        ]
+    },
+    {
+        "id": "f8c72c78114031d9",
+        "type": "inject",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "98fda9599c9bed33"
+            ]
+        ]
+    },
+    {
+        "id": "839e8990b7d07c78",
+        "type": "mqtt out",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "topic": "bedroom/humidity",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "99ff42df.677c5",
+        "x": 950,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "167bf432b379e70e",
+        "type": "smooth",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "3",
+        "round": "0",
+        "mult": "single",
+        "reduce": false,
+        "x": 560,
+        "y": 340,
+        "wires": [
+            [
+                "f487c5d8b8242419"
+            ]
+        ]
+    },
+    {
+        "id": "f487c5d8b8242419",
+        "type": "function",
+        "z": "657a9bd4df182c46",
+        "name": "humidity %",
+        "func": "msg.payload += ' %';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 340,
+        "wires": [
+            [
+                "839e8990b7d07c78",
+                "e60f17bf5037ca17"
+            ]
+        ]
+    },
+    {
+        "id": "c0b9ab75b0a4d9d8",
+        "type": "ui_slider",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "label": "Thermostat",
+        "tooltip": "",
+        "group": "035d90d9b265cd2a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "min": "10",
+        "max": "35",
+        "step": 1,
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "673eb872b2bc4982"
+            ]
+        ]
+    },
+    {
+        "id": "a7f2ce43247fdfdc",
+        "type": "ui_gauge",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "group": "035d90d9b265cd2a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "35",
+        "colors": [
+            "#00fbff",
+            "#0aff0e",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 990,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e60f17bf5037ca17",
+        "type": "ui_gauge",
+        "z": "657a9bd4df182c46",
+        "name": "",
+        "group": "035d90d9b265cd2a",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ffd500",
+            "#0fe600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 920,
+        "y": 380,
+        "wires": []
+    }
+]

@@ -13,6 +13,7 @@
 \usepackage[magyar]{babel}
 \usepackage{mathtools,amssymb,amsthm,hyperref,listingsutf8,xcolor,caption,pdfpages}
 \usepackage{subcaption}
+\usepackage{float}
 \lstset{
 	inputencoding=utf8,
 	language=C,
@@ -86,16 +87,11 @@ hiányosságok egyszerűen pótolhatók.
 A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkamazás közötti kommunikációt.
 
 \section{A kiszolgáló hardver}
-
-\begin{figure}[h]
-	\begin{subfigure}{0.5\textwidth}
-	\includegraphics[width=1\textwidth]{images/OPIZero.png}
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{images/OPIZero.png}
 	\caption{Orange Pi Zero\cite{orange}}
-	\label{fig:subim2}
-	\end{subfigure}
 	\caption{A Node-RED-hez és az MQTT brókerhez használt eszköz}
-	\label{fig:image2}
-\end{figure}
+\end{figure}	
 Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, 
 de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, 
 melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
@@ -157,13 +153,108 @@ Minden olyan okos eszköz integrálható a rendszerbe, amely képes MQTT protoko
 
 
 \chapter{Szoftver}
-nodered, mqtt, android
-\section{Node-RED}
-rooms, handling, ui
+A teljes rendszer olyan módon van felépítve, hogy a szerver oldali programoktól elvárt, hogy állandó futás mellett lehetőséget 
+nyújtsanak bővítésre, konfigurációra és változtatásokra. 
+\section{PM2}
+Az állandó futást a PM2\cite{pm2} nevű folyamatvezető program biztosítja, akár egy váratlan újraindítás vagy áramkimaradást követően az operációs rendszer indulásával ezek a programok is indulnak, megfelelő konfigurációval.
+
+\begin{figure}[h]
+	\includegraphics[width=1\textwidth]{images/pm2.png}
+	\caption{PM2\cite{pm2}}
+	\caption{A kiszolgálók automatikus indítására használt eszköz}
+\end{figure}
+
+Ez a terminálban futtatható Node.JS eszköz egyszerűen telepíthető NPM vagy Yarn csomagkezelőkkel, és azonnal használatba vehető.
+Lehetőséget nyújt nem csak Node.JS alkalmazások futtatására, de egyéb futtatható fájlok kezelésére is, például shell scriptek futtatására.
+
+\section{Node-Red}
+\subsection{Flow}
+A Node-Red rendszerben csomópontok elhelyezésével és azok összekötésével lehet egy folyamatábrára hasonlító szerkezetet kiépíteni, 
+ami a program viselkedését befolyásolja. Minden csomópont egy funkciót lát el, ehez mérten van a csomópontnak 
+egy vagy több bemeneti és/vagy egy vagy több kimeneti pontja, amin keresztül kommunikál a többi csomóponttal.
+
+Egy ,,flow'' a Node-Red felületén a benne lévő csomópontok és azok kapcsolatát foglalja magában. 
+Minden flow reprezentálhat egy házban egy-egy szobát, nagyobb rendszereknél pédául egy-egy épületet, vagy több emeletes épületekben egy-egy emeletet.
+Ez felhasználható rendszerezési, kategorizálási vagy szerepköri felosztásra is, teljes mértékben a felhasználótól függ.
+
+\begin{figure}[h]
+	\includegraphics[width=1\textwidth]{images/flow.png}
+	\caption{Minta ház nappali flow}
+	\caption{Egy minta ház kiépítésében a nappaliban található eszközök irányítása}
+\end{figure}
+
+Az MQTT csomópontok belső konfigurációja csupán két dolgot vár el felhelyezése során: az MQTT topic, amire az adott csomópont feliratkozik, és az MQTT bróker címe. A bróker címét minden MQTT csomópont megosztja, így a kiszolgáló címének változásakor
+elég egy helyen megváltoztatni a címet, az összes csomópont megkapja az új címet és újra tud csatlakozni.
+
+Implementáltam minden szobába egy okos lámpát, hőmérőt és páratartalom mérőt. Ezen felül a nappaliban és a hálószobában vagy egy-egy termosztát, melyeket függetlenül irányíthatunk. Mivel ez a minta ház csak szimuláció, így a szemléltetés érdekében
+a hőmérsékletváltozást egy időintervallum alatt fokozatosan változtatom a termosztát állítást követően, így reprezentálva a való világban a ház fokozatos felfűtését/lehűtését. Szintén szemléltetési céllal a páratartalom mérők
+véletlenszerű értékeket vesznek fel, mivel egy bemutató példa házban nem szükséges a valóságnak megfelelő értékeket szimulálni, a rendszer szemléltetése a lényeg.
+
+Az okos lámpa egy egyszerű kapcsolóként jelenik meg a bemutató házban, ez természetesen egy okos kapcsolóval ellátott lámpát reprezentál, melyet irányíthatunk az Androidos alkalmazásból, vagy a webes felületről.
+
+Ezen felül felhelyeztem egy internet router újraindító gombot, ezzel adva példát egy egygombos funkió ellátására, mivel egyszerűbb egy újraindítás gombot megnyomni, 
+mint kapcsolóként kezelni és a felhasználóra bízni, hogy ne kapcsolja vissza idő előtt a router-t, így megelőzve az esetleges 
+késés által előidézett időkimaradás eltörlését, mivel az MQTT sorban küldi az üzeneteket, ha a rendszer lelassul egy pillanatra, 
+lehet, hogy két üzenet, amit a felhasználó egymástól eltérő időpintban küldött el, mégis egyszerre érkezik a kiszolgálóhoz.
+
+Ez a webes szerkesztőfelületet a helyi hálózaton a kiszolgáló eszköz IP címén, a konfigurációban megadott portszámon (alapbeállítás szerint 1880) lehet elértni.
+Az itt végzett változtatások csak akkor kerülnek a futási környezetbe, ha a ,,Deploy'' feliratú gombot megnyomjuk, különben minden változtatás
+csak a felületen történik, átmenetileg van mentve, hogy közben a szolgáltatás az előző verzióval tovább tudjon futni, így
+állandó elérést és irányítást biztosítva a már felcsatlakozott okos eszközök számára.
+
+\subsection{Dashboard}
+A Node-Red lehetőséget nyújt egyéb csomópontok telepítésére, melyeket felhasználók vagy egyéb entitások fejlesztettek. 
+Egy ilyen csomópont kollekció a Node-Red Dashboard\cite{dashboard}, mely által lehet készíteni egy webes felületet, amin keresztül lehet szemléltetni, irányítani a rendszer elemeit. 
+\begin{center}
+	\begin{figure}[h]
+		\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
+		\caption{Node-Red Dashboard\cite{dashboard}}
+		\caption{A Node-Red Dashboard, szobákra bontva, példa eszközökkel ellátva}
+	\end{figure}
+\end{center}
+
+Ez nem olyan rugalmas, mint az Android alkalmazás, mivel minden
+elemet kézzel kell felvenni a felületre, majd minden konfigurációját és interakcióját a flow szerkesztőben kell kézileg megadni, minden elemet külön fel kell programozni.
+
 \section{MQTT}
-mosquitto broker, bash generator
+\subsection{Broker}
+MQTT brókernek az Eclipse Mosquitto\cite{mosquitto}-t választottam, mivel egy jól ismert alapítvány által fejlesztett, teljesen nyílt forráskódú multi-platform projekt,
+melyben különös figyelmet fordítottak az erőforrásokkal való spórolásra, így egykártyás számítógépeken való alkamazását megkönnyítve. 
+
+Szintén előnyt jelentett választásom során a jó minőségű dokumentáció, mely alapján
+viszonylag zökkenőmentes volt a telepítés és a konfiguálás.
+\subsection{Konfigurálás}
+Mivel a konfigurációs fájlban meg kell adni a brókernek, hogy mely címen fog csatlakozási kérelmeket és üzeneteket kapni,
+készítettem egy olyan shell scriptet, mely minden indításnál egy új, naprakész konfigurációs fájlt készít a bróker indítása előtt.
+
+\lstset{language=bash}  
+\begin{lstlisting}[frame=single]
+echo -n "listener 1883 " > mqtt.conf; ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' >> mqtt.conf echo $"allow_anonymous true" >> mqtt.conf
+\end{lstlisting}
+
+Ez a shell script generál egy olyan konfigurációs fájlt, ami a következőket állítja be:
+\begin{itemize}
+	\item 1883-as porton várja az üzeneteket
+	\item Lekérdezi a kiszolgáló számítógép IPv4 címét, amit egy regex szűrőn keresztül formázom megfelelő módon és a portszám után illesztem be, előírás szerint.
+	\item Engedélyezi az anoním kapcsolatokat. Mivel ez a rendszer egy helyi hálózatra van tervezve, nem jelent biztonsági kockázatot az autentikáció nélküli kapcsolat, ezt kiváltja az MQTT ID rendszer.
+\end{itemize}
+
 \section{Android}
-this is the juice of the thesis
+\subsection{Activity}
+main activity az alapja, innen el lehet mindent érni de stresszeli a procit
+\subsection{Fragmentek}
+a felület felbontásával egyenlő programkód
+\subsection{Felhasználói felület}
+fragment prezentációja
+\subsection{Kapcsolat}
+mqtt xd
+\subsection{Kártyák}
+tipusok, felépítés
+\subsection{Kommunikáció}
+kártyák, connect, disconnect, background task
+\subsection{Adattárolás, Profilok}
+per user kártyák, username, address prefrecnce, profil txt, Topic:Type:Data.Subdata
+
 \section{Tesztelés}
 
 
@@ -179,14 +270,15 @@ alkalmazást telepíteni, először nincs user de onnan minden magától megy
 \section{Telefon csatlakoztatása kiszolgálóhoz}
 ip
 \section{Okos eszközök kezelése az alkalmazásban}
+sub to topics, makes cards
 \section{Okos eszközök kezelése a webes felületen}
-
+node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
 
 
 \chapter{Továbbfejlesztési lehetőségek}
-user access? felület új eszköztípusok felvételéhez?
+user auth: bár mqtt-nél nincs sok értlme, maybe parentala controls
 cloud service for out of home control
-
+andoid auto-looks for the broker, this might be expensive and hard
 
 
 \chapter*{Köszönetnyilvánítás}
@@ -196,6 +288,10 @@ Köszönöm a vscode-nak hogy van,
 Köszönöm magyarországnak hogy jobban teljesít
 \par
 Köszönöm a covidnak, hogy átmentem nummatból
+\par
+Köszönöm anyádnak hogy meleg
+\par
+Köszönöm faszkivannak hogy nézte a streameket
 
 \begin{thebibliography}{2}
 \bibitem{nodeRed}Node Red forrás,
@@ -237,6 +333,9 @@ Köszönöm a covidnak, hogy átmentem nummatból
 
 \bibitem{openjs}OpenJS Foundation
 \\\texttt{\url{https://openjsf.org/}}
+
+\bibitem{pm2}PM2 Process Manager
+\\\texttt{\url{https://pm2.keymetrics.io/}}
 
 \end{thebibliography}
 %\includepdf{nyilatkozat.pdf}

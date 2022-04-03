@@ -1,25 +1,37 @@
-\select@language {magyar} \contentsline {chapter}{\numberline {1}A rendszer alapjai}{4}{chapter.1}%
-\select@language {magyar} \contentsline {section}{\numberline {1.1}A kiszolgáló hardver}{4}{section.1.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {1}A rendszer alapjai}{5}{chapter.1}%
+\select@language {magyar} \contentsline {section}{\numberline {1.1}A kiszolgáló hardver}{5}{section.1.1}%
 \select@language {magyar} \contentsline {section}{\numberline {1.2}Az Android alkalmazás}{5}{section.1.2}%
-\select@language {magyar} \contentsline {section}{\numberline {1.3}Node-RED}{5}{section.1.3}%
-\select@language {magyar} \contentsline {section}{\numberline {1.4}MQTT}{5}{section.1.4}%
-\select@language {magyar} \contentsline {section}{\numberline {1.5}Okos eszközök}{6}{section.1.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {2}Hardver}{7}{chapter.2}%
-\select@language {magyar} \contentsline {section}{\numberline {2.1}Orange Pi Zero}{7}{section.2.1}%
-\select@language {magyar} \contentsline {section}{\numberline {2.2}Okos eszközök}{7}{section.2.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}ESP 8266}{7}{subsection.2.2.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {2.2.2}Androidos eszköz}{7}{subsection.2.2.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {2.2.3}Egyéb eszközök}{8}{subsection.2.2.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Szoftver}{9}{chapter.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Node-RED}{9}{section.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {3.2}MQTT}{9}{section.3.2}%
-\select@language {magyar} \contentsline {section}{\numberline {3.3}Android}{9}{section.3.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.4}Tesztelés}{9}{section.3.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{10}{chapter.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{10}{section.4.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Szerver}{10}{subsection.4.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{10}{subsection.4.1.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{10}{section.4.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{10}{section.4.3}%
-\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{10}{section.4.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{11}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {1.3}Node-RED}{6}{section.1.3}%
+\select@language {magyar} \contentsline {section}{\numberline {1.4}MQTT}{6}{section.1.4}%
+\select@language {magyar} \contentsline {section}{\numberline {1.5}Okos eszközök}{7}{section.1.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Hardver}{8}{chapter.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Orange Pi Zero}{8}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Okos eszközök}{8}{section.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}ESP 8266}{8}{subsection.2.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.2}Androidos eszköz}{8}{subsection.2.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.3}Egyéb eszközök}{9}{subsection.2.2.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Szoftver}{10}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}PM2}{10}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Node-Red}{10}{section.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.1}Flow}{10}{subsection.3.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.2}Dashboard}{12}{subsection.3.2.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}MQTT}{13}{section.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.1}Broker}{13}{subsection.3.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.2}Konfigurálás}{13}{subsection.3.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.4}Android}{13}{section.3.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.1}Activity}{13}{subsection.3.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.2}Fragmentek}{14}{subsection.3.4.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.3}Felhasználói felület}{14}{subsection.3.4.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.4}Kapcsolat}{14}{subsection.3.4.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.5}Kártyák}{14}{subsection.3.4.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.6}Kommunikáció}{14}{subsection.3.4.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.7}Adattárolás, Profilok}{14}{subsection.3.4.7}%
+\select@language {magyar} \contentsline {section}{\numberline {3.5}Tesztelés}{14}{section.3.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{15}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{15}{section.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Szerver}{15}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{15}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{15}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{15}{section.4.3}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{15}{section.4.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{16}{chapter.5}%
