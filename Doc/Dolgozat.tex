@@ -268,10 +268,18 @@ probléma, hogy a felhasználói felületet csakis a UI szálról lehet frissít
 \subsubsection{Binder Thread}
 A kötött szolgáltatások távolról meghívható metódusokat tartalmaznak. Ha a végrehajtott metódusra történő felhívás ugyanabban a folyamatban van, amelyben a kötött szolgáltatás fut, a metódus a hívószalagban hajtódik végre. Ha azonban a hívás egy másik folyamatból származik, akkor a metódus egy olyan szálban kerül végrehajtásra, amelyet a rendszer ugyanabban a folyamatban tart, mint az meghívó.
 
-
-
 \subsection{Fragmentek}
-a felület felbontásával egyenlő programkód
+A fragment az része az alkalmazás felhasználói felületének, ami saját felosztását definiálja és kezeli. Saját életciklussal
+rendelkezik, viszont egyedülálló elemként nem használhatóak, mindig kell lennie egy tulajdonosának, ami lehet egy másik
+fragment vagy activity. Ehez a tulajdonoshoz kötve jelenhet meg egy fragment felülete hozzá csatolva vagy részévé válva.
+
+A fragmentek célja hogy egy activityn belül külön választott felhasználói felületet prezentálhassunk, egymástól független
+elemekre bontva, így megkönnyítve a felhasználói felület felépítésének procedúráját és az erőforrások megtakarítását.
+
+A fragmentek ideális használati köre egy activityn belüli navigációs elemek által elérni kívánt felületek prezentációja. Mivel egy fragment életciklusa akkor ér véget, amikor a felhasználó egy másik fragmentre váltással felülírja azt, hosszútávú
+adattárolásra nem alkalmas, bár erre is vannak beépített megoldások, például a fragmentet tartalmazó activiy szintjén tárolni
+az adatokat, vagy a fragmentek belső ,,instance bundle'' változójával kezelni, bár az utóbbi típusmegközései miatt igencsak
+korlátozó módszer, de több módszer kombinálása sem kizárt, így mindent olyan módon lehet kezelni, ahogyan az adott esetben optimális.
 \subsection{Felhasználói felület}
 fragment prezentációja
 \subsection{Kapcsolat}
