@@ -241,7 +241,35 @@ Ez a shell script generál egy olyan konfigurációs fájlt, ami a következőke
 
 \section{Android}
 \subsection{Activity}
-main activity az alapja, innen el lehet mindent érni de stresszeli a procit
+Az Android ,,aktivitásokra'' bontja a kódot, melyek a hozzájuk tartozó ,,töredékek'' alappilléreként szolgál.
+Fő célja az aktivitásokra bontásnak az erőforrások megspórolása, minden aktivitás egy specifikus feladatkört lát el, 
+miközben a másik aktivitások a háttérben leállnak, amíg nem lépnek újra használatba. Az én esetemben egy fő aktivitás
+látja el az alapvető feladatait az applikációmnak, mivel ennek a fő aktivitásnak a kiszolgálóval való kapcsolattartás és
+a felhasználói adatok tárolása, így több aktivitásra bontani ezt csak feleslegesen bonyolítana mind a program logikáján,
+mind az átláthatóságán.
+
+Az Android rendszer alapjáraton 4 fő ,,szálat'' különböztet meg:
+\subsubsection{Main Thread}
+A fő szál. Ez az alkalmazás indításakor az operációs rendszer által nyitott szál, mely felelős az események kezeléséért, felhasználói felület megrajzolásáért és egyéb elemek létrehozásáért.
+	
+\subsubsection{Ui Thread}
+A felhasználói felületi szál, ami felelős a felhasználóval való kapcsolat fenntartásáért 
+és a felületi eseménykezelésért mint például egy gomblenyomás. Fontos, 
+hogy a UI szálat sosem szabad megakasztani hosszú folyamatokkal, 
+például hálózati csatlakozás indításával, mivel ilyenkor a felület teljes egészében leáll, 
+a felhasználó felé nem reszponzív, nem tud semmilyen eseményt kezelni 
+amíg a folyamat ami megakasztotta a szálat be nem fejeződik.
+	
+\subsubsection{Worker Thread}
+Az egyéb többszálas folyamatokat kezelő szál. Ez a szál nyújt megoldást a UI szál megakasztására,
+ezt kell használni hosszabb, nem azonnal ellátható események kezelésére. Felmerül használata során viszon az a
+probléma, hogy a felhasználói felületet csakis a UI szálról lehet frissíteni. 
+	
+\subsubsection{Binder Thread}
+A kötött szolgáltatások távolról meghívható metódusokat tartalmaznak. Ha a végrehajtott metódusra történő felhívás ugyanabban a folyamatban van, amelyben a kötött szolgáltatás fut, a metódus a hívószalagban hajtódik végre. Ha azonban a hívás egy másik folyamatból származik, akkor a metódus egy olyan szálban kerül végrehajtásra, amelyet a rendszer ugyanabban a folyamatban tart, mint az meghívó.
+
+
+
 \subsection{Fragmentek}
 a felület felbontásával egyenlő programkód
 \subsection{Felhasználói felület}
