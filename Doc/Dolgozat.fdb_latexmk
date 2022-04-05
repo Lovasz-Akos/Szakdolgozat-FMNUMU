@@ -1,10 +1,10 @@
 # Fdb version 3
-["pdflatex"] 1649153387 "c:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649153391
-  "Dolgozat.aux" 1649153390 9793 8b5aecc8648940ba00820f181e5602fe "pdflatex"
-  "Dolgozat.out" 1649153390 5961 486fcade822962b83141bd88fe2b3e60 "pdflatex"
-  "Dolgozat.tex" 1649153386 26941 bb3b1e984b0ec18e3e08a0ec3ee6f384 ""
-  "Dolgozat.toc" 1649153390 4484 4d73bef5b1f362b71cfc36f9d4b30e52 "pdflatex"
-  "c:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649153386 26941 bb3b1e984b0ec18e3e08a0ec3ee6f384 ""
+["pdflatex"] 1649156511 "c:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649166697
+  "Dolgozat.aux" 1649156514 9976 f7f21951906cef478dda3b1f764421ff "pdflatex"
+  "Dolgozat.out" 1649156514 6210 5515668364ba01f26ce4d45e7662db54 "pdflatex"
+  "Dolgozat.tex" 1649166696 27866 6c68c525616aaf39c03261a3aad3c2ad ""
+  "Dolgozat.toc" 1649156514 4611 0183f2df15dd40a408d9864744f160c3 "pdflatex"
+  "c:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649166696 27866 6c68c525616aaf39c03261a3aad3c2ad ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1631958285 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1631958285 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1631958285 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -170,8 +170,8 @@
   "images/pm2.png" 1648992906 10176 01a957577fff8d964193aed9203a169b ""
   "images/screen.jpg" 1648910288 162955 b6976c0b6b37c8aa73fa4e230b3788c4 ""
   (generated)
-  "Dolgozat.log"
   "Dolgozat.toc"
-  "Dolgozat.out"
   "Dolgozat.pdf"
   "Dolgozat.aux"
+  "Dolgozat.log"
+  "Dolgozat.out"

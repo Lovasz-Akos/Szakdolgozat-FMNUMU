@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  5 APR 2022 12:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  5 APR 2022 13:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -596,7 +596,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 LaTeX Info: Redefining \cal on input line 577.
 LaTeX Info: Redefining \mit on input line 578.
 )
-<eszterhazy-logo-hu.pdf, id=157, 256.07971pt x 88.04292pt>
+<eszterhazy-logo-hu.pdf, id=161, 256.07971pt x 88.04292pt>
 File: eszterhazy-logo-hu.pdf Graphic file (type pdf)
 <use eszterhazy-logo-hu.pdf>
 Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 53.
@@ -614,7 +614,7 @@ Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 53.
 
 ]
 1. fejezet.
-<images/OPIZero.png, id=224, 235.63031pt x 246.9225pt>
+<images/OPIZero.png, id=229, 235.63031pt x 246.9225pt>
 File: images/OPIZero.png Graphic file (type png)
 <use images/OPIZero.png>
 Package pdftex.def Info: images/OPIZero.png  used on input line 92.
@@ -627,7 +627,7 @@ Package pdftex.def Info: images/OPIZero.png  used on input line 92.
 
 ] [9]
 3. fejezet.
-<images/pm2.png, id=264, 661.72218pt x 107.65219pt>
+<images/pm2.png, id=269, 661.72218pt x 107.65219pt>
 File: images/pm2.png Graphic file (type png)
 <use images/pm2.png>
 Package pdftex.def Info: images/pm2.png  used on input line 162.
@@ -635,13 +635,13 @@ Package pdftex.def Info: images/pm2.png  used on input line 162.
 [10
 
  <./images/pm2.png>]
-<images/flow.png, id=273, 891.33pt x 479.54156pt>
+<images/flow.png, id=278, 891.33pt x 479.54156pt>
 File: images/flow.png Graphic file (type png)
 <use images/flow.png>
 Package pdftex.def Info: images/flow.png  used on input line 180.
 (pdftex.def)             Requested size: 441.01773pt x 237.2677pt.
  [11 <./images/flow.png>]
-<images/dashboard.jpg, id=280, 1006.51031pt x 630.85687pt>
+<images/dashboard.jpg, id=285, 1006.51031pt x 630.85687pt>
 File: images/dashboard.jpg Graphic file (type jpg)
 <use images/dashboard.jpg>
 Package pdftex.def Info: images/dashboard.jpg  used on input line 209.
@@ -655,13 +655,13 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 23
  (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [13] [14]
-<images/screen.jpg, id=312, 1084.05pt x 2409.0pt>
+<images/screen.jpg, id=317, 1084.05pt x 2409.0pt>
 File: images/screen.jpg Graphic file (type jpg)
 <use images/screen.jpg>
 Package pdftex.def Info: images/screen.jpg  used on input line 304.
 (pdftex.def)             Requested size: 220.50887pt x 489.98859pt.
  [15] [16 <./images/screen.jpg>]
-<images/connect.jpg, id=324, 732.48656pt x 810.77907pt>
+<images/connect.jpg, id=329, 732.48656pt x 810.77907pt>
 File: images/connect.jpg Graphic file (type jpg)
 <use images/connect.jpg>
 Package pdftex.def Info: images/connect.jpg  used on input line 321.
@@ -670,55 +670,55 @@ Package pdftex.def Info: images/connect.jpg  used on input line 321.
 4. fejezet.
 [19
 
-]
+] [20]
 5. fejezet.
-[20
+[21
 
-] [21
+] [22
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 378.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 390.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 416--419
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 416--419
 \T1/lmtt/m/n/12 Rajendraparasad & Srimannarayana, Nerella. (2020). IoT based Smart
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 416--419
 \T1/lmtt/m/n/12 Environment Using Node-Red and MQTT. Journal of Advanced Research in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 416--419
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
-[22
+[23
 
-] [23] (./Dolgozat.aux)
+] [24] (./Dolgozat.aux)
 Package rerunfilecheck Info: File `Dolgozat.out' has not changed.
-(rerunfilecheck)             Checksum: 486FCADE822962B83141BD88FE2B3E60;5961.
+(rerunfilecheck)             Checksum: 5515668364BA01F26CE4D45E7662DB54;6210.
  ) 
 Here is how much of TeX's memory you used:
- 17743 strings out of 478599
- 271746 string characters out of 5858101
- 841041 words of memory out of 5000000
- 35170 multiletter control sequences out of 15000+600000
+ 17746 strings out of 478599
+ 271787 string characters out of 5858101
+ 841044 words of memory out of 5000000
+ 35171 multiletter control sequences out of 15000+600000
  467246 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,7n,80p,522b,1465s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Dolgozat.pdf (23 pages, 694824 bytes).
+Output written on Dolgozat.pdf (24 pages, 696202 bytes).
 PDF statistics:
- 437 PDF objects out of 1000 (max. 8388607)
- 381 compressed objects within 4 object streams
- 94 named destinations out of 1000 (max. 500000)
- 352 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 447 PDF objects out of 1000 (max. 8388607)
+ 390 compressed objects within 4 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 360 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -323,11 +323,18 @@ felhasználó kiválaszt.
 \end{figure}
 
 Az itt megadott értékeket az alkalmazás eltárolja, így a következő indításkor ezek a mezők már az előző használatkor
-alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve és felgyorsítva az alkalmazás használatát.
+alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve felgyorsítva az alkalmazás használatát.
+
 \subsubsection{Help}
+A help fragment tartalmazza a felhasználói útmutatót. Itt lehet tájékozódni az alkalmazás rendeltetésszerű használatáról,
+a funkciók céljáról, használatáról és az esetleges problémák megelőzéséről, kijavításáról.
 
 \subsection{Kapcsolat}
-mqtt xd
+Az MQTT kapcsolatot Android oldalon szintén az Eclipse Foundation megoldását használom, a paho\cite{paho} nevű,
+nyílt forráskódú MQTT kliens Android implementációját, a Geradle rendszeren keresztül összeállított,
+Maven repositoryból leöltött forrás csomagját importálva.
+
+bla bal tud mindent, nagyon async, nagyon fun XD
 \subsection{Kártyák}
 tipusok, felépítés
 \subsection{Kommunikáció}
@@ -347,10 +354,15 @@ hátugye nem minden létezik first start
 mostly preconfigured de a flow lehet kell noderedbe meg mqtt config idk, meg ezeket telepíteni
 \subsection{Android}
 alkalmazást telepíteni, először nincs user de onnan minden magától megy
+ha létezett a username akkor parsolja az adatot runtime-ba és onnan tovább szétszedi és kártyákat csinál
+
 \section{Telefon csatlakoztatása kiszolgálóhoz}
-ip
+ip, connect. ez async mqtt, ezt letárolom egy gettable mqttclinet változóban. persistent connection
+timeout, message retention
 \section{Okos eszközök kezelése az alkalmazásban}
 sub to topics, makes cards
+\subsection{Feliratkozás, Kártyarendszer}
+dinamikus scrollview, mident tárol, kapott adatokat lebontja,
 \section{Okos eszközök kezelése a webes felületen}
 node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
 
@@ -369,7 +381,7 @@ Köszönöm magyarországnak hogy jobban teljesít
 \par
 Köszönöm a covidnak, hogy átmentem nummatból
 \par
-Köszönöm anyádnak hogy meleg
+Köszönöm anyádnak
 \par
 Köszönöm faszkivannak hogy nézte a streameket
 
