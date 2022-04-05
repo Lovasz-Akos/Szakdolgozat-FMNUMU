@@ -88,6 +88,7 @@ A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero 
 
 \section{A kiszolgáló hardver}
 \begin{figure}
+	\centering
 	\includegraphics[width=0.5\textwidth]{images/OPIZero.png}
 	\caption{Orange Pi Zero\cite{orange}}
 	\caption{A Node-RED-hez és az MQTT brókerhez használt eszköz}
@@ -205,13 +206,13 @@ csak a felületen történik, átmenetileg van mentve, hogy közben a szolgálta
 \subsection{Dashboard}
 A Node-Red lehetőséget nyújt egyéb csomópontok telepítésére, melyeket felhasználók vagy egyéb entitások fejlesztettek. 
 Egy ilyen csomópont kollekció a Node-Red Dashboard\cite{dashboard}, mely által lehet készíteni egy webes felületet, amin keresztül lehet szemléltetni, irányítani a rendszer elemeit. 
-\begin{center}
-	\begin{figure}[h]
-		\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
-		\caption{Node-Red Dashboard\cite{dashboard}}
-		\caption{A Node-Red Dashboard, szobákra bontva, példa eszközökkel ellátva}
-	\end{figure}
-\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
+	\caption{Node-Red Dashboard\cite{dashboard}}
+	\caption{A Node-Red Dashboard, szobákra bontva, példa eszközökkel ellátva}
+\end{figure}
+
 
 Ez nem olyan rugalmas, mint az Android alkalmazás, mivel minden
 elemet kézzel kell felvenni a felületre, majd minden konfigurációját és interakcióját a flow szerkesztőben kell kézileg megadni, minden elemet külön fel kell programozni.
@@ -281,7 +282,38 @@ adattárolásra nem alkalmas, bár erre is vannak beépített megoldások, péld
 az adatokat, vagy a fragmentek belső ,,instance bundle'' változójával kezelni, bár az utóbbi típusmegközései miatt igencsak
 korlátozó módszer, de több módszer kombinálása sem kizárt, így mindent olyan módon lehet kezelni, ahogyan az adott esetben optimális.
 \subsection{Felhasználói felület}
-fragment prezentációja
+Az alkalmazásom felhasználói felülete 3 fő fragmentből áll: Home, Settings és Help. A Home fragment a fő interakciós felülete
+az alkalmazásnak, itt tölti a felhasználó az ideje nagy részét, itt éri el és irányíthatja a hálózaton található okos eszközöket.
+
+A Settings fragment a kiszolgáló címének megadására, felhasználói profil kiválasztására és a kapcsolat létesítésére
+szolgál.
+
+A Help fragment felhasználási segítséget nyújt a felhasználó számára, ha nem biztos az alkalmazás működésének rendjében,
+ezen leírás alapján tud tájékozódni a rendeltetésszerű felhasználásról.
+\subsubsection{Home}
+A Home fragment szolgál az eszközök kezelésére, irányítására, adatok prezentálására.
+A felület jobb alsó sarkában található ,,Floating Action Button'', vagy FAB megnyomására a felhasználó feliratkozgat egy MQTT
+topicra, majd kiválaszthatja a létrehozandó kártya interakciós típusát. 
+
+Ha sikeresen feliratkozik egy topicra, a felületen létrejön
+egy ,,kártya'' a kiválasztott interakciós típussal, például egy csúszkával, gombbal vagy kapcsolóval. Ezt követően a felhasználó a
+kártyán keresztül tudja kezelni az adott topicot használó okos eszközöket. 
+
+Ha a felhasnáló el szeretné távolítani a kártyát a felületről,
+egy hosszú érintéssel a kártya bármely részére előidéz egy ,,Unsubscribe'' kontextusi gombot, melyel törölheti a kártyát a felületről.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/screen.jpg}
+	\caption{Home fragment\cite{dashboard}}
+	\caption{Egy tipikus elrendezése a home fragmentnek}
+\end{figure}
+
+EZT A KÉPET CSERÉLD LE DEMONSTRÁLÓS ANATOMYS CUCCRA AMIT A MATERIALBÓL LOPTÁL
+	
+\subsubsection{Settings}
+\subsubsection{Help}
+
 \subsection{Kapcsolat}
 mqtt xd
 \subsection{Kártyák}
