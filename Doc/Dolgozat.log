@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  5 APR 2022 11:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  5 APR 2022 12:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -630,7 +630,7 @@ Package pdftex.def Info: images/OPIZero.png  used on input line 92.
 <images/pm2.png, id=264, 661.72218pt x 107.65219pt>
 File: images/pm2.png Graphic file (type png)
 <use images/pm2.png>
-Package pdftex.def Info: images/pm2.png  used on input line 163.
+Package pdftex.def Info: images/pm2.png  used on input line 162.
 (pdftex.def)             Requested size: 441.01773pt x 71.74548pt.
 [10
 
@@ -638,81 +638,87 @@ Package pdftex.def Info: images/pm2.png  used on input line 163.
 <images/flow.png, id=273, 891.33pt x 479.54156pt>
 File: images/flow.png Graphic file (type png)
 <use images/flow.png>
-Package pdftex.def Info: images/flow.png  used on input line 182.
+Package pdftex.def Info: images/flow.png  used on input line 180.
 (pdftex.def)             Requested size: 441.01773pt x 237.2677pt.
  [11 <./images/flow.png>]
 <images/dashboard.jpg, id=280, 1006.51031pt x 630.85687pt>
 File: images/dashboard.jpg Graphic file (type jpg)
 <use images/dashboard.jpg>
-Package pdftex.def Info: images/dashboard.jpg  used on input line 211.
+Package pdftex.def Info: images/dashboard.jpg  used on input line 209.
 (pdftex.def)             Requested size: 352.81552pt x 221.1305pt.
  [12 <./images/dashboard.jpg>] (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 233.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 230.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [13] [14]
 <images/screen.jpg, id=312, 1084.05pt x 2409.0pt>
 File: images/screen.jpg Graphic file (type jpg)
 <use images/screen.jpg>
-Package pdftex.def Info: images/screen.jpg  used on input line 307.
+Package pdftex.def Info: images/screen.jpg  used on input line 304.
 (pdftex.def)             Requested size: 220.50887pt x 489.98859pt.
- [15] [16 <./images/screen.jpg>] [17]
+ [15] [16 <./images/screen.jpg>]
+<images/connect.jpg, id=324, 732.48656pt x 810.77907pt>
+File: images/connect.jpg Graphic file (type jpg)
+<use images/connect.jpg>
+Package pdftex.def Info: images/connect.jpg  used on input line 321.
+(pdftex.def)             Requested size: 220.50887pt x 244.07686pt.
+ [17 <./images/connect.jpg>] [18]
 4. fejezet.
-[18
+[19
 
 ]
 5. fejezet.
-[19
+[20
 
-] [20
+] [21
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 366.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 378.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 392--395
+Underfull \hbox (badness 10000) in paragraph at lines 404--407
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 392--395
+Underfull \hbox (badness 10000) in paragraph at lines 404--407
 \T1/lmtt/m/n/12 Rajendraparasad & Srimannarayana, Nerella. (2020). IoT based Smart
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 392--395
+Underfull \hbox (badness 10000) in paragraph at lines 404--407
 \T1/lmtt/m/n/12 Environment Using Node-Red and MQTT. Journal of Advanced Research in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 392--395
+Underfull \hbox (badness 10000) in paragraph at lines 404--407
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
-[21
+[22
 
-] [22] (./Dolgozat.aux)
+] [23] (./Dolgozat.aux)
 Package rerunfilecheck Info: File `Dolgozat.out' has not changed.
 (rerunfilecheck)             Checksum: 486FCADE822962B83141BD88FE2B3E60;5961.
  ) 
 Here is how much of TeX's memory you used:
- 17734 strings out of 478599
- 271572 string characters out of 5858101
- 841211 words of memory out of 5000000
- 35164 multiletter control sequences out of 15000+600000
+ 17743 strings out of 478599
+ 271746 string characters out of 5858101
+ 841041 words of memory out of 5000000
+ 35170 multiletter control sequences out of 15000+600000
  467246 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,7n,80p,522b,1465s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Dolgozat.pdf (22 pages, 641728 bytes).
+Output written on Dolgozat.pdf (23 pages, 694824 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 378 compressed objects within 4 object streams
- 92 named destinations out of 1000 (max. 500000)
- 347 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 437 PDF objects out of 1000 (max. 8388607)
+ 381 compressed objects within 4 object streams
+ 94 named destinations out of 1000 (max. 500000)
+ 352 words of extra memory for PDF output out of 10000 (max. 10000000)
 

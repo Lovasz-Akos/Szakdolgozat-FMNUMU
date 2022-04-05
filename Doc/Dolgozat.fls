@@ -1044,6 +1044,11 @@ INPUT ./images/screen.jpg
 INPUT images/screen.jpg
 INPUT ./images/screen.jpg
 INPUT ./images/screen.jpg
+INPUT ./images/connect.jpg
+INPUT ./images/connect.jpg
+INPUT images/connect.jpg
+INPUT ./images/connect.jpg
+INPUT ./images/connect.jpg
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd

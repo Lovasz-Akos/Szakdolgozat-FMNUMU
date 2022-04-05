@@ -90,8 +90,7 @@ A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/OPIZero.png}
-	\caption{Orange Pi Zero\cite{orange}}
-	\caption{A Node-RED-hez és az MQTT brókerhez használt eszköz}
+	\caption{Orange Pi Zero\cite{orange}, a Node-RED-hez és az MQTT brókerhez használt eszköz}
 \end{figure}	
 Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, 
 de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, 
@@ -161,8 +160,7 @@ Az állandó futást a PM2\cite{pm2} nevű folyamatvezető program biztosítja, 
 
 \begin{figure}[h]
 	\includegraphics[width=1\textwidth]{images/pm2.png}
-	\caption{PM2\cite{pm2}}
-	\caption{A kiszolgálók automatikus indítására használt eszköz}
+	\caption{PM2\cite{pm2} a kiszolgálók automatikus indítására használt eszköz}
 \end{figure}
 
 Ez a terminálban futtatható Node.JS eszköz egyszerűen telepíthető NPM vagy Yarn csomagkezelőkkel, és azonnal használatba vehető.
@@ -209,8 +207,7 @@ Egy ilyen csomópont kollekció a Node-Red Dashboard\cite{dashboard}, mely álta
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
-	\caption{Node-Red Dashboard\cite{dashboard}}
-	\caption{A Node-Red Dashboard, szobákra bontva, példa eszközökkel ellátva}
+	\caption{A Node-Red Dashboard\cite{dashboard}, szobákra bontva, példa eszközökkel ellátva}
 \end{figure}
 
 
@@ -305,13 +302,28 @@ egy hosszú érintéssel a kártya bármely részére előidéz egy ,,Unsubscrib
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/screen.jpg}
-	\caption{Home fragment\cite{dashboard}}
 	\caption{Egy tipikus elrendezése a home fragmentnek}
 \end{figure}
-
 EZT A KÉPET CSERÉLD LE DEMONSTRÁLÓS ANATOMYS CUCCRA AMIT A MATERIALBÓL LOPTÁL
 	
 \subsubsection{Settings}
+A Settings fragment a kiszzolgálóhoz való csatlakozásra és a felhasználói profil beállítására szolgál.
+
+A felületen található két beviteli mező. Az elsőbe a felhasználói profil elnevezését, a másodikba a kiszolgáló címét
+kell megadni, majd a ,,Connect'' gomb megnyomására az alkamazás kapcsolatot létesít a kiszolgálóval és ellenőrzi, hogy
+létezik-e már a megadott néven felhasználói profil. Ha már létezik, az alkamazáson belüli tárba betölti az elmentett adatokat,
+viszont ha nincs, létrehozza azt.
+
+A ,,Delete Profile'' gomb egy új ablakban, legördülő menüből kiválasztható profilok listájából törli azt, amelyket a
+felhasználó kiválaszt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/connect.jpg}
+	\caption{A beállításokat tartalmazó fragment}
+\end{figure}
+
+Az itt megadott értékeket az alkalmazás eltárolja, így a következő indításkor ezek a mezők már az előző használatkor
+alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve és felgyorsítva az alkalmazás használatát.
 \subsubsection{Help}
 
 \subsection{Kapcsolat}
