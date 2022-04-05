@@ -11,6 +11,7 @@
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/app_bar_main.xml" value="0.1444078947368421" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/content_main.xml" value="0.36770833333333336" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_connection.xml" value="0.1" />
+        <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_help.xml" value="0.22" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_home.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_publish.xml" value="0.23223684210526316" />
         <entry key="..\:/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_settings.xml" value="0.23223684210526316" />
@@ -40,7 +41,7 @@
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/app_bar_main.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/content_main.xml" value="0.22606837606837607" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_connection.xml" value="0.33" />
-        <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_help.xml" value="0.25" />
+        <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_help.xml" value="0.3017094017094017" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/fragment_publish.xml" value="0.2706953642384106" />
         <entry key="..\:/Users/akos4/Documents/Repos/Szakdolgozat-FMNUMU/Android/app/src/main/res/layout/item_spinner.xml" value="0.3017094017094017" />
