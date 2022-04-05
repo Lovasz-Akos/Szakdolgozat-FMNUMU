@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_home">
+        The home view is the primary interaction point of the application. You can subscribe to
+        any desired topic by pressing the Plus button on the bottom right of your screen. You will
+        be prompted to enter the topic you wish to subscribe to, then you must select an interaction
+        type for the card. Selecting an inappropriate interaction type to some topics may yield
+        unexpected results, but in most cases it should not be a problem.
+    </string>
+    <string name="help_settings">
+        The Settings view is for setting the user\'s profile name and the server\'s address. Not
+        setting these correctly will show an error that explains the exact problem that occurred.
+        You cannot start a connection with a blank username or no connection address.
+    </string>
+    <string name="help_connect">
+        To connect to the MQTT Broker, navigate to the "Settings" view and enter your desired
+        username and the address of the broker. You don\'t have to provide a port number since
+        it\'s preconfigured serverside. If the connection fails, please double-check the address
+        or contact the system administrator. Upon a successful connection you can navigate to the
+        home view and start using the app.
+    </string>
+    <string name="help_deleteUser">
+        To delete a user profile, tap the "Delete Profile" button, and select the desired profile
+        from the drop-down menu and press delete. This will permanently delete the selected user's
+        stored data such as subscribed topics, cards and other saved values.
+    </string>
+    <string name="help_subscribe">
+        To subscribe to a topic you must tap the plus button on the home view, in the bottom right
+        corner of your screen, after which you will be prompted to enter the topic you wish to
+        subscribe to. After that you must select an interaction type from several options in a
+        drop-down menu. Selecting an appropriate interaction type to the topic is important, as
+        you cannot control a thermostat with a single button, or cannot turn on/off a lamp with
+        a text input.
+    </string>
+    <string name="help_unsubscribe">
+        To unsubscribe from a topic, simply long-press any of the existing cards, then select
+        "Unsubscribe" from the context menu and the card will be deleted from the Home view.
+    </string>
+    <string name="help_card">
+        Each card is split into 2 halves. On it\'s left half the card\'s subscribed topic is visible,
+        on the right half the selected interaction type. Every card will send a message to the
+        server based on it's interaction type to the given topic. This message will reach every
+        smart device that uses this topic.
+    </string>
+</resources>
