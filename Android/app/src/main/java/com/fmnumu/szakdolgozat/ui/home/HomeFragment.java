@@ -506,7 +506,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < cardList.getChildCount(); i++) {
             ViewGroup cardInstance = (ViewGroup) cardList.getChildAt(i);
 
-            String cardInstanceTopic = "null";
+            String cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
             String cardInstanceType = "null";
             String cardInstanceData = "null";
 
@@ -514,26 +514,21 @@ public class HomeFragment extends Fragment {
             Log.d("PAUSE", "onPause: " + cardType);
             switch (cardType) {
                 case R.id.text_type_card:
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Text";
                     cardInstanceData = (String) ((TextView) cardInstance.findViewById(R.id.text_data)).getText();
                     break;
                 case R.id.button_type_card:
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Button";
                     break;
                 case R.id.switch_type_card:
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Switch";
                     cardInstanceData = ((SwitchMaterial) cardInstance.findViewById(R.id.switch_data)).isChecked() ? "on" : "off";
                     break;
                 case R.id.input_type_card:
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Input";
                     cardInstanceData = String.valueOf(((TextInputEditText) cardInstance.findViewById(R.id.input_data)).getText());
                     break;
                 case R.id.checkbox_type_card:
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
                     cardInstanceType = "Checkbox";
                     cardInstanceData = ((CheckBox) cardInstance.findViewById(R.id.checkbox_data)).isChecked() ? "on" : "off";
                     break;
@@ -542,8 +537,7 @@ public class HomeFragment extends Fragment {
                     String currentValue = String.valueOf((slider_data.getValue())).replace(".0", "");
                     String minValue = String.valueOf((slider_data).getValueFrom()).replace(".0", "");
                     String maxValue = String.valueOf((slider_data).getValueTo()).replace(".0", "");
-
-                    cardInstanceTopic = (String) ((TextView) cardInstance.findViewById(R.id.text_topicDisplay)).getText();
+                    
                     cardInstanceType = "Slider";
                     cardInstanceData = minValue + "." + maxValue + "." + currentValue;
             }
