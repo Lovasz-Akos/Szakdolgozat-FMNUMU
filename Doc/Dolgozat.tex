@@ -301,10 +301,10 @@ egy hosszú érintéssel a kártya bármely részére előidéz egy ,,Unsubscrib
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/screen.jpg}
-	\caption{Egy tipikus elrendezése a home fragmentnek}
+	\includegraphics[width=0.5\linewidth]{images/home_anatomy.png}
+	\caption{A Home fragment elrendezése és elemei}
+	\label{fig_home_anatomy}
 \end{figure}
-EZT A KÉPET CSERÉLD LE DEMONSTRÁLÓS ANATOMYS CUCCRA AMIT A MATERIALBÓL LOPTÁL
 	
 \subsubsection{Settings}
 A Settings fragment a kiszzolgálóhoz való csatlakozásra és a felhasználói profil beállítására szolgál.
@@ -329,21 +329,181 @@ alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve felgyorsít
 A help fragment tartalmazza a felhasználói útmutatót. Itt lehet tájékozódni az alkalmazás rendeltetésszerű használatáról,
 a funkciók céljáról, használatáról és az esetleges problémák megelőzéséről, kijavításáról.
 
+A help fragment szintén kártyákra osztja a felületet a könnyű és gyors átláthatóság érdekében és a
+konzisztencia fenntartásáért.
+
 \subsection{Kapcsolat}
 Az MQTT kapcsolatot Android oldalon szintén az Eclipse Foundation megoldását használom, a paho\cite{paho} nevű,
 nyílt forráskódú MQTT kliens Android implementációját, a Geradle rendszeren keresztül összeállított,
 Maven repositoryból leöltött forrás csomagját importálva.
 
-bla bal tud mindent, nagyon async, nagyon fun XD
+A kapcsolat 60 másodperces időtúllépést elérve felbontódik, ha nem kap választ a kiszolgáló az életben tartó
+jelre. Ezért a kapcsolat létrehozása pillanatában a kliens entitását eltárolom egy activity szintű változóban,
+így a kapcsolat addig él, amíg a felhasználó használja az alkamazást, vagy nem zárja be több mint 1 percre.
+
+\lstset{language=Java}  
+\begin{lstlisting}[frame=single]
+MqttAndroidClient client = new MqttAndroidClient(this.getApplicationContext(),
+"tcp://" + mqttAddress + ":1883", clientId);
+
+client.connect(null, new IMqttActionListener() {
+	@Override
+	public void onSuccess(IMqttToken asyncActionToken) {
+		mqttClient[0] = client;
+	}
+
+	@Override
+	public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"Failed to connect to " + mqttAddress, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+});
+\end{lstlisting}
+
+Ez a kapcsolat aszinkron módon jön létre, így nem kell megállítani a felhasználót, amíg nem jön létre a
+kapcsolat, vagy hibát eredményez a csatlakozás, például hibás címet adott meg a felhasználó vagy
+a kiszolgáló nem fut.
+
 \subsection{Kártyák}
-tipusok, felépítés
+A jelenlegi verzióban 6 típusú kártya használatára van lehetőség, de ez a jövőben egyszerűen bővíthető:
+\begin{itemize}
+	\item Text: Szimpla szöveges feliratot prezentál, felhasználható pédául hőmérő értékének kijelzésére.
+	\item Button: Egy gombot tartalmaz, ami az adott topic-ra egy "1"-es üzenetet küld, amit a kiszolgáló
+	dolgoz fel.
+	\item Checkbox: Egy jelölőnégyzet, mely "on" és "off" üzenetet küld a kiszolgálónak állapota szerint.
+	Lehet használni sokoldalú állapotjelzőnek vagy kapcsolónak.
+	\item Swithc: Egy kapcsoló, mely szintén "on" és "off" üzenetet küld a kiszolgálónak állapota szerint,
+	így logikusan alkalmazható például okos lámpa kapcsolójaként.
+	\item Input: Egy beviteli mezőt tartalmaz, amibe tetszőleges szöveget vagy számot írhat a felhasználó,
+	majd az alatta lévő gomb érintésével elküldi a tartalmát az adott topic-ra. Használható például LED-es
+	tábla feliratának módosítására.
+	\item Slider: Egy csúszka, melynek minimum és maximum értékeit a felhasználó határozza meg, az ez
+	által nyújtott sokoldalúságából eredendően lehet használni például termosztát beállítására, vagy
+	okos lámpa fényerejének módosítására.
+\end{itemize}
+
+Egy kártya felépítése a korábban látott ábra szerint (\ref{fig_home_anatomy}) két félre bontódik.
+Bal oldalán található a topic felirata, amelyre az adott kártya feliratkozott. 
+
+A jobb oldalán található
+a felhasználó által választott interakciós felület, melyen keresztül tud kommunikálni az alkalmazás a
+kiszolgálóval az adott topic-on. 
+
+Minden kártya egymástól teljesen független, így például több kártya ugyan
+arra a topicra képes feliratkozni, nem okoz problémát, minden kártya feldolgozza a rá vonatkozó,
+azaz a topicra érkező üzeneteket.
+
+Egy törönni kívánt kártyát a hosszú érintésével előidézhető ,,Unsubscribe'' gomb megnyomásával tudunk
+eltávolítani a felületről. Ez nem csak vizuálisan szűnteti meg az adott kártyát, de a topicról is
+leiratkozik, amit eddig használt, így azt a minimális erőforrást is felszabadítva amit elfoglalt. 
+
+Mielőtt egy kártya sikeres feliratkozás eredményeként létrejön, több adatfeldolgozási lépést kell megtenni. 
+Vegyünk példának egy kapcsoló típusú kártyát:
+
+
+\lstset{language=Java}  
+\begin{lstlisting}[frame=single]
+private void createCard(LinearLayout layout, List<String> savedCardData, int type) {
+    ViewGroup mqttCard = (ViewGroup) this.getLayoutInflater().inflate(type, null);
+    TextView topicDisplay = (TextView) mqttCard.findViewById(R.id.text_topicDisplay);
+    registerForContextMenu(mqttCard);
+    topicDisplay.setText(savedCardData.get(0));
+\end{lstlisting}
+
+A kártya létrehozó metódusa megkapja paraméterként a Home fragment alapelrendezését, amiben majd el kell
+helyeznie az új kártyát, egy listát, ami tartalmazza a profilban tárolt kártyák adatát, így ha már
+volt a profilban mentett adat, azt visszaállítja a program, nem kell újból azokat megadni, és végül
+megkapja a kártya típusát, mely alapján kiválasztja a program, hogy milyen interakciós felületű kártyát
+hozzon létre.
+
+Ezt követően inicializálja a kártya struktúra alapját, a topic kijelző szövegét, és elkezdi a kártyatípus ellenőrzését.
+
+\lstset{language=Java}  
+\begin{lstlisting}[frame=single]
+switch (type) {
+	case R.layout.mqtt_card_switch:
+                SwitchMaterial switch_data = (SwitchMaterial) mqttCard.findViewById(R.id.switch_data);
+
+                if (!savedCardData.get(2).equals("null")) {
+                    switch_data.setChecked(savedCardData.get(2).equals("on"));
+                }
+                switch_data.setOnClickListener(view -> {
+                    String message = switch_data.isChecked() ? "on" : "off";
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), message);
+                });
+                layout.addView(mqttCard);
+                break;
+\end{lstlisting}
+
+Miután a kártyatípus eldöntésre került, inicializálja a kártya létrehozásához szükséges változókat, majd ellenőrzi, hogy volt-e már az adott topicon ilyen típusú kártya mentve.
+Ha volt mentett adat az adott kártyáról, azt állítja be kezdőértéknek
+(ebben az esetben hogy milyen állapotban volt utoljára a kapcsoló).
+
+Ezt követően létrejön az interakciós felület ,,figyelője'', mely megadja, hogy az adott felület használata
+milyen módon reagáljon, ebben az esetben a kapcsoló állapotváltozása küld egy "on" vagy "off" üzenetet a
+kiszolgáló számára, állásától függően.
+
+Végül a kártya felkerül a felhasználói felületre.
+
 \subsection{Kommunikáció}
-kártyák, connect, disconnect, background task
+kártyák, connect, disconnect, reconnect, background task
 \subsection{Adattárolás, Profilok}
-per user kártyák, username, address prefrecnce, profil txt, Topic:Type:Data.Subdata
+A kártyaadatok profilonkénti tárolása egy szöveges fájba való kiírással oldottam meg, olyan formátumban, hogy a fájl
+neve a felhasználói profil megadott neve, a tartalma pedig minden kártya amit a felhasználó létrehozott, a következő
+formában felbontva: Topic:Kártytípus:Tárolt adat.
+
+Minden kiírás esetén ellenőrzöm, hogy már szerepel-e a fájlban a jelenleg mentésre kijelölt kártya, így elkerülve
+felesleges kiíratási folyamatokat, ha már létezik, mivel ebben az esetben felesleges lenne kitörölni és újra kiírni.
+
+Ez az ellenőrzés viszont csak a kártya topicra és típusra vonatkozik, mivel a tárolt adat folyamatosan változik.
+Az ellenőrzés során megkeresem az összes olyan elmentett kártyát, ami ugyanazt a topicot és kártyatípust tartalmazza,
+majd csak azt a sort írom felül a friss adatokkal, így nem kell a teljes fájlt újraírni csak egy sor módosításáért.
+
+Friss profiloknál, mivel egy üres fájl jön létre, a kereső algoritmus hibát dobna, mivel nem tud üres sorokban
+keresni, ezért erre az esetre egy külön elágazást implementáltam, ami szimplán kiírja a menteni kívánt kártya adatait,
+mivel ebben az esetben biztosak lehetünk abban, hogy még nem tartalmazza a fájl ezt a kártyát, ezért átugorhatjuk az
+ellenőrzést.
+
+
+\lstset{language=Java}  
+\begin{lstlisting}[frame=single]
+public void addCardDataToPersistentStorage(String topic, String cardType, String cardData) {
+	boolean found = false;
+	int i = 0;
+	if (cardDataStore.size() == 0) {
+		this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);
+	}
+	do {
+		String[] part = this.cardDataStore.get(i).split(":", 0);
+		if ((part[0] + ":" + part[1]).equals(topic + ":" + cardType)) {
+			this.cardDataStore.set(i, topic + ":" + cardType + ":" + cardData);
+			found = true;
+		}
+		i++;
+	}
+	while (!found && i < cardDataStore.size());
+
+	if (!found) {
+		this.cardDataStore.add(topic + ":" + cardType + ":" + cardData);
+	}
+
+	writeToFile(this.username + ".txt", this.cardDataStore);
+}
+\end{lstlisting}
+
+A kártyák adatain kívül az alkalmazás tárolja az utoljára használt felhasználónevet és a kiszolgáló címét.
+Ezt az Android sajátos ,,SharedPrefrence'' API eszközeivel tárolom, ami kulcs-érték párokat tárol, melyeket csak az
+alkalmazáson belül lehet elérni.
+Mivel ez a rendszer kis mennyiségű adatok tárolására célzott eszköz, így a kártyák adatainak tárolására nem lenne
+alkalmas, viszont a felhasználónév és kiszolgáló címének tárolását beolvasztani a kártyaadat tárolására szolgáló
+fájlba rendezetlen és bonyolultnak tűnt, ezért választottam szét a két tárolási módot.
+
+A profilok törlésére a Settings fragmenten található ,,Delete Profile'' gomb megnyomásával van lehetőség,
+ami kilistázza az összes profil fájl címét egy legördülő menüben.
 
 \section{Tesztelés}
-
+nem teszteltem :) bíztam benne hogy jólesz és jézusra bíztam az app stabilitását
 
 
 \chapter{A renszer működése}
@@ -384,6 +544,8 @@ Köszönöm a covidnak, hogy átmentem nummatból
 Köszönöm anyádnak
 \par
 Köszönöm faszkivannak hogy nézte a streameket
+\par
+Köszönöm martinnak hogy helyettem is ivott, így én józanul tudtam dolgozni
 
 \begin{thebibliography}{2}
 \bibitem{nodeRed}Node Red forrás,
