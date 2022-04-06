@@ -447,7 +447,57 @@ kiszolgáló számára, állásától függően.
 Végül a kártya felkerül a felhasználói felületre.
 
 \subsection{Kommunikáció}
-kártyák, connect, disconnect, reconnect, background task
+A kártyák és a kiszolgáló közötti kommunikációt egy ,,publishMessage'' nevű metóduson keresztül továbbítom
+az alkalmazásból a bróker felé. Ennek a metódusnak szüksége van egy kliens példányra, melyet az activty tárol
+csatlakozást követően, a topicra, amire az üzenetet kívánjuk közzétenni és végül természetesen maga az üzenet, amit
+el kívánunk küldeni.
+
+Az üzenetek minden kártyatípus interakciós pontjának saját kódja határozza meg az üzenet tartalmát, például
+a kapcsoló típusú kártyának "on" és "off" állapotával megegyező szöveges üzenetet küld. 
+
+\lstset{language=Java}
+\begin{lstlisting}[frame=single]
+switch_data.setOnClickListener(view -> {
+                    String message = switch_data.isChecked() ? "on" : "off";
+                    publishMessage(((MainActivity) getActivity()).getClient(), savedCardData.get(0), message);
+                });,
+\end{lstlisting}
+
+Az üzenetek fogadását egy ,,messageRecievedHandler'' nevű metódus kezeli, amit az MQTT kliens callback metódusa
+hív meg a messageArrived belső metódusából, átadva a beérkező üzenet topicját és tartalmát.
+
+A beérkező üzenet topicját először ellenőrzi, hogy egyezik-e az aktuálisan vizsgált kártya topicjával, majd
+összehasonlítja a kártya típusát az elvárt típussal. Ha minden egyezik, akkor a dekódolt üzenet tartalmát
+kártyatípusnak megfelelően jeleníti meg, vagy állítja be a kártyán található interakciós elem állapotát.
+
+\lstset{language=Java}
+\begin{lstlisting}[frame=single]
+if (topicDisplay.equals(topic)) {
+	if (activeElement instanceof SwitchMaterial) {
+		SwitchMaterial switchView = cardList.getChildAt(i).findViewById(R.id.switch_data);
+		switchView.setChecked(decodeMQTT(message).equals("on"));
+	}
+}
+\end{lstlisting}
+
+Az MQTT üzenetek dekódolása egy egyszerű String-é alakítás, mivel a beérkezett üzenet egy saját típusú, MttMessage
+objektum amiben egyéb adatok mellett az üzenet egy byte tömbben tárolódik, amit kevésbé egyszerű és gyors miden
+feldolgozásnál kezelni, ezért egy String-et építek belőle.
+
+\lstset{language=Java}
+\begin{lstlisting}[frame=single]
+private String decodeMQTT(MqttMessage msg) {
+	return new String(msg.getPayload(), StandardCharsets.UTF_8);
+}
+
+\end{lstlisting}
+
+A kapcsolat a kiszolgálóval addig él, amíg az alkalmazás tud válaszolni a kiszolgáló által közvetített jelre,
+ami azonosítja, hogy mely eszközök vannak aktív állapotban. Ha erre az üzenetre az alkalmazás nem tud válaszolni,
+azaz a felhasználó bezárta azt, 60 másodpercen belül lezáródik a kapcsolat. Ezt a kapcsolatbontást az alkalmazás
+közli a felhasználóval, majd felajánlja az újracsatlakozás lehetőségét. Ha a felhasználó nem él a lehetőséggel,
+a kapcsolatot újból a Settings fragmentről kell létesíteni.
+
 \subsection{Adattárolás, Profilok}
 A kártyaadatok profilonkénti tárolása egy szöveges fájba való kiírással oldottam meg, olyan formátumban, hogy a fájl
 neve a felhasználói profil megadott neve, a tartalma pedig minden kártya amit a felhasználó létrehozott, a következő

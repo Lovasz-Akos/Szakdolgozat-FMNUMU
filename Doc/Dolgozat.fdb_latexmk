@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1649263870 "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649263875
-  "Dolgozat.aux" 1649263874 10144 0153e7b467f143855beee85cfd9cc91f "pdflatex"
-  "Dolgozat.out" 1649263874 6210 5515668364ba01f26ce4d45e7662db54 "pdflatex"
-  "Dolgozat.tex" 1649263862 36998 3a5989caea62b7bb612d7e682d217e45 ""
-  "Dolgozat.toc" 1649263874 4611 a6f5200829a5884aa4c694e689164bb3 "pdflatex"
+["pdflatex"] 1649270894 "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649270899
+  "Dolgozat.aux" 1649270899 10144 d271d308d1b1ad9f05e91c9f2ca15876 "pdflatex"
+  "Dolgozat.out" 1649270899 6210 5515668364ba01f26ce4d45e7662db54 "pdflatex"
+  "Dolgozat.tex" 1649270891 39867 c079e8c3c6874b1d0f70fbd6993bf29f ""
+  "Dolgozat.toc" 1649270899 4611 28812567ddbc74bcbf68f280eaa5d9c1 "pdflatex"
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1638975968 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1638975968 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1638975968 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -161,7 +161,7 @@
   "c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1638978194 4414272 ab0b7413d3dd776cc4a24ce27dcfec27 ""
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1638978340 2820071 0983e07c28b4c877ed0eb982ba76349d ""
   "c:/texlive/2021/texmf.cnf" 1638978153 713 e69b156964470283e0530f5060668171 ""
-  "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649263862 36998 3a5989caea62b7bb612d7e682d217e45 ""
+  "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649270891 39867 c079e8c3c6874b1d0f70fbd6993bf29f ""
   "images/OPIZero.png" 1648644464 146911 8daecdb47fec66910cecb0d43e660412 ""
   "images/connect.jpg" 1649172039 51646 9f92ceff6a874fbed8678214373086d4 ""
   "images/dashboard.jpg" 1649077753 62768 ea83e5c345f081fe5e351aa697bd4011 ""
