@@ -554,7 +554,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        //isubscribeAllTopics();
     }
 
     @Override

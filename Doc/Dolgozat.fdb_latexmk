@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1649270894 "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649270899
-  "Dolgozat.aux" 1649270899 10144 d271d308d1b1ad9f05e91c9f2ca15876 "pdflatex"
-  "Dolgozat.out" 1649270899 6210 5515668364ba01f26ce4d45e7662db54 "pdflatex"
-  "Dolgozat.tex" 1649270891 39867 c079e8c3c6874b1d0f70fbd6993bf29f ""
-  "Dolgozat.toc" 1649270899 4611 28812567ddbc74bcbf68f280eaa5d9c1 "pdflatex"
+["pdflatex"] 1649368229 "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" "Dolgozat.pdf" "Dolgozat" 1649368236
+  "Dolgozat.aux" 1649368235 11314 955b593c5fca802abe9cbe81336ac54b "pdflatex"
+  "Dolgozat.out" 1649368235 6766 bbbc9ca9982735ee3775e72c47ad6677 "pdflatex"
+  "Dolgozat.tex" 1649368231 43946 9910bc4df98f6433cf2b86c721308f5c ""
+  "Dolgozat.toc" 1649368235 4955 8b7e1cd2e1ab65468c19ffcd70754393 "pdflatex"
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1638975968 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1638975968 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1638975968 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -161,13 +161,15 @@
   "c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1638978194 4414272 ab0b7413d3dd776cc4a24ce27dcfec27 ""
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1638978340 2820071 0983e07c28b4c877ed0eb982ba76349d ""
   "c:/texlive/2021/texmf.cnf" 1638978153 713 e69b156964470283e0530f5060668171 ""
-  "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649270891 39867 c079e8c3c6874b1d0f70fbd6993bf29f ""
+  "d:/Repos/Szakdolgozat-FMNUMU/Doc/Dolgozat.tex" 1649368231 43946 9910bc4df98f6433cf2b86c721308f5c ""
   "images/OPIZero.png" 1648644464 146911 8daecdb47fec66910cecb0d43e660412 ""
   "images/connect.jpg" 1649172039 51646 9f92ceff6a874fbed8678214373086d4 ""
   "images/dashboard.jpg" 1649077753 62768 ea83e5c345f081fe5e351aa697bd4011 ""
   "images/flow.png" 1649077753 62098 a92736a13f945c2226144e88b79cdeea ""
   "images/home_anatomy.png" 1649255492 82669 579529b73e3625c2d08f684389026912 ""
   "images/pm2.png" 1649077753 10176 01a957577fff8d964193aed9203a169b ""
+  "images/profiler.png" 1649366967 9948 e0e10804da1651327e083c1df8e06028 ""
+  "images/profiler_ram_cpu.png" 1649366934 34990 3740c11dfdc11746ce13836c631ccc78 ""
   (generated)
   "Dolgozat.aux"
   "Dolgozat.log"
