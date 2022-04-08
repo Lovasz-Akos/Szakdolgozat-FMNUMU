@@ -57,24 +57,29 @@
 Tanulmányaim folyamán számos technológiával ismerkedtem meg, melyek mindegyike rengeteg
 lehetőséget tárt fel előttem, viszont a szakmai gyakorlatom során kiemelkedően megragadta a fantáziámat az Andoid
 fejlesztés és a hardverprogramozás összekapcsolása által kialakult rendszerek lehetősége.
-\par
+
+
 Az Android alkalmazások fejlesztése iránt mindig is érdeklődtem, egy-egy kisebb alkalmazást gyakorlásként
 már készítettem ezt megelőzően, de komolyabban itt kezdtem vele foglalkozni, megismerkedni a vele járó
 sajátosságokkal.
-\par
+
+
 Az ilyen jellegű eszközök kapcsolata és kommunikációja már korai gondolataimban is az okos otthonok felépítésére
 emlékeztetett, ezért is gondoltam megfelelő téma választásnak.
-\par
+
+
 A döntést követő kutatás során szembetűnő hátránya volt az okos otthon rendszereknek, hogy a legtöbb ,,márkás''
 megoldás elsősorban drága és csak felületes hozzáférést tesznek lehetővé, melyet teljes mértékben a rendszer
 gyártója határoz meg. 
-\par
+
+
 Az alternatív, olcsóbb rendszerek bár nyíltabb hozzáállással próbálnak előnyt szerezni,
 sokszor erősen a technikai oldalába mélyednek, inkább fejlesztők otthoni hobbyprojektjeként jelentek meg, 
 így egy átlagos felhasználónak bonyolultnak, nehezen kezelhetőnek tűnhetnek. Ezen felül gyakran futhatunk 
 olyan problémába, hogy az általunk választott rendszerben lévő hiányosságokat csak más gyártótól származó 
 eszköz nyújtana megoldást, viszont különböző gyártók eszközei nagyon ritkán kompatibilisek egymással.
-\par
+
+
 Ezeket az észrevételeket figyelembe véve egyértelműnek tűnt, hogy van lehetőség egy olyan rendszer kivitelezésére,
 ami elsősorban olcsóbb, de ugyanakkor nem túlbonyolított, felhasználóbarát marad. Fontos a nyitottság, a bővíthetőség,
 és a széleskörű kompatibilitás lehetősége, hogy a felhasználó biztos lehessen abban, hogy a jövőben felmerülő
@@ -224,7 +229,8 @@ viszonylag zökkenőmentes volt a telepítés és a konfiguálás.
 Mivel a konfigurációs fájlban meg kell adni a brókernek, hogy mely címen fog csatlakozási kérelmeket és üzeneteket kapni,
 készítettem egy olyan shell scriptet, mely minden indításnál egy új, naprakész konfigurációs fájlt készít a bróker indítása előtt.
 
-\lstset{language=bash}  
+\lstset{language=bash} 
+\label{configGenerator}
 \begin{lstlisting}[frame=single]
 echo -n "listener 1883 " > mqtt.conf; ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' >> mqtt.conf echo $"allow_anonymous true" >> mqtt.conf
 \end{lstlisting}
@@ -618,31 +624,69 @@ optimalizálására.
 \end{figure}
 
 \chapter{A renszer működése}
-Itt írom le a kész rendszer működését, 
 \section{Első indítás}
-hátugye nem minden létezik first start
+A Node-RED, a Mosquitto bróker és az Android alkamazás is bizonyos fájlokra támaszkodik, melyek az első indításnál
+valószínűleg nincsenek jelen. Ez az alkalmazás felől nem jelent problémát, hiszen csak annyit jelent, hogy még nincsenek
+elmentett felhasználói profilok. A kiszolgáló részéről már kicsit körülményesebb az első indításra való felkészülés,
+de ez is inkább időigényes mint bonyolult.
 \subsection{Szerver}
-mostly preconfigured de a flow lehet kell noderedbe meg mqtt config idk, meg ezeket telepíteni
+A kiszolgáló hardveren természetesen telepíteni kell a Node-RED szolgáltatást az általunk preferált Node.js
+csomagkezelővel, például npm vagy yarn, vagy használhatjuk a Node-RED által biztosított bash scriptet is Linux rendszeren.
+A szolgáltatás elindítását követően be kell importálnunk, vagy kézileg felépítenünk a az összes okos eszközre vonatkozó
+logikát, kezelést és irányítást. Ezek a flow-k exportálhatóak és importálhatóak egy JSON fájból, így könnyen hordozható
+és megosztható előre megépített flow-k vagy akár teljes házak felépítése.
+
+Az Eclipse Mosquitto MQTT bróker telepítése operációs rendszertől függetlenül egyszerű telepíteni, a mosquitto
+honlapjánal letöltési oldalán található instrukciók alapján. A telepítést követően a \ref{configGenerator}-es
+beszúrt kódban látható módon lehet egyszerűen generálni egy konfigurációs fájlt aminek az alkalmazásával
+zökkenőmentes a hardver hordozhatóvá tétele, mivel biztosítja a legfrissebb helyi cím átadását a brókernek.
+
+A PM2 renszer ezeket a lépéseket követően az összes indításkor vagy újraindításkor garantálja a kiszolgálók
+indítását, ezért tekinthető egy egyszeri konfigurációs lépésnek.
+
+
 \subsection{Android}
-alkalmazást telepíteni, először nincs user de onnan minden magától megy
-ha létezett a username akkor parsolja az adatot runtime-ba és onnan tovább szétszedi és kártyákat csinál
+Az alkalmazás telepítése egyenlőre a proket GitHub oldalán\cite{github}
+található ,,Releases'' menüpontban elérhető verziókban letölthető .apk telepítőfájlok által lehetséges, de a jövőben
+a Google Play Store-on is elérhetővé válik.
+
+Az első indítás nem különbözik más indításoktól, csak a felhasználói profilok hiányában jelentkezhet, de ezek
+természetesen a felhasználó igénye szerint generálódnak vagy akár törlődnek.
 
 \section{Telefon csatlakoztatása kiszolgálóhoz}
-ip, connect. ez async mqtt, ezt letárolom egy gettable mqttclinet változóban. persistent connection
-timeout, message retention
+Az alkalmazásban a kiszolgálóhoz való csatlakozáshoz meg kell adni annak az IP címét, amit optimális esetben
+(a kiszolgáló statikus IP címet kap) nem kell megjegyezni, mivel az alkamazás elmenti az utoljára használt címet
+és kitölti a felhasználó helyett. Ez a tulajdonság igaz a felhasználó nevére is, ami a profil mentésére szolgál.
+
+Ha a kiszolgáló bontja a kapcsolatot az alkalmazással időtúllépés miatt, azaz nem kapott üzenetet az alkalmazástól
+a kiszolgáló egy előre meghatározott időn keresztül, az alkalmazás értesíti a felhasználót és felkínája
+az újracsatlakozás lehetőségét, ami megpróbál újbóli kapcsolatot létesíteni a kiszolgálóval, vagy hiba esetén
+újból értesíti a felhasználót
+
 \section{Okos eszközök kezelése az alkalmazásban}
 sub to topics, makes cards
+
+
 \subsection{Feliratkozás, Kártyarendszer}
 dinamikus scrollview, mident tárol, kapott adatokat lebontja,
+
+
 \section{Okos eszközök kezelése a webes felületen}
 node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
+
+\chapter{TODO miről kéne írni}
+\begin{itemize}
+	\item fájlbeolvasás
+	\item sting tördelés
+	\item kártya azonosítás?
+\end{itemize}
 
 
 \chapter{Továbbfejlesztési lehetőségek}
 user auth: bár mqtt-nél nincs sok értlme, maybe parentala controls
 cloud service for out of home control
 andoid auto-looks for the broker, this might be expensive and hard
-
+ui breaks home ui into multi column layout if it fits, such as on tablets n stuff
 
 \chapter*{Köszönetnyilvánítás}
 \par
@@ -695,6 +739,8 @@ Köszönöm magyarországnak hogy jobban teljesít
 \bibitem{pm2}PM2 Process Manager
 \\\texttt{\url{https://pm2.keymetrics.io/}}
 
+\bibitem{github}A Projekt GitHub oldala
+\\\texttt{\url{https://github.com/Lovasz-Akos/Szakdolgozat-FMNUMU}}
 \end{thebibliography}
 %\includepdf{nyilatkozat.pdf}
 \end{document}

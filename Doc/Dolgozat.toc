@@ -40,9 +40,10 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{25}{chapter.4}%
 \select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{25}{section.4.1}%
 \select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Szerver}{25}{subsection.4.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{25}{subsection.4.1.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{25}{section.4.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{25}{section.4.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}Feliratkozás, Kártyarendszer}{25}{subsection.4.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{26}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{26}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{26}{section.4.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}Feliratkozás, Kártyarendszer}{26}{subsection.4.3.1}%
 \select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{26}{section.4.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{27}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}TODO miről kéne írni}{27}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Továbbfejlesztési lehetőségek}{28}{chapter.6}%
