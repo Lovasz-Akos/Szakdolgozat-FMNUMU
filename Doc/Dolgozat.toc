@@ -43,7 +43,6 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{26}{subsection.4.1.2}%
 \select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{26}{section.4.2}%
 \select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{26}{section.4.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}Feliratkozás, Kártyarendszer}{26}{subsection.4.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{26}{section.4.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}TODO miről kéne írni}{27}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Továbbfejlesztési lehetőségek}{28}{chapter.6}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{27}{section.4.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}TODO miről kéne írni}{28}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Továbbfejlesztési lehetőségek}{29}{chapter.6}%

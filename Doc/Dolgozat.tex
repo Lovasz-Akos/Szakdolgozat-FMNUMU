@@ -656,20 +656,35 @@ természetesen a felhasználó igénye szerint generálódnak vagy akár törlő
 \section{Telefon csatlakoztatása kiszolgálóhoz}
 Az alkalmazásban a kiszolgálóhoz való csatlakozáshoz meg kell adni annak az IP címét, amit optimális esetben
 (a kiszolgáló statikus IP címet kap) nem kell megjegyezni, mivel az alkamazás elmenti az utoljára használt címet
-és kitölti a felhasználó helyett. Ez a tulajdonság igaz a felhasználó nevére is, ami a profil mentésére szolgál.
+és kitölti a felhasználó helyett ezt a mezőt. Ez a tulajdonság igaz a felhasználó nevére is, ami a profil mentésére
+szolgál.
 
 Ha a kiszolgáló bontja a kapcsolatot az alkalmazással időtúllépés miatt, azaz nem kapott üzenetet az alkalmazástól
-a kiszolgáló egy előre meghatározott időn keresztül, az alkalmazás értesíti a felhasználót és felkínája
+a kiszolgáló egy előre meghatározott időkereten belül, az alkalmazás értesíti a felhasználót és felkínája
 az újracsatlakozás lehetőségét, ami megpróbál újbóli kapcsolatot létesíteni a kiszolgálóval, vagy hiba esetén
-újból értesíti a felhasználót
+újból értesíti a felhasználót.
 
 \section{Okos eszközök kezelése az alkalmazásban}
-sub to topics, makes cards
+Egy új kártya létrehozásához a felhasználónak fel kell iratkoznia egy MQTT topic-ra, majd kiválasztani az interakció
+típusát. Ezt a folyamatot a Home fragmenten található jobb alsó sarokban elhelyezkedő gomb érintésével
+tudja kezdeményezni a felhasználó. Először meg kell adni a topic nevét, ezt egy egyszerű szöveges beviteli mezőn
+teheti meg, majd az interakció típust kell kiválasztani egy előre meghatározott listáblól, amit egy legördülő
+menüben lehet kiválasztani. A csúszka típusú kártyáknak van egy extra létrehozási követelménye, mégpedig a
+csúszka határainak beállítása, melyet a típus kiválasztása után két számértéket elváró beviteli mezőben adhat
+meg a felhasználó.
 
+A sikeres feliratkozást követően megjelenik a létrehozott kártya a felületen és már készen is áll az üzenetek
+fogadására vagy továbbítására, azaz a kiszolgálóval való kommunikációra. Ebből adódóan a kártyák létrehozásának
+előkövetelménye, hogy a felhasználó a feliratkozást megelőzően kapcsolatot létesített a kiszolgálóval a Settings 
+fragmenten belül.
 
-\subsection{Feliratkozás, Kártyarendszer}
-dinamikus scrollview, mident tárol, kapott adatokat lebontja,
+Egy létrehozott kártya utólag nem módosítható, így ha a topicon vagy a kártya típusán szeretnénk módosítani,
+a módosítani kívánt kártyát törölni kell, majd egy új kártyát létrehozni.
 
+A létrehozott kártyák korábban említetten készen állnak a kommunikációra, így a felhasználónak nincsen további teendője,
+máris kezébe veheti az okos otthonának irányítását. Minden kártya interakciós felülete reszponzívan kommunikál
+a kiszolgálóval, így nem kell extra lépéseket tennie a felhasználónak az üzenetek továbbításáért, például a kapcsoló
+típusú kártyán lévő kapcsoló megérintését követően azonnal továbbítja állapotát a kiszolgáló felé.
 
 \section{Okos eszközök kezelése a webes felületen}
 node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
@@ -687,6 +702,7 @@ user auth: bár mqtt-nél nincs sok értlme, maybe parentala controls
 cloud service for out of home control
 andoid auto-looks for the broker, this might be expensive and hard
 ui breaks home ui into multi column layout if it fits, such as on tablets n stuff
+grouping/folders
 
 \chapter*{Köszönetnyilvánítás}
 \par
