@@ -43,5 +43,15 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{27}{subsection.4.1.2}%
 \select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{27}{section.4.2}%
 \select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{27}{section.4.3}%
-\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{28}{section.4.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Felhasználási segítségnyújtás}{28}{section.4.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.5}Okos eszközök kezelése a webes felületen}{28}{section.4.5}%
 \select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{29}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Felhasználó azonosítás}{29}{section.5.1}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Webes felület elérése}{29}{section.5.2}%
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Broker automatikus keresése}{29}{section.5.3}%
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Felület felosztása}{30}{section.5.4}%
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Kártyák rendezése}{30}{section.5.5}%
+\select@language {magyar} \contentsline {subsubsection}{Rendezés topic szerint}{30}{section*.18}%
+\select@language {magyar} \contentsline {subsubsection}{Rendezés kártyatípus szerint}{31}{section*.19}%
+\select@language {magyar} \contentsline {subsubsection}{Csoportosítás szobánként}{31}{section*.20}%
+\select@language {magyar} \contentsline {subsubsection}{Felhasználó által létrehozható csoportok}{31}{section*.21}%

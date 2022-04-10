@@ -717,6 +717,13 @@ máris kezébe veheti az okos otthonának irányítását. Minden kártya intera
 a kiszolgálóval, így nem kell extra lépéseket tennie a felhasználónak az üzenetek továbbításáért, például a kapcsoló
 típusú kártyán lévő kapcsoló megérintését követően azonnal továbbítja állapotát a kiszolgáló felé.
 
+\section{Felhasználási segítségnyújtás}
+rányomsz a helpre oszt megírja hogy mit csinálsz szarul te balfasz
+Az alkalamzás tartalmaz egy Help fragmentet, melyben az alkalmazás funkiói és azok felhasználási módjáról,
+funkcióiról talál a felhasználó egy rövid leírást. Ezek a leírások segíthetik az alkalmazás használatának
+megértésében, vagy esetleges félreértések tisztázásában. Ezek a leírások a Home fragmenthez hasonló kártyarendszer
+alkalmazásával osztja fel a különböző funkciók leírását, esetleges hibaelhárítását.
+
 \section{Okos eszközök kezelése a webes felületen}
 node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
 A Node-RED Dashboard lehetőséget nyújt egy webes felület létrehozására, amin keresztül lehet irányítani a beépített
@@ -731,11 +738,76 @@ ahol az okos eszközök előre láthatólag rövid időn belül nem lesznek bőv
 bővítések során a rendszer karbantartásáért felelős rendszergazda szerepkörébe tartozik.
 
 \chapter{Továbbfejlesztési lehetőségek}
-user auth: bár mqtt-nél nincs sok értlme, maybe parentala controls
-cloud service for out of home control
-andoid auto-looks for the broker, this might be expensive and hard
-ui breaks home ui into multi column layout if it fits, such as on tablets n stuff
-grouping/folders
+\section{Felhasználó azonosítás}
+Bár az MQTT protokoll nézetében a felhasználói azonosítás valamilyen szinten értelmét veszíti
+a renszdszer nyitottsága miatt, egy kliens oldali belépési rendszer szülői felügyeleti
+eszközként előnyös lehet, viszont az egyes eszközök felhasználói hozzáférés tiltását az MQTT
+nem teszi lehetővé, minden eszköz feliratkozhat vagy küldhet üzenetet bármely általa ismert
+topic-ra.
+
+\section{Webes felület elérése}
+Internetszolgáltatótól és routertől függően sajnos nem minden esetben, de akár adóthat lehetőség egy olyan
+porttovábbítás alkalmazására, amin keresztül a felhasználó az otthonán kívülről is elérheti a rendszert,
+így például a termosztátot már hazaúton is beállíthatja, ezzel igényei szerint már előre hűtött/fűtött lakásba
+érkezhet, nem kell a teljes folyamatot otthonról kezdeményezni és kivárni.
+
+Ez a típusú hozzáférés természetesen extra fejlesztéssel jár, például egy felhasználói azonosítás
+szinte elengedhetetlen, hiszen egy nem csak helyi hálózaton elérhető felület rosszindulatú támadásoknak
+eshet áldozatává.
+
+Sajnos ez nem minden esetben kivitelezhető, mivel több Internetszolgáltató által biztosított modem
+olyan korlátozásokkal rendelkezik, ami nem engedélyezi az ilyen típusú hozzáférés engedélyezését,
+port továbbítási opciókat nem kínál fel a felhasználónak.
+
+\section{Broker automatikus keresése}
+A kiszolgáló címe ismeretének hiányában a felhasználó nem tud csatlakozni ahoz. Erre egy olyan megoldást
+szeretnék találni, ami a helyi hálózaton ,,megkeresi'' a kiszolgálót, és annak a címét kitölti a felhasználó helyett.
+
+Ezt sajnos a gyakorlatban implementálni egy rendkívül bonyolult procedúra a rendszer nyitottsága miatt, hiszen
+gyakorlatilag semmi sem kötött a kiszolgáló oldaláról beleértve a kiszolgáló haradver esetleges MAC cím általi
+azonosítóját vagy hogy az MQTT bróker milyen porton figyeli a beérkező üzeneteket. Ezeken felül az sem garantálható,
+hogy abban az időpillanatban, amikor a felhasználó próbál automatikus csatlakozó pontot keresni, hogy a kiszolgáló
+üzenetfogadásra kész állapotban van, azaz fut. Ennek a garanciának a hiányában nehéz megbecsülni, hogy
+egy adott hálózaton, melynek sebessége és lefoglaltsága állandóan ingadozó lehet, hogy mi az az időkorlát,
+melyen belül biztosan nem talál az alkalmazás csatlakozásra alkalmas címet, vagy csak a sebesség keretében
+még nem ellenőrizte az összes lehetőséget.
+
+Ha feltételezem, hogy a portszámot nem módosította a felhasználó a telepítés során (ami szintén nem garantálható,
+például már más eszköz foglalja azt a portot), akkor viszonylag kevés ellenőrzést kell végrehajtani, mivel alapul
+vehetem az Androidos eszköz saját IP címét, ami alapján el tudom dönteni az IP cím első 3 szakaszának értékét,
+ezt követően már ,,csak'' 253 címet kell ellenőrizni (nem kell ellenőrizni a 0, 255 és a kereső eszköz saját címét)
+az alapbeállításban meghatározott 1883-as porton figyelő MQTT Bróker jelenlétét.
+Bár ez a szám viszonlag alacsony, kis teljesítményű hálózatokon mégis jelentős időt vehet igénybe.
+
+\section{Felület felosztása}
+A felület további reszponzivitása érdekében fel lehetne osztani többoszlopos elrendezésre, egy bizonyos
+kártya szélesslgi küszöb túllépését követően. Ez a változtatás főleg a tabletek és egyéb széles képernyőkre
+kihegyezett változtatás, mivel a jelenlegi rendszer szerint egy kártya a képernyő széleihez illeszkedik.
+Ez a telefonon való használathoz szükséges leginkább, mivel az interakciós felülete a kártyának bizonyos
+esetekben túl sok helyet foglalna ahoz, hogy két vagy akár több oszlopba rendeződjön a felület.
+
+\section{Kártyák rendezése}
+A felület felhasználóbarátabbá tételéhez hozzájárulhatna egy olyan renszer kifejlesztése ami engedélyezi a
+kártyák valamilyen szempont általi rendezését, csoportosítását.
+
+Erre több megközelítési módot is figyelembe lehet venni:
+
+\subsubsection{Rendezés topic szerint}
+Egy egyszerű átrendezési mód, ami betűrendbe sorolja az összes kárytát a topic szövege szerint.
+
+\subsubsection{Rendezés kártyatípus szerint}
+Szintén egy egyszerű rendezés, mely a kártyákon lévő interakciós fekületet veszi figyelembe a rendezés során.
+
+\subsubsection{Csoportosítás szobánként}
+Egy olyan automatikus rendezés, mely a topic neve alapján szobánként csoportosítja a kártyákat.
+Ez azon a konvención alapul, hogy az topic nevek felépítése a következő formátumot alkalmazza: szoba/eszköznév
+
+\subsubsection{Felhasználó által létrehozható csoportok}
+Egy olyan rendezési mód implementálása, ahol a Felhasználó ízlése szerint saját csoportokat hozhat létre, 
+melyekben saját logika vagy rendezési szempont szerint helyezheti el az egyes kártyákat.
+
+\chapter*{Összegzés}
+itt leírom hogy mit olvastál az elmúlt 20 percben, mert a fasz se emlékszik már
 
 \chapter*{Köszönetnyilvánítás}
 \par
