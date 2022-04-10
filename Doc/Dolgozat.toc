@@ -35,14 +35,13 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {3.4.7}Adattárolás, Profilok}{21}{subsection.3.4.7}%
 \select@language {magyar} \contentsline {section}{\numberline {3.5}Tesztelés}{23}{section.3.5}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.5.1}Reszponzivitás}{23}{subsection.3.5.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {3.5.2}Hibakezelés}{23}{subsection.3.5.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {3.5.3}Erőforrás felhasználás}{23}{subsection.3.5.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{25}{chapter.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{25}{section.4.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Szerver}{25}{subsection.4.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{26}{subsection.4.1.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{26}{section.4.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{26}{section.4.3}%
-\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{27}{section.4.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}TODO miről kéne írni}{28}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Továbbfejlesztési lehetőségek}{29}{chapter.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.2}Hibakezelés}{24}{subsection.3.5.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.3}Erőforrás felhasználás}{24}{subsection.3.5.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{26}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{26}{section.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Szerver}{26}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Android}{27}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Telefon csatlakoztatása kiszolgálóhoz}{27}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Okos eszközök kezelése az alkalmazásban}{27}{section.4.3}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Okos eszközök kezelése a webes felületen}{28}{section.4.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{29}{chapter.5}%

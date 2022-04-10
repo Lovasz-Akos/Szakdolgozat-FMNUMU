@@ -565,7 +565,38 @@ fájlba rendezetlen és bonyolultnak tűnt, ezért választottam szét a két t�
 A profilok törlésére a Settings fragmenten található ,,Delete Profile'' gomb megnyomásával van lehetőség,
 ami kilistázza az összes profil fájl címét egy legördülő menüben.
 
+Egy létező profilnév megadása a csatlakozás során azt eredményezi, hogy a profil fájlból a program beolvassa a felhasználó nevén
+tárolt kártyaadatokat, amit elhelyez egy memóriában tárolt listában, majd azt továbbítja a Home fragment számára, ami
+adatrészekre tördelve feldolgozza azt és létrehozza az összes kártyát, amit a felhasználó az utolsó használata során
+elmentett.
+
+A memóriában tárolt kártyaadatok listájának minden eleme egy teljes kártyát tartalmaz, aminek feldolgozásához részelemekre
+kell tördelni, majd ezeket a részelemeket felhasználva építem fel a kártyákat. Vegyük példának a csúszka típusú kártyát:
+
+\lstset{language=Java}
+\begin{lstlisting}[frame=single]
+List<String> sliderSubData = Arrays.asList(savedCardData.get(2).split("\\."));
+TextView sliderDataDisplay = mqttCard.findViewById(R.id.slider_data_display);
+
+String rangeMin = sliderSubData.get(0);
+String rangeMax = sliderSubData.get(1);
+String currentVal = sliderSubData.get(2);
+
+slider_data.setValueTo(Float.parseFloat(rangeMax));
+slider_data.setValue(Float.parseFloat(currentVal));
+slider_data.setValueFrom(Float.parseFloat(rangeMin));
+
+sliderDataDisplay.setText(currentVal);
+layout.addView(mqttCard);
+\end{lstlisting}
+
+A kártyák létrehozásakor a metódus megkapja az adott kártyára vonatkozó adatokat egy ,,savedCardData'' listában, melynek
+3 eleme van: topic, kártya típus és a kártyáról tárolt adat. A csúszka esetében a kártyáról tárolt adatot tovább kell tördelni,
+mivel nem csak az utolsó állapotát kell tárolni, hanem a felhasználó által megadott minimum és maximum felvehető értékeit is.
+Ezeket az extra kártyaadatokat kinyerve beállítom a csúszka minden tulajdonságát, majd létrehozom a kártyát.
+
 \section{Tesztelés}
+
 \subsection{Reszponzivitás}
 A fejlesztés során az alkalmazást több típusú tesztelésnek tettem ki. A felület reszponzivitása már az első pillanattól
 fontos pontja volt a fejlesztésnek, így különös figyelmet fordítottam mindenféle eszköztípuson való tesztelésre, ellenőrizve
@@ -688,14 +719,16 @@ típusú kártyán lévő kapcsoló megérintését követően azonnal továbbí
 
 \section{Okos eszközök kezelése a webes felületen}
 node-red ui, több vele a szarakodás mint androidon so nem előnyös, része az üzemeltetésnek
+A Node-RED Dashboard lehetőséget nyújt egy webes felület létrehozására, amin keresztül lehet irányítani a beépített
+rendszereket. Mivel ennek a felületnek az elemei nem specifikusan okos otthon vezérkésére készültek és az egyes
+elemeket a rendszer programozható felületén kell implementálni, újabb elemek felhelyezése és funkcionalitásának
+implementálása nem egy felhasználóbarát folyamat.
 
-\chapter{TODO miről kéne írni}
-\begin{itemize}
-	\item fájlbeolvasás
-	\item sting tördelés
-	\item kártya azonosítás?
-\end{itemize}
-
+Ettől függetlenül a felület nem haszontalan, mivel egy olyan irányítőközpontot lehet rajta prezentálni, amit nem csak
+androidos telefonon lehet elérni, így szélesebb körűvé teszi az okos otthon vezérlési lehetőségeit. Egy olyan otthonban,
+ahol az okos eszközök előre láthatólag rövid időn belül nem lesznek bővítve, érdemes ezt a felületet létrehozni az
+általa nyújtott rugalmas elérés érdekében. Ennek a felületnek a kialakítása a rendszer telepítésekor, vagy későbbi
+bővítések során a rendszer karbantartásáért felelős rendszergazda szerepkörébe tartozik.
 
 \chapter{Továbbfejlesztési lehetőségek}
 user auth: bár mqtt-nél nincs sok értlme, maybe parentala controls
