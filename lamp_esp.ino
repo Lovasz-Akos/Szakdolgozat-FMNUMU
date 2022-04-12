@@ -9,7 +9,7 @@
 #define AIO_USERNAME    ""
 #define AIO_KEY         ""
 
-const int ledPin = 4;
+const int ledPin = D4;
 String val;
 uint32_t delayMS;
 
@@ -41,10 +41,13 @@ void loop()
   {
    Adafruit_MQTT_Subscribe *subscription; 
     while(subscription = mqtt.readSubscription(10)){
-     if(val == "on"){
+     String message((char *)bedroom_lamp.lastread);
+     if(message == "on"){
+       Serial.println("got on msg");
         digitalWrite(ledPin, LOW);
      }
-     if(val == "off"){
+     if(message == "off"){
+       Serial.println("got off msg");
         digitalWrite(ledPin, HIGH);
      }     
       delay(10);
