@@ -48,7 +48,7 @@
 \author{Lovász Ákos\\Programtervező informatikus BSc}
 \supervisor{Dr. Tajti Tibor\\Egyetemi adjunktus}
 \city{Eger}
-\date{\today}
+\date{\the\year{}}
 \maketitle
 \tableofcontents
 
@@ -91,11 +91,6 @@ hiányosságok egyszerűen pótolhatók.
 A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkamazás közötti kommunikációt.
 
 \section{A kiszolgáló hardver}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\textwidth]{images/OPIZero.png}
-	\caption{Orange Pi Zero\cite{orange}, a Node-RED-hez és az MQTT brókerhez használt eszköz}
-\end{figure}	
 Az eszköz egy nyílt forráskódu egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, 
 de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, 
 melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
@@ -131,32 +126,43 @@ Okos eszköznek számít bármilyen berendezés, mely rendelkezik hálózati kom
 ebben az esetben egy MQTT protokollt használatba vevő eszköz. Az MQTT protokoll rugalmasságából adódóan már a renszer tesztelése során is több eszköztípust 
 vettem használatba, pédául Androidos tableteket, telefonokat és ESP D1 Mini mikrokontrollereket.
 
-
-
 \chapter{Hardver}
 \section{Orange Pi Zero}
-Egy egykártyás számítógép az Orange Pi felhozatalából a Zero model, ami beépített WiFi modullal, Ethernet porttal, 
+Egy egykártyás számítógép, az Orange Pi felhozatalából a Zero model, ami beépített WiFi modullal, Ethernet porttal, 
 512MB RAM-al és egy 4 magos ARM processzorral ellátva tesztjeim alapján egy kisebb ház okos eszközeinek ellátására elegendő, 
 viszont természetesen van lehetőség erősebb hardveren futtatni a kiszolgáló szolgáltatásokat. Ezek a szolgáltatások 
 Linux és Windows operációs rendszert futtató hardverek bármelykén képesek futni, így lehetőségünk van akár 
-régi, már nem használt androidos telefonon, vagy ellentétsen, csak erre a célra kitűzött szervergépet kialakítani. Természetesen 
-a végletek között rengeteg lehetőségünk van igényeink szerint válatsztani kiszolgáló hardvert, például egy Orange Pi Zero, Raspberry Pi 4, vagy Seeed Odyssey.
+régi, már nem használt androidos telefonon, vagy ellentétsen, csak erre a célra kitűzött szervergépet kialakítani. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/OPIZero.png}
+	\caption{Orange Pi Zero\cite{orange}, a Node-RED-hez és az MQTT brókerhez használt eszköz}
+\end{figure}
+Természetesen a végletek között rengeteg lehetőségünk van igényeink szerint válatsztani kiszolgáló hardvert, például egy Orange Pi Zero, Raspberry Pi 4, vagy Seeed Odyssey.
 Az Orange Pi Zero-ra esett a választásom alacsony ára mellett nyújtott lehetőségei tárháza miatt.
-\section{Okos eszközök}
-\subsection{ESP 8266}
-Okos eszköz fejlesztéséra egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
-programozható, WiFi moduljának és a hivatalos Arduino MQTT könyvtárnak köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani.
 
-%TODO: ESP HARDWARE DOCUMENTATION
+\section{Okos eszközök}
+
 \subsection{Androidos eszköz}
 Mivel az Androidos alkamazások bizonyos könyvtárai és fejlesztői eszközei az alkalmazott Android verziótól függnek, így az alkalmazás fejlesztése során
 kitűzött minimum Android verziót el kell érnie a használni kívánt eszköznek. Ebben az esetben a minimum támogatott Android verzió a Marshmallow, azaz Android 6.0.
 Ez a legrégebbi Android megjelenés amit bevett szokásként támogatnak a modern alkamazások, ennél korábbi verziót támogatni nehézkes, általában nem éri meg, mivel
 a felhasználók kevesebb mint 1\%-a használ olyan eszközt, ami 6.0-nál régebbi Androidot futtat.
+
+\subsection{ESP 8266}
+
+Okos eszköz fejlesztésére egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
+programozható, WiFi moduljának, hivatalos Arduino MQTT könyvtárnak és rengeteg bővítési lehetőségének
+köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/esp.png}
+	\caption{ESP 8266}
+\end{figure}
+
 \subsection{Egyéb eszközök}
 Minden olyan okos eszköz integrálható a rendszerbe, amely képes MQTT protokollon keresztül kommunikálni egy helyi hálózaton.
-
-
 
 \chapter{Szoftver}
 A teljes rendszer olyan módon van felépítve, hogy a szerver oldali programoktól elvárt, hogy állandó futás mellett lehetőséget 
@@ -255,7 +261,8 @@ mind az átláthatóságán.
 
 Az Android rendszer alapjáraton 4 fő ,,szálat'' különböztet meg:
 \subsubsection{Main Thread}
-A fő szál. Ez az alkalmazás indításakor az operációs rendszer által nyitott szál, mely felelős az események kezeléséért, felhasználói felület megrajzolásáért és egyéb elemek létrehozásáért.
+A fő szál. Ez az alkalmazás indításakor az operációs rendszer által nyitott szál, mely felelős az események kezeléséért,
+felhasználói felület megrajzolásáért és egyéb elemek létrehozásáért.
 	
 \subsubsection{Ui Thread}
 A felhasználói felületi szál, ami felelős a felhasználóval való kapcsolat fenntartásáért 
@@ -598,7 +605,35 @@ mivel nem csak az utolsó állapotát kell tárolni, hanem a felhasználó álta
 Ezeket az extra kártyaadatokat kinyerve beállítom a csúszka minden tulajdonságát, majd létrehozom a kártyát.
 
 \section{ESP Okos eszköz}
-%TODO: ESP KÓD BEMUTATÁS, LÁMPAKÉNT MŰKÖDIK YAY 
+Egy ESP D1 Minit használtam egy hálózaton lévő okos eszköz szemléltetésére, amit olyan módon programoztam fel, hogy egy
+okos lámpa funkcióit lássa el. Az Adafruit MQTT Könyvtárát\cite{adafruit} kihasználva egészen egyszerű módon lehet csatlakozni
+egy helyi hálózaton található MQTT brókerhez, majd feliratkozni egy vagy több topicra, melyen természetesen kétirányú
+kommunikációra van lehetőségünk. 
+
+Ebben az esetben az eszköz egyszerűen vizsgálja az általa feliratkozott topicon érkező
+üeneteket, majd a szemléltetés érdekében az eszköz beépített LED-jének állapotát az üzenetnek megfelelően változtatom.
+Ezt természetesen valós eszközöknél minimális változtatásokkal okos kapcsolóként lehet alkalmazni, vagy a kód kibővítésével
+egyéb bonyolultabb funkciók ellátására is teljesen alkalmas.
+
+\lstset{language=C++}
+\begin{lstlisting}[frame=single]
+void loop() 
+{
+	Adafruit_MQTT_Subscribe *subscription; 
+	while(subscription = mqtt.readSubscription(10)){
+		String message((char *)bedroom_lamp.lastread);
+		if(message == "on"){
+			Serial.println("got on msg");
+			digitalWrite(ledPin, LOW);
+		}
+		if(message == "off"){
+			Serial.println("got off msg");
+			digitalWrite(ledPin, HIGH);
+		}     
+		delay(10);
+	}
+}
+\end{lstlisting}
 
 \section{Tesztelés}
 
@@ -812,13 +847,41 @@ Egy olyan rendezési mód implementálása, ahol a Felhasználó ízlése szerin
 melyekben saját logika vagy rendezési szempont szerint helyezheti el az egyes kártyákat.
 
 \chapter*{Összegzés}
-itt leírom hogy mit olvastál az elmúlt 20 percben, mert a fasz se emlékszik már
+A kiszolgáló szoftverek, az Androidos alkalmazás és a programozható mikrokontrollerek zökkenőmentes kapcsolata
+és kommunikációja egy olyan rendszert alakítanak ki, mely rugalmas, bővíthető és továbbfejleszthető, folyamatos
+integráció mellett.
+
+Ennek a rendszernek a célja, hogy az okos otthonok elterjedésének tetőpontjára legyen egy olyan választási lehetősége a
+felhasználóknak, ami egy olcsó, egyszerűen használható, nyílt rendszer, ami akár a közösség
+által továbbfejleszthető, bővíthető és ha a felhasználó igényeit nem skierül kielégítenie, továbbfejlesztési
+alapkőként viselkedhet, így nem kell minden feljlesztési igény felmerülésekor egy teljesen új rendszer fejlesztésébe
+kezdeni.
+
+A rendszer alacsony árú komponensek figyelembe vétele, nyílt forráskódja és a közösségi fejlesztés felé való nyitása
+remélhetőleg egy vonzó alap az otthonokban való alkalmazására és a fejlesztők bevonására, hogy idővel a rendszer minden
+ismert vagy ismeretlen hiányosságának pótlására sor kerülhessen.
+
+Jelenlegi állapotában könnyen kiszolgálhat egy átlagos családi házat, viszont a továbbfejlesztési lehetőségekben
+feltárt hiányosságok implementálása, és további kényelmi funkciók fejlesztése tovább javítaná a felhasználóbarátságosságát, ezért a továbbfejlesztési terv szerint a szakdolgozat leadását követően sem áll meg a
+fejlesztés, csupán átalakul. A közösség felé való nyitáson felül az alkalmazás tervezetten integrálva lesz
+saját hobbyprojektekbe és a saját otthonom okosítására is szolgálni fog, ezzel további igények és továbbfejlesztési
+lehetőségek tárulhatnak fel.
 
 \chapter*{Köszönetnyilvánítás}
+Szeretnék köszönetet nyilvánítani minden egyetemi oktatómnak az általuk átadott tudásért és minden segítségért,
+amit nekem és hallgatótársaimnak nyújtottak.
 \par
-Köszönöm a vscode-nak hogy van,
+Köszönöm Dr. Tajti Tibornak, aki tanáromként és konzulensemként, aki a szakdolgozatommal és egyéb dolgokkal kapcsolatban
+is sok segítséget nyújtott.
 \par
-Köszönöm magyarországnak hogy jobban teljesít
+További köszönetet szeretnék mondani az évek során megimsert hallgatótársaimnakl, akiknek állandó összetartása és
+segítőkészsége sokszor hasznos segítséget nyújtott.
+\par
+Szintén köszönöm minden közeli barátomnak, akik az évek során folyamatosan támogattak, segítettek és figyeltek rám.
+\par
+Végül, de nem utolsó sorban, szeretnék köszönetet mondani szüleimnek és a családom minden tagjának,
+akik a tanulmányaim alatt végig mellettem álltak és támogattak.
+
 
 
 \begin{thebibliography}{2}
@@ -868,6 +931,9 @@ Köszönöm magyarországnak hogy jobban teljesít
 
 \bibitem{github}A Projekt GitHub oldala
 \\\texttt{\url{https://github.com/Lovasz-Akos/Szakdolgozat-FMNUMU}}
+
+\bibitem{adafruit}Adafruit MQTT API
+\\\texttt{\url{https://learn.adafruit.com/adafruit-io/mqtt-api}}
 \end{thebibliography}
 %\includepdf{nyilatkozat.pdf}
 \end{document}
