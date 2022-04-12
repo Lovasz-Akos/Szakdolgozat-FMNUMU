@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  10 APR 2022 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.18)  10 APR 2022 21:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -592,7 +592,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 LaTeX Info: Redefining \cal on input line 577.
 LaTeX Info: Redefining \mit on input line 578.
 )
-<eszterhazy-logo-hu.pdf, id=193, 256.07971pt x 88.04292pt>
+<eszterhazy-logo-hu.pdf, id=197, 256.07971pt x 88.04292pt>
 File: eszterhazy-logo-hu.pdf Graphic file (type pdf)
 <use eszterhazy-logo-hu.pdf>
 Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 52.
@@ -610,7 +610,7 @@ Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 52.
 
 ]
 1. fejezet.
-<images/OPIZero.png, id=269, 235.63031pt x 246.9225pt>
+<images/OPIZero.png, id=274, 235.63031pt x 246.9225pt>
 File: images/OPIZero.png Graphic file (type png)
 <use images/OPIZero.png>
 Package pdftex.def Info: images/OPIZero.png  used on input line 96.
@@ -623,61 +623,61 @@ Package pdftex.def Info: images/OPIZero.png  used on input line 96.
 
 ] [9]
 3. fejezet.
-<images/pm2.png, id=309, 661.72218pt x 107.65219pt>
+<images/pm2.png, id=314, 661.72218pt x 107.65219pt>
 File: images/pm2.png Graphic file (type png)
 <use images/pm2.png>
-Package pdftex.def Info: images/pm2.png  used on input line 166.
+Package pdftex.def Info: images/pm2.png  used on input line 168.
 (pdftex.def)             Requested size: 441.01773pt x 71.74548pt.
 [10
 
  <./images/pm2.png>]
-<images/flow.png, id=319, 886.81313pt x 499.11469pt>
+<images/flow.png, id=324, 886.81313pt x 499.11469pt>
 File: images/flow.png Graphic file (type png)
 <use images/flow.png>
-Package pdftex.def Info: images/flow.png  used on input line 184.
+Package pdftex.def Info: images/flow.png  used on input line 186.
 (pdftex.def)             Requested size: 441.01773pt x 248.21632pt.
  [11 <./images/flow.png>]
-<images/dashboard.jpg, id=327, 1003.49907pt x 616.55344pt>
+<images/dashboard.jpg, id=332, 1003.49907pt x 616.55344pt>
 File: images/dashboard.jpg Graphic file (type jpg)
 <use images/dashboard.jpg>
-Package pdftex.def Info: images/dashboard.jpg  used on input line 213.
+Package pdftex.def Info: images/dashboard.jpg  used on input line 215.
 (pdftex.def)             Requested size: 352.81552pt x 216.77534pt.
  [12 <./images/dashboard.jpg>] (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 235.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 237.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [13] [14]
-<images/home_anatomy.png, id=359, 491.8375pt x 1093.08376pt>
+<images/home_anatomy.png, id=364, 491.8375pt x 1093.08376pt>
 File: images/home_anatomy.png Graphic file (type png)
 <use images/home_anatomy.png>
-Package pdftex.def Info: images/home_anatomy.png  used on input line 317.
+Package pdftex.def Info: images/home_anatomy.png  used on input line 319.
 (pdftex.def)             Requested size: 220.50887pt x 490.06512pt.
  [15]
-<images/connect.jpg, id=366, 732.48656pt x 810.77907pt>
+<images/connect.jpg, id=371, 732.48656pt x 810.77907pt>
 File: images/connect.jpg Graphic file (type jpg)
 <use images/connect.jpg>
-Package pdftex.def Info: images/connect.jpg  used on input line 334.
+Package pdftex.def Info: images/connect.jpg  used on input line 336.
 (pdftex.def)             Requested size: 220.50887pt x 244.07686pt.
  [16 <./images/home_anatomy.png>] (c:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) [17 <./images/connect.jpg>] [18] [19] [20] [21] [22] [23]
-<images/profiler.png, id=499, 401.24907pt x 237.88875pt>
+<images/profiler.png, id=504, 401.24907pt x 237.88875pt>
 File: images/profiler.png Graphic file (type png)
 <use images/profiler.png>
-Package pdftex.def Info: images/profiler.png  used on input line 641.
+Package pdftex.def Info: images/profiler.png  used on input line 646.
 (pdftex.def)             Requested size: 401.24808pt x 237.88815pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/profiler_ram_cpu.png, id=501, 618.05907pt x 283.81032pt>
+<images/profiler_ram_cpu.png, id=506, 618.05907pt x 283.81032pt>
 File: images/profiler_ram_cpu.png Graphic file (type png)
 <use images/profiler_ram_cpu.png>
-Package pdftex.def Info: images/profiler_ram_cpu.png  used on input line 652.
+Package pdftex.def Info: images/profiler_ram_cpu.png  used on input line 657.
 (pdftex.def)             Requested size: 396.91325pt x 182.26591pt.
 [24] [25 <./images/profiler.png> <./images/profiler_ram_cpu.png>]
 4. fejezet.
@@ -692,26 +692,26 @@ Package pdftex.def Info: images/profiler_ram_cpu.png  used on input line 652.
 ] [33
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 821.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 826.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 847--850
+Underfull \hbox (badness 10000) in paragraph at lines 852--856
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 847--850
-\T1/lmtt/m/n/12 Rajendraparasad & Srimannarayana, Nerella. (2020). IoT based Smart
+Underfull \hbox (badness 10000) in paragraph at lines 852--856
+\T1/lmtt/m/n/12 IoT based Smart Environment Using Node-RED and MQTT. Journal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 847--850
-\T1/lmtt/m/n/12 Environment Using Node-RED and MQTT. Journal of Advanced Research in
+Underfull \hbox (badness 10000) in paragraph at lines 852--856
+\T1/lmtt/m/n/12 of Advanced Research in Dynamical and Control Systems. 12.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 847--850
+Underfull \hbox (badness 10000) in paragraph at lines 852--856
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
@@ -719,21 +719,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 847--850
 
 ] [35] (./Dolgozat.aux)
 Package rerunfilecheck Info: File `Dolgozat.out' has not changed.
-(rerunfilecheck)             Checksum: AFFB510F035702A404AF780F00A09044;7766.
+(rerunfilecheck)             Checksum: AED7D114B614B765D29B20CBFBBEDD4D;7933.
  ) 
 Here is how much of TeX's memory you used:
- 17997 strings out of 478599
- 275302 string characters out of 5858101
- 989520 words of memory out of 5000000
- 35300 multiletter control sequences out of 15000+600000
+ 17999 strings out of 478599
+ 275326 string characters out of 5858101
+ 989517 words of memory out of 5000000
+ 35301 multiletter control sequences out of 15000+600000
  467246 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,7n,80p,522b,1930s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Dolgozat.pdf (35 pages, 704533 bytes).
+Output written on Dolgozat.pdf (35 pages, 705287 bytes).
 PDF statistics:
- 679 PDF objects out of 1000 (max. 8388607)
- 602 compressed objects within 7 object streams
- 218 named destinations out of 1000 (max. 500000)
- 434 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 684 PDF objects out of 1000 (max. 8388607)
+ 607 compressed objects within 7 object streams
+ 219 named destinations out of 1000 (max. 500000)
+ 442 words of extra memory for PDF output out of 10000 (max. 10000000)
 
