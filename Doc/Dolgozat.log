@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.8)  12 APR 2022 15:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.8)  15 APR 2022 19:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -697,26 +697,26 @@ Package pdftex.def Info: images/profiler_ram_cpu.png  used on input line 692.
 ] [34
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 889.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 887.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 915--919
+Underfull \hbox (badness 10000) in paragraph at lines 913--917
 \T1/lmtt/m/n/12 Deepthi, B. & Kolluru, Venkata Ratnam & Varghese, George & Narne,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 915--919
+Underfull \hbox (badness 10000) in paragraph at lines 913--917
 \T1/lmtt/m/n/12 IoT based Smart Environment Using Node-RED and MQTT. Journal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 915--919
+Underfull \hbox (badness 10000) in paragraph at lines 913--917
 \T1/lmtt/m/n/12 of Advanced Research in Dynamical and Control Systems. 12.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 915--919
+Underfull \hbox (badness 10000) in paragraph at lines 913--917
 []$\T1/lmtt/m/n/12 https : / / www . researchgate . net / publication / 342327250 _ IoT _ based _ Smart _
  []
 
@@ -735,7 +735,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,7n,77p,501b,1950s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Dolgozat.pdf (36 pages, 7176481 bytes).
+Output written on Dolgozat.pdf (36 pages, 7176325 bytes).
 PDF statistics:
  712 PDF objects out of 1000 (max. 8388607)
  634 compressed objects within 7 object streams
