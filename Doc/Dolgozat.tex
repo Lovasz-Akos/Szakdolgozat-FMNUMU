@@ -1,17 +1,15 @@
-%
-% Szakdolgozat minta az Eszterházy Károly Egyetem
-% matematika illetve informatika szakos hallgatóinak.
-%
-
-\documentclass[
-% opciók nélkül: egyoldalas nyomtatás, elektronikus verzió
-% twoside, % kétoldalas nyomtatás
-% tocnopagenum,% oldalszámozás a tartalomjegyzék után kezdődik
-]{thesis-ekf}
+\documentclass[]{thesis-ekf}
 \usepackage[T1]{fontenc}
 \PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
 \usepackage[magyar]{babel}
-\usepackage{mathtools,amssymb,amsthm,hyperref,listingsutf8,xcolor,caption,pdfpages}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listingsutf8}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage{float}
 \lstset{
@@ -52,7 +50,6 @@
 \maketitle
 \tableofcontents
 
-
 \chapter*{Bevezetés}
 Tanulmányaim folyamán számos technológiával ismerkedtem meg, melyek mindegyike rengeteg
 lehetőséget tárt fel előttem, viszont a szakmai gyakorlatom során kiemelkedően megragadta a fantáziámat az Android
@@ -84,7 +81,6 @@ Ezeket az észrevételeket figyelembe véve egyértelműnek tűnt, hogy van lehe
 ami elsősorban olcsóbb, de ugyanakkor nem túlbonyolított, felhasználóbarát marad. Fontos a nyitottság, a bővíthetőség,
 és a széleskörű kompatibilitás lehetősége, hogy a felhasználó biztos lehessen abban, hogy a jövőben felmerülő
 hiányosságok egyszerűen pótolhatók.
-
 
 
 \chapter{A rendszer alapjai}
@@ -144,7 +140,7 @@ Egy egykártyás számítógép, az Orange Pi felhozatalából a Zero model, ami
 viszont természetesen van lehetőség erősebb hardveren futtatni a kiszolgáló szolgáltatásokat. Ezek a szolgáltatások 
 Linux és Windows operációs rendszert futtató hardverek bármelyikén képesek futni, így lehetőségünk van akár 
 régi, már nem használt androidos telefonon, vagy ellentétesen, csak erre a célra kitűzött szervergépet kialakítani. 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/OPIZero.png}
 	\caption{Orange Pi Zero\cite{orange}, a Node-RED-hez és az MQTT brókerhez használt eszköz}
@@ -167,7 +163,7 @@ egészen alacsony erőforrásigénye van.
 
 \subsection{ESP 8266}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/esp.png}
 	\caption{ESP 8266}
@@ -191,7 +187,7 @@ Az állandó futást a PM2\cite{pm2} nevű folyamatvezető program biztosítja, 
  vagy áramkimaradást követően az operációs rendszer indulásával elindítja az összes kiszolgálót, amire szükség van,
  megfelelő konfigurációval.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\includegraphics[width=1\textwidth]{images/pm2.png}
 	\caption{PM2\cite{pm2} a kiszolgálók automatikus indítására használt eszköz}
 \end{figure}
@@ -213,7 +209,7 @@ vagy több emeletes épületekben egy-egy emeletet. Ez felhasználható rendszer
 kategorizálási vagy szerepköri felosztásra is, teljes mértékben a felhasználótól és a felhasznált
 környezettől függ.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\includegraphics[width=1\textwidth]{images/flow.png}
 	\caption{mintaház nappali flow}
 	\caption{Egy mintaház kiépítésében a nappaliban található eszközök irányítása}
@@ -245,7 +241,7 @@ fejlesztése során nem kell a már meglévő funkcionalitást felfüggeszteni.
 \subsection{Dashboard}
 A Node-RED lehetőséget nyújt egyéb csomópontok telepítésére, melyeket felhasználók vagy egyéb entitások fejlesztettek. 
 Egy ilyen csomópont kollekció a Node-RED Dashboard\cite{dashboard}, mely által lehet készíteni egy webes felületet, amin keresztül lehet szemléltetni, irányítani a rendszer elemeit. 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
 	\caption{A Node-RED Dashboard, szobákra bontva, példa eszközökkel ellátva}
@@ -351,7 +347,7 @@ kártyán keresztül tudja kezelni az adott topicot használó okos eszközöket
 Ha a felhasználó el szeretné távolítani a kártyát a felületről,
 egy hosszú érintéssel a kártya bármely részére előidéz egy ,,Unsubscribe'' kontextusi gombot, mellyel törölheti a kártyát a felületről.
 
-\begin{figure}[H]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/home_anatomy.png}
 	\caption{A Home fragment elrendezése és elemei}
@@ -368,7 +364,7 @@ viszont ha nincs, létrehozza azt.
 
 A ,,Delete Profile'' gomb egy új ablakban, legördülő menüből kiválasztható profilok listájából törli azt, amelyet a
 felhasználó kiválaszt.
-\begin{figure}[H]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/connect.jpg}
 	\caption{A beállításokat tartalmazó fragment}
@@ -710,7 +706,7 @@ az applikáció reszponzivitása.
 
 Az alkalmazás legfrissebb verziója stressz-teszt alatti maximum memóriaigénye 130MB, ami alacsonynak számít, azt
 figyelembe véve, hogy a mai okostelefonok memória kapacitása 8GB alá ritkán esik.
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\label{profiler}
 	\includegraphics{images/profiler.png}
@@ -957,9 +953,10 @@ akik a tanulmányaim alatt végig mellettem álltak és támogattak.
 
 \bibitem{iot}IoT based Smart Environment Using Node-RED and MQTT
 \\\texttt{Deepthi, B. \& Kolluru, Venkata Ratnam \& Varghese, George \& Narne, Rajendraparasad \& Srimannarayana, Nerella. (2020).}
-\\\texttt{IoT based Smart Environment Using Node-RED and MQTT. Journal of Advanced Research in Dynamical and Control Systems. 12. 10.5373/JARDCS/V12I5/20201684.}
-\\\texttt{\url{https://www.researchgate.net/publication/342327250_IoT_based_Smart_Environment_Using_Node-RED_and_MQTT}}
-	
+\\\texttt{IoT based Smart Environment Using Node-RED and MQTT}
+\\\texttt{May 2020 Journal of Advanced Research in Dynamical and Control Systems 12(5):21-26}
+\\\texttt{DOI:10.5373/JARDCS/V12I5/20201684}
+
 \bibitem{android refrences book}Android\texttrademark Notes for Professionals book
 \\\texttt{\url{https://books.goalkicker.com/AndroidBook/}}
 
@@ -981,5 +978,6 @@ akik a tanulmányaim alatt végig mellettem álltak és támogattak.
 \bibitem{android-versions}Android verziók eloszlása
 \\\texttt{https://www.appbrain.com/stats/top-android-sdk-versions}
 \end{thebibliography}
+
 %\includepdf{nyilatkozat.pdf}
 \end{document}

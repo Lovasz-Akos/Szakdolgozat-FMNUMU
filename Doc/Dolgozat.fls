@@ -484,6 +484,7 @@ INPUT c:/texlive/2021/texmf-dist/tex/generic/babel-hungarian/magyar.ldf
 INPUT c:/texlive/2021/texmf-dist/tex/generic/babel-hungarian/magyar.ldf
 INPUT c:/texlive/2021/texmf-dist/tex/generic/babel-hungarian/magyar.ldf
 INPUT c:/texlive/2021/texmf-dist/tex/generic/babel-hungarian/magyar.ldf
+INPUT c:/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
@@ -610,7 +611,6 @@ INPUT c:/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty
-INPUT c:/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/listingsutf8/listingsutf8.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/listingsutf8/listingsutf8.sty
 INPUT c:/texlive/2021/texmf-dist/tex/latex/listingsutf8/listingsutf8.sty
