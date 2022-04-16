@@ -88,29 +88,39 @@ hiányosságok egyszerűen pótolhatók.
 
 
 \chapter{A rendszer alapjai}
-A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, amin fut a Node-RED, egy olyan webes felületet biztosító szolgáltatás, mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, és a Mosquitto MQTT bróker, ami lehetővé teszi a Node-RED\cite{nodeRed} és az Androidos alkalmazás  közötti kommunikációt.
+A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, 
+amin fut a Node-RED\cite{nodeRed}, egy olyan webes felületet biztosító szolgáltatás, 
+mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, 
+és a Mosquitto MQTT bróker\cite{mosquitto}, ami lehetővé teszi a Node-RED és az Androidos alkalmazás  
+közötti kommunikációt.
 
 \section{A kiszolgáló hardver}
-Az eszköz egy nyílt forráskódú egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) operációs renszer fut, 
-de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, 
-melyeket a helyi hálózaton bármely eszköz el tud érni, csupán az eszköz IP címét kell ismernie.
+Az eszköz egy nyílt forráskódú egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) 
+operációs renszer fut, de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. 
+Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, melyeket a helyi hálózaton bármely eszköz el tud érni, 
+csupán az eszköz IP címét kell ismernie.
 
 \section{Az Android alkalmazás}
 Az Androidos alkalmazás célja a felhasználónak hozzáférést nyújtani az összes elérhető eszközhöz, 
 azok állapotát megjeleníteni és felületet biztosítani azok irányítására, állapotuk megváltoztatására. 
 
-A kiszolgálóval való kommunikációt az Eclipse nyílt forráskódú Paho\cite{paho} Androidos kliens oldali MQTT implementációját használatba véve valósítja meg az alkalmazás. 
+A kiszolgálóval való kommunikációt az Eclipse nyílt forráskódú Paho\cite{paho} 
+Androidos kliens oldali MQTT implementációját használatba véve valósítja meg az alkalmazás. 
 
 A kommunikáció kétirányú, azaz nem csak az alkalmazás tudja az okos eszközöket irányítani, 
 hanem fogad üzeneteket a kiszolgálótól, így tud naprakész információt prezentálni az eszközök állapotáról a felhasználó számára.
 
-A felület rugalmasságából adódóan az alkalmazás  nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren való kommunikációra képes,
-viszont mivel a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, így erre a célra használva a legoptimálisabb a felhasználói élmény.
+A felület rugalmasságából adódóan az alkalmazás  nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren 
+való kommunikációra képes, viszont mivel a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, 
+így erre a célra használva a legoptimálisabb a felhasználói élmény.
 
 \section{Node-RED}
-A Node-RED egy nyílt forráskódú, ,,flow'' alapú programozási eszköz az IBM Emerging Technologies\cite{ibmET} által fejlesztve az OpenJS Foundation\cite{openjs} részeként. 
-Ez egy Node.js alapú fejlesztési eszköz, aminek a felületét egy böngészőn keresztül lehet elérni ahol ,,node''-okat elhelyezve a felületen  egy funkció hálózatot létrehozva lehet úgymond programozni. 
-Ez a funkcióhálózat egy ,,Deploy'' gomb hatására bekerül a futási környezetbe, így effektíve az eddigi viselkedést felülírva, változtatásainkat elmentve.
+A Node-RED egy nyílt forráskódú, ,,flow'' alapú programozási eszköz az IBM Emerging Technologies\cite{ibmET} 
+által fejlesztve az OpenJS Foundation\cite{openjs} részeként. Ez egy Node.js alapú fejlesztési eszköz, aminek a felületét egy 
+böngészőn keresztül lehet elérni ahol ,,node''-okat elhelyezve a felületen  egy funkció hálózatot létrehozva lehet úgymond programozni. 
+Ez a funkcióhálózat egy ,,Deploy'' gomb hatására bekerül a futási környezetbe, így effektíve az eddigi viselkedést felülírva, 
+változtatásainkat elmentve. Ezen tulajdonsága miatt egy rendkívül rugalmas rendszer, gyors fejlesztési ciklusa van és éles használat
+közben is van lehetőségünk fejleszteni a rendszert annak működésének megzavarása nélkül.
 
 \section{MQTT}
 Az MQTT (Message Queueing Telemetry Transport)\cite{mqtt} egy OASIS szabványú kommunikációs protokoll, 
@@ -123,13 +133,14 @@ ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilye
 
 \section{Okos eszközök}
 Okos eszköznek számít bármilyen berendezés, mely rendelkezik hálózati kommunikációra képes alkatrészekkel, 
-ebben az esetben egy MQTT protokollt használatba vevő eszköz. Az MQTT protokoll rugalmasságából adódóan már a renszer tesztelése során is több eszköz típust 
+ebben az esetben egy MQTT protokollt használatba vevő eszköz. Az MQTT protokoll rugalmasságából 
+adódóan már a renszer tesztelése során is több eszköz típust 
 vettem használatba, például Androidos tableteket, telefonokat és ESP D1 Mini mikrokontrollereket.
 
 \chapter{Hardver}
 \section{Orange Pi Zero}
 Egy egykártyás számítógép, az Orange Pi felhozatalából a Zero model, ami beépített WiFi modullal, Ethernet porttal, 
-512MB RAM-al és egy 4 magos ARM processzorral ellátva tesztjeim alapján egy kisebb ház okos eszközeinek ellátására elegendő, 
+512MB RAM-al és egy 4 magos ARM processzorral felszerelve, tesztjeim alapján egy kisebb ház okos eszközeinek ellátására elegendő, 
 viszont természetesen van lehetőség erősebb hardveren futtatni a kiszolgáló szolgáltatásokat. Ezek a szolgáltatások 
 Linux és Windows operációs rendszert futtató hardverek bármelyikén képesek futni, így lehetőségünk van akár 
 régi, már nem használt androidos telefonon, vagy ellentétesen, csak erre a célra kitűzött szervergépet kialakítani. 
@@ -138,28 +149,36 @@ régi, már nem használt androidos telefonon, vagy ellentétesen, csak erre a c
 	\includegraphics[width=0.6\textwidth]{images/OPIZero.png}
 	\caption{Orange Pi Zero\cite{orange}, a Node-RED-hez és az MQTT brókerhez használt eszköz}
 \end{figure}
-Természetesen a végletek között rengeteg lehetőségünk van igényeink szerint választani kiszolgáló hardvert, például egy Orange Pi Zero, Raspberry Pi 4, vagy Seeed Odyssey.
+Természetesen a végletek között rengeteg lehetőségünk van igényeink szerint választani kiszolgáló hardvert, például egy Orange Pi Zero, 
+Raspberry Pi 4, vagy Seeed Odyssey.
 Az Orange Pi Zero-ra esett a választásom alacsony ára mellett nyújtott lehetőségei tárháza miatt.
 
 \section{Okos eszközök}
 
 \subsection{Androidos eszköz}
-Mivel az Androidos alkalmazás ok bizonyos könyvtárai és fejlesztői eszközei az alkalmazott Android verziótól függnek, így az alkalmazás fejlesztése során
-kitűzött minimum Android verziót el kell érnie a használni kívánt eszköznek. Ebben az esetben a minimum támogatott Android verzió a Marshmallow, azaz Android 6.0.
-Ez a legrégebbi Android megjelenés amit bevett szokásként támogatnak a modern alkalmazás ok, ennél korábbi verziót támogatni nehézkes, általában nem éri meg, mivel
-a felhasználók kevesebb mint 1\%-a használ olyan eszközt, ami 6.0-nál régebbi Androidot futtat.
+Mivel az Androidos alkalmazások bizonyos könyvtárai és fejlesztői eszközei az alkalmazott Android verziótól függnek, 
+így az alkalmazás fejlesztése során kitűzött minimum Android verziót el kell érnie a használni kívánt eszköznek. 
+Ebben az esetben a minimum támogatott Android verzió a Marshmallow, azaz Android 6.0. Ez a legrégebbi Android megjelenés 
+amit bevett szokásként támogatnak a modern alkalmazások, ennél korábbi verziót támogatni nehézkes, általában nem éri meg, mivel
+a felhasználók kevesebb mint 4\%-a használ olyan eszközt, ami 6.0-nál régebbi Androidot futtat\cite{android-versions}.
+Ezen a követelményen felül, és hogy képes legyen az eszköz egy hálózathoz csatlakozni, nincs egyéb megkötés a hardverrel
+kapcsolatban, mivel a fejlesztés során figyelembe vettem a kisebb kapacitású eszközöket is, az alkalmazásnak
+egészen alacsony erőforrásigénye van.
 
 \subsection{ESP 8266}
-
-Okos eszköz fejlesztésére egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
-programozható, WiFi moduljának, hivatalos Arduino MQTT könyvtárnak és rengeteg bővítési lehetőségének
-köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/esp.png}
 	\caption{ESP 8266}
 \end{figure}
+
+Okos eszköz fejlesztésére egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
+programozható. WiFi moduljának, hivatalos Arduino MQTT könyvtárnak és rengeteg bővítési lehetőségének
+köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani, vagy akár meglévő eszközöket
+is lehet vele okosítani, például egy relé modul irányításával okos kapcsolóként használhatjuk.
+
+
 
 \subsection{Egyéb eszközök}
 Minden olyan okos eszköz integrálható a rendszerbe, amely képes MQTT protokollon keresztül kommunikálni egy helyi hálózaton.
@@ -168,25 +187,31 @@ Minden olyan okos eszköz integrálható a rendszerbe, amely képes MQTT protoko
 A teljes rendszer olyan módon van felépítve, hogy a szerver oldali programoktól elvárt, hogy állandó futás mellett lehetőséget 
 nyújtsanak bővítésre, konfigurációra és változtatásokra. 
 \section{PM2}
-Az állandó futást a PM2\cite{pm2} nevű folyamatvezető program biztosítja, akár egy váratlan újraindítás vagy áramkimaradást követően az operációs rendszer indulásával ezek a programok is indulnak, megfelelő konfigurációval.
+Az állandó futást a PM2\cite{pm2} nevű folyamatvezető program biztosítja, akár egy váratlan újraindítás
+ vagy áramkimaradást követően az operációs rendszer indulásával elindítja az összes kiszolgálót, amire szükség van,
+ megfelelő konfigurációval.
 
 \begin{figure}[h]
 	\includegraphics[width=1\textwidth]{images/pm2.png}
 	\caption{PM2\cite{pm2} a kiszolgálók automatikus indítására használt eszköz}
 \end{figure}
 
-Ez a terminálban futtatható Node.JS eszköz egyszerűen telepíthető NPM vagy Yarn csomagkezelőkkel, és azonnal használatba vehető.
-Lehetőséget nyújt nem csak Node.JS alkalmazások futtatására, de egyéb futtatható fájlok kezelésére is, például shell scriptek futtatására.
+Ez a terminálban futtatható Node.JS eszköz egyszerűen telepíthető NPM vagy Yarn csomagkezelőkkel,
+ és azonnal használatba vehető. Lehetőséget nyújt nem csak Node.JS alkalmazások futtatására, 
+ de egyéb futtatható fájlok kezelésére is, például shell scriptek futtatására.
 
 \section{Node-RED}
 \subsection{Flow}
-A Node-RED rendszerben csomópontok elhelyezésével és azok összekötésével lehet egy folyamatábrára hasonlító szerkezetet kiépíteni, 
-ami a program viselkedését befolyásolja. Minden csomópont egy funkciót lát el, ehhez mérten van a csomópontnak 
-egy vagy több bemeneti és/vagy egy vagy több kimeneti pontja, amin keresztül kommunikál a többi csomóponttal.
+A Node-RED rendszerben csomópontok elhelyezésével és azok összekötésével lehet egy folyamatábrára hasonlító 
+szerkezetet kiépíteni, ami a program viselkedését befolyásolja. Minden csomópont egy funkciót lát el, 
+ehhez mérten van a csomópontnak  egy vagy több bemeneti és/vagy kimeneti pontja, 
+amin keresztül kommunikál a többi csomóponttal.
 
 Egy ,,flow'' a Node-RED felületén a benne lévő csomópontok és azok kapcsolatát foglalja magában. 
-Minden flow reprezentálhat egy házban egy-egy szobát, nagyobb rendszereknél például egy-egy épületet, vagy több emeletes épületekben egy-egy emeletet.
-Ez felhasználható rendszerezési, kategorizálási vagy szerepköri felosztásra is, teljes mértékben a felhasználótól függ.
+Minden flow reprezentálhat egy házban egy-egy szobát, nagyobb rendszereknél például egy-egy épületet, 
+vagy több emeletes épületekben egy-egy emeletet. Ez felhasználható rendszerezési,
+kategorizálási vagy szerepköri felosztásra is, teljes mértékben a felhasználótól és a felhasznált
+környezettől függ.
 
 \begin{figure}[h]
 	\includegraphics[width=1\textwidth]{images/flow.png}
@@ -208,10 +233,14 @@ mint kapcsolóként kezelni és a felhasználóra bízni, hogy ne kapcsolja viss
 késés által előidézett idő kimaradás eltörlését, mivel az MQTT sorban küldi az üzeneteket, ha a rendszer lelassul egy pillanatra, 
 lehet, hogy két üzenet, amit a felhasználó egymástól eltérő időpontban küldött el, mégis egyszerre érkezik a kiszolgálóhoz.
 
-Ez a webes szerkesztő felületet a helyi hálózaton a kiszolgáló eszköz IP címén, a konfigurációban megadott portszámon (alapbeállítás szerint 1880) lehet elértni.
+Ezt a webes szerkesztő felületet a helyi hálózaton a kiszolgáló eszköz IP címén, a konfigurációban megadott portszámon (alapbeállítás szerint 1880) lehet elértni.
 Az itt végzett változtatások csak akkor kerülnek a futási környezetbe, ha a ,,Deploy'' feliratú gombot megnyomjuk, különben minden változtatás
 csak a felületen történik, átmenetileg van mentve, hogy közben a szolgáltatás az előző verzióval tovább tudjon futni, így
 állandó elérést és irányítást biztosítva a már felcsatlakozott okos eszközök számára.
+
+Ez a viselkedésforma
+rendkívül előnyös mind a fejlesztés mind egy meglévő rendszer bővítése során, mivel az új funkciók
+fejlesztése során nem kell a már meglévő funkcionalitást felfüggeszteni.
 
 \subsection{Dashboard}
 A Node-RED lehetőséget nyújt egyéb csomópontok telepítésére, melyeket felhasználók vagy egyéb entitások fejlesztettek. 
@@ -219,7 +248,7 @@ Egy ilyen csomópont kollekció a Node-RED Dashboard\cite{dashboard}, mely álta
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/dashboard.jpg}
-	\caption{A Node-RED Dashboard\cite{dashboard}, szobákra bontva, példa eszközökkel ellátva}
+	\caption{A Node-RED Dashboard, szobákra bontva, példa eszközökkel ellátva}
 \end{figure}
 
 
@@ -227,12 +256,12 @@ Ez nem olyan rugalmas, mint az Android alkalmazás, mivel minden
 elemet kézzel kell felvenni a felületre, majd minden konfigurációját és interakcióját a flow szerkesztőben kell kézileg megadni, minden elemet külön fel kell programozni.
 
 \section{MQTT}
-\subsection{Broker}
+\subsection{Bróker}
 MQTT brókernek az Eclipse Mosquitto\cite{mosquitto}-t választottam, mivel egy jól ismert alapítvány által fejlesztett, teljesen nyílt forráskódú multi-platform projekt,
-melyben különös figyelmet fordítottak az erőforrásokkal való spórolásra, így egykártyás számítógépeken való alkalmazás át megkönnyítve. 
+melyben különös figyelmet fordítottak az erőforrásokkal való spórolásra, így a gyengébb egykártyás számítógépeken való alkalmazását megkönnyítve. 
 
 Szintén előnyt jelentett választásom során a jó minőségű dokumentáció, mely alapján
-viszonylag zökkenőmentes volt a telepítés és a konfiguálás.
+viszonylag zökkenőmentes volt a telepítés és a konfiguálás és a hibaelhárítás.
 \subsection{Konfigurálás}
 Mivel a konfigurációs fájlban meg kell adni a brókernek, hogy mely címen fog csatlakozási kérelmeket és üzeneteket kapni,
 készítettem egy olyan shell scriptet, mely minden indításnál egy új, naprakész konfigurációs fájlt készít a bróker indítása előtt.
@@ -247,12 +276,12 @@ Ez a shell script generál egy olyan konfigurációs fájlt, ami a következőke
 \begin{itemize}
 	\item 1883-as porton várja az üzeneteket
 	\item Lekérdezi a kiszolgáló számítógép IPv4 címét, amit egy regex szűrőn keresztül formázom megfelelő módon és a portszám után illesztem be, előírás szerint.
-	\item Engedélyezi az anonim kapcsolatokat. Mivel ez a rendszer egy helyi hálózatra van tervezve, nem jelent biztonsági kockázatot az autentikáció nélküli kapcsolat, ezt kiváltja az MQTT ID rendszer.
+	\item Végül engedélyezi az anonim kapcsolatokat. Mivel ez a rendszer egy helyi hálózatra van tervezve, nem jelent biztonsági kockázatot az autentikáció nélküli kapcsolat, ezt kiváltja az MQTT ID rendszer.
 \end{itemize}
 
 \section{Android}
 \subsection{Activity}
-Az Android ,,aktivitásokra'' bontja a kódot, melyek a hozzájuk tartozó ,,töredékek'' alappillére ként szolgál.
+Az Android ,,aktivitásokra'' bontja a kódot, melyek a hozzájuk tartozó ,,töredékek'' alappilléreként szolgál.
 Fő célja az aktivitásokra bontásnak az erőforrások megspórolása, minden aktivitás egy specifikus feladatkört lát el, 
 miközben a másik aktivitások a háttérben leállnak, amíg nem lépnek újra használatba. Az én esetemben egy fő aktivitás
 látja el az alapvető feladatait az applikációmnak, mivel ennek a fő aktivitásnak a kiszolgálóval való kapcsolattartás és
@@ -273,19 +302,20 @@ a felhasználó felé nem reszponzív, nem tud semmilyen eseményt kezelni
 amíg a folyamat ami megakasztotta a szálat be nem fejeződik.
 	
 \subsubsection{Worker Thread}
-Az egyéb többszálas folyamatokat kezelő szál. Ez a szál nyújt megoldást a UI szál megakasztására,
+Az egyéb többszálas folyamatokat kezelő szál. Ez a szál nyújt megoldást a UI szál megakasztásának elkerülésére,
 ezt kell használni hosszabb, nem azonnal ellátható események kezelésére. Felmerül használata során viszon az a
-probléma, hogy a felhasználói felületet csakis a UI szálról lehet frissíteni. 
+probléma, hogy a felhasználói felületet csakis a UI szálról lehet frissíteni, így nem minden esetben csak ezt
+optimális használatba venni. 
 	
 \subsubsection{Binder Thread}
 A kötött szolgáltatások távolról meghívható metódusokat tartalmaznak. Ha a végrehajtott metódusra történő felhívás ugyanabban a folyamatban van, amelyben a kötött szolgáltatás fut, a metódus a hívószalagban hajtódik végre. Ha azonban a hívás egy másik folyamatból származik, akkor a metódus egy olyan szálban kerül végrehajtásra, amelyet a rendszer ugyanabban a folyamatban tart, mint az meghívó.
 
 \subsection{Fragmentek}
-A fragment az része az alkalmazás felhasználói felületének, ami saját felosztását definiálja és kezeli. Saját életciklussal
-rendelkezik, viszont egyedülálló elemként nem használhatóak, mindig kell lennie egy tulajdonosának, ami lehet egy másik
-fragment vagy activity. ehhez a tulajdonoshoz kötve jelenhet meg egy fragment felülete hozzá csatolva vagy részévé válva.
+A fragment azon része az alkalmazás felhasználói felületének, ami saját felosztását definiálja és kezeli. Saját életciklussal
+rendelkezik, viszont egyedülálló elemként nem használható, mindig kell lennie egy tulajdonosának, ami lehet egy másik
+fragment vagy activity. Ehhez a tulajdonoshoz kötve jelenhet meg egy fragment felülete hozzá csatolva vagy részévé válva.
 
-A fragmentek célja hogy egy activityn belül külön választott felhasználói felületet prezentálhassunk, egymástól független
+A fragmentek célja hogy egy activityn belül különválasztott felhasználói felületet prezentálhassunk, egymástól független
 elemekre bontva, így megkönnyítve a felhasználói felület felépítésének procedúráját és az erőforrások megtakarítását.
 
 A fragmentek ideális használati köre egy activityn belüli navigációs elemek által elérni kívánt felületek prezentációja. Mivel egy fragment életciklusa akkor ér véget, amikor a felhasználó egy másik fragmentre váltással felülírja azt, hosszútávú
@@ -302,7 +332,7 @@ szolgál.
 A Help fragment felhasználási segítséget nyújt a felhasználó számára, ha nem biztos az alkalmazás működésének rendjében,
 ezen leírás alapján tud tájékozódni a rendeltetésszerű felhasználásról.
 
-Az alkalmazás ban található minden felhasznált grafikai elem a Material Design\cite{material} előírásait követve készültek,
+Az alkalmazásban található minden felhasznált grafikai elem a Material Design\cite{material} előírásait követve készültek,
 ami a Google által kifejlesztett design nyelv. Eredetileg a Google által használt kártya alapú design továbbfejlesztése
 reszponzív animációk, átmenetek és mélységi effektek (megvilágítás, árnyékok) implemetálásával. Ezeket az előírásokat és
 kész elemeket felhasználva biztosítottam, hogy a felhasználói felület rögtön ismerős hatást keltsen, könnyen lehessen rajta
@@ -311,7 +341,7 @@ eligazodni és hogy a jövőben kevésbé tűnjön elavultnak, régimódinak.
 
 \subsubsection{Home}
 A Home fragment szolgál az eszközök kezelésére, irányítására, adatok prezentálására.
-A felület jobb alsó sarkában található ,,Floating Action Button'', vagy FAB megnyomására a felhasználó feliratkozgat egy MQTT
+A felület jobb alsó sarkában található ,,Floating Action Button'', vagy FAB megnyomására a felhasználó feliratkozhat egy MQTT
 topicra, majd kiválaszthatja a létrehozandó kártya interakciós típusát. 
 
 Ha sikeresen feliratkozik egy topicra, a felületen létrejön
@@ -333,7 +363,7 @@ A Settings fragment a kiszolgálóhoz való csatlakozásra és a felhasználói 
 
 A felületen található két beviteli mező. Az elsőbe a felhasználói profil elnevezését, a másodikba a kiszolgáló címét
 kell megadni, majd a ,,Connect'' gomb megnyomására az alkalmazás  kapcsolatot létesít a kiszolgálóval és ellenőrzi, hogy
-létezik-e már a megadott néven felhasználói profil. Ha már létezik, az alkalmazás on belüli tárba betölti az elmentett adatokat,
+létezik-e már a megadott néven felhasználói profil. Ha már létezik, az alkalmazáson belüli tárba betölti az elmentett adatokat,
 viszont ha nincs, létrehozza azt.
 
 A ,,Delete Profile'' gomb egy új ablakban, legördülő menüből kiválasztható profilok listájából törli azt, amelyet a
@@ -345,7 +375,7 @@ felhasználó kiválaszt.
 \end{figure}
 
 Az itt megadott értékeket az alkalmazás eltárolja, így a következő indításkor ezek a mezők már az előző használatkor
-alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve felgyorsítva az alkalmazás használatát.
+alkalmazott értékekkel kitöltve jelennek meg, így megkönnyítve és felgyorsítva az alkalmazás használatát.
 
 \subsubsection{Help}
 A help fragment tartalmazza a felhasználói útmutatót. Itt lehet tájékozódni az alkalmazás rendeltetésszerű használatáról,
@@ -361,7 +391,7 @@ Maven repositoryból letöltött forrás csomagját importálva.
 
 A kapcsolat 60 másodperces időtúllépést elérve felbontódik, ha nem kap választ a kiszolgáló az életben tartó
 jelre. Ezért a kapcsolat létrehozása pillanatában a kliens entitását eltárolom egy activity szintű változóban,
-így a kapcsolat addig él, amíg a felhasználó használja az alkalmazás t, vagy nem zárja be több mint 1 percre.
+így a kapcsolat addig él, amíg a felhasználó használja az alkalmazást, vagy nem zárja be több mint 1 percre.
 
 \lstset{language=Java}  
 \begin{lstlisting}[frame=single]
@@ -385,7 +415,8 @@ client.connect(null, new IMqttActionListener() {
 
 Ez a kapcsolat aszinkron módon jön létre, így nem kell megállítani a felhasználót, amíg nem jön létre a
 kapcsolat, vagy hibát eredményez a csatlakozás, például hibás címet adott meg a felhasználó vagy
-a kiszolgáló nem fut.
+a kiszolgáló nem fut. Erről természetesen a felhasználó egy üzenetet kap egy ,,toast'' formájában, ami egy
+kis méretű felugró üzenet, ami kiváló lehetőséget nyújt a felhasználóval való kommunikációra.
 
 \subsection{Kártyák}
 A jelenlegi verzióban 6 típusú kártya használatára van lehetőség, de ez a jövőben egyszerűen bővíthető:
@@ -394,13 +425,13 @@ A jelenlegi verzióban 6 típusú kártya használatára van lehetőség, de ez 
 	\item Button: Egy gombot tartalmaz, ami az adott topic-ra egy "1"-es üzenetet küld, amit a kiszolgáló
 	dolgoz fel.
 	\item Checkbox: Egy jelölőnégyzet, mely "on" és "off" üzenetet küld a kiszolgálónak állapota szerint.
-	Lehet használni sokoldalú állapotjelzőnek vagy kapcsolónak.
+	Lehet használni állapotjelzőnek vagy kapcsolónak.
 	\item Switch: Egy kapcsoló, mely szintén "on" és "off" üzenetet küld a kiszolgálónak állapota szerint,
 	így logikusan alkalmazható például okos lámpa kapcsolójaként.
 	\item Input: Egy beviteli mezőt tartalmaz, amibe tetszőleges szöveget vagy számot írhat a felhasználó,
 	majd az alatta lévő gomb érintésével elküldi a tartalmát az adott topic-ra. Használható például LED-es
 	tábla feliratának módosítására.
-	\item Slider: Egy csúszka, aamelynek minimum és maximum értékeit a felhasználó határozza meg, az ez
+	\item Slider: Egy csúszka, amelynek minimum és maximum értékeit a felhasználó határozza meg, az ez
 	által nyújtott sokoldalúságából eredendően lehet használni például termosztát beállítására, vagy
 	okos lámpa fényerejének módosítására.
 \end{itemize}
@@ -459,14 +490,15 @@ switch (type) {
 \end{lstlisting}
 
 Miután a kártyatípus eldöntésre került, inicializálja a kártya létrehozásához szükséges változókat, majd ellenőrzi, hogy volt-e már az adott topicon ilyen típusú kártya mentve.
-Ha volt mentett adat az adott kártyáról, azt állítja be kezdőértéknek
+Ha a létrehozandó kártya nem egy mentett állapotból kerül visszahelyezésre, akkor egy alapbeállítás 
+szerinti kezdőértéket vesz vel, ellenkező esetben, ha volt mentett adat az adott kártyáról, azt állítja be kezdőértéknek
 (ebben az esetben hogy milyen állapotban volt utoljára a kapcsoló).
 
 Ezt követően létrejön az interakciós felület ,,figyelője'', mely megadja, hogy az adott felület használata
-milyen módon reagáljon, ebben az esetben a kapcsoló állapotváltozása küld egy "on" vagy "off" üzenetet a
+milyen módon reagáljon, ebben az esetben a kapcsoló állapotváltozása küld egy ,,on'' vagy ,,off'' üzenetet a
 kiszolgáló számára, állásától függően.
 
-Végül a kártya felkerül a felhasználói felületre.
+Végül a kártya felkerül a felhasználói felületre a beállított paraméterek szerint.
 
 \subsection{Kommunikáció}
 A kártyák és a kiszolgáló közötti kommunikációt egy ,,publishMessage'' nevű metóduson keresztül továbbítom
@@ -474,8 +506,9 @@ az alkalmazásból a bróker felé. Ennek a metódusnak szüksége van egy klien
 csatlakozást követően, a topicra, amire az üzenetet kívánjuk közzétenni és végül természetesen maga az üzenet, amit
 el kívánunk küldeni.
 
-Az üzenetek minden kártyatípus interakciós pontjának saját kódja határozza meg az üzenet tartalmát, például
-a kapcsoló típusú kártyának "on" és "off" állapotával megegyező szöveges üzenetet küld. 
+Az üzenetek tartalmát minden kártyatípus interakciós pontjának saját kódja határozza meg, például
+a kapcsoló típusú kártyának ,,on'' és ,,off'' állapotával megegyező szöveges üzenetet küld, a csúszka típusú
+a beállított számértékét, a beviteli mezős kártya pedig természetesen a felhasználó által megadott üzenetet.
 
 \lstset{language=Java}
 \begin{lstlisting}[frame=single]
@@ -486,7 +519,7 @@ switch_data.setOnClickListener(view -> {
 \end{lstlisting}
 
 Az üzenetek fogadását egy ,,messageRecievedHandler'' nevű metódus kezeli, amit az MQTT kliens callback metódusa
-hív meg a messageArrived belső metódusából, átadva a beérkező üzenet topicját és tartalmát.
+hív meg a ,,messageArrived'' belső metódusából, azaz minden beérkezett üzenet hatására, átadva a beérkező üzenet topicját és tartalmát.
 
 A beérkező üzenet topicját először ellenőrzi, hogy egyezik-e az aktuálisan vizsgált kártya topicjával, majd
 összehasonlítja a kártya típusát az elvárt típussal. Ha minden egyezik, akkor a dekódolt üzenet tartalmát
@@ -504,7 +537,7 @@ if (topicDisplay.equals(topic)) {
 
 Az MQTT üzenetek dekódolása egy egyszerű String-é alakítás, mivel a beérkezett üzenet egy saját típusú, MttMessage
 objektum amiben egyéb adatok mellett az üzenet egy byte tömbben tárolódik, amit kevésbé egyszerű és gyors minden
-feldolgozásnál kezelni, ezért egy String-et építek belőle.
+feldolgozásnál kezelni, ezért egy új szöveges változót építek a tartalmából.
 
 \lstset{language=Java}
 \begin{lstlisting}[frame=single]
@@ -518,7 +551,8 @@ A kapcsolat a kiszolgálóval addig él, amíg az alkalmazás tud válaszolni a 
 ami azonosítja, hogy mely eszközök vannak aktív állapotban. Ha erre az üzenetre az alkalmazás nem tud válaszolni,
 azaz a felhasználó bezárta azt, 60 másodpercen belül lezáródik a kapcsolat. Ezt a kapcsolatbontást az alkalmazás
 közli a felhasználóval, majd felajánlja az újracsatlakozás lehetőségét. Ha a felhasználó nem él a lehetőséggel,
-a kapcsolatot újból a Settings fragmentről kell létesíteni.
+a kapcsolatot újból a Settings fragmentről kell létesíteni, vagy egy kártyán keresztül
+új üzenetet kell küldenie a kiszolgáló felé, ami a küldést megelőzően megpróbálja visszaállítani a kapcsolatot.
 
 \subsection{Adattárolás, Profilok}
 A kártyaadatok profilonkénti tárolása egy szöveges fájlba való kiírással oldottam meg, olyan formátumban, hogy a fájl
@@ -572,7 +606,8 @@ alkalmas, viszont a felhasználónév és kiszolgáló címének tárolását be
 fájlba rendezetlen és bonyolultnak tűnt, ezért választottam szét a két tárolási módot.
 
 A profilok törlésére a Settings fragmenten található ,,Delete Profile'' gomb megnyomásával van lehetőség,
-ami kilistázza az összes profil fájl címét egy legördülő menüben.
+ami kilistázza az összes profil fájl címét egy legördülő menüben, majd a felhasználó egy profil kiválasztása után
+törölheti azt a ,,Delete'' gomb segítségével.
 
 Egy létező profilnév megadása a csatlakozás során azt eredményezi, hogy a profil fájlból a program beolvassa a felhasználó nevén
 tárolt kártyaadatokat, amit elhelyez egy memóriában tárolt listában, majd azt továbbítja a Home fragment számára, ami
@@ -613,7 +648,7 @@ kommunikációra van lehetőségünk.
 Ebben az esetben az eszköz egyszerűen vizsgálja az általa feliratkozott topicon érkező
 üzeneteket, majd a szemléltetés érdekében az eszköz beépített LED-jének állapotát az üzenetnek megfelelően változtatom.
 Ezt természetesen valós eszközöknél minimális változtatásokkal okos kapcsolóként lehet alkalmazni, vagy a kód kibővítésével
-egyéb bonyolultabb funkciók ellátására is teljesen alkalmas.
+egyéb, bonyolultabb funkciók ellátására is teljesen alkalmas.
 
 \lstset{language=C++}
 \begin{lstlisting}[frame=single]
@@ -663,7 +698,7 @@ exception kezeléssel és naplózással íratom ki a hibát, és ahol szüksége
 a hibaüzenetet, természetesen olvashatóra formázva, mivel egy átlagos felhasználónak egy exception hibaüzenete
 nem biztos hogy érthető. 
 
-A felhasználóval való kommunikációt ilyen esetekben úgynevezett ,,Snackbar''-al, vagy ,,Toas''-al
+A felhasználóval való kommunikációt ilyen esetekben úgynevezett ,,Snackbar''-al, vagy ,,Toast''-al
 valósítottam meg, melyek a képernyő alján megjelenő rövid üzenetekben közlik a keletkezett hiba forrását, legyen az
 kapcsolati vagy akár felhasználói hiba, például egy üresen hagyott beviteli mező.
 
@@ -697,19 +732,19 @@ optimalizálására.
 \chapter{A renszer működése}
 \section{Első indítás}
 A Node-RED, a Mosquitto bróker és az Android alkalmazás  is bizonyos fájlokra támaszkodik, melyek az első indításnál
-valószínűleg nincsenek jelen. Ez az alkalmazás felől nem jelent problémát, hiszen csak annyit jelent, hogy még nincsenek
+valószínűleg nincsenek jelen. Ez az Android alkalmazás felől nem jelent problémát, hiszen csak annyit jelent, hogy még nincsenek
 elmentett felhasználói profilok. A kiszolgáló részéről már kicsit körülményesebb az első indításra való felkészülés,
 de ez is inkább időigényes mint bonyolult.
 \subsection{Szerver}
 A kiszolgáló hardveren természetesen telepíteni kell a Node-RED szolgáltatást az általunk preferált Node.js
-csomagkezelővel, például npm vagy yarn, vagy használhatjuk a Node-RED által biztosított bash scriptet is Linux rendszeren.
+csomagkezelővel, például npm, yarn, vagy használhatjuk a Node-RED fejlesztői által biztosított bash scriptet is Linux rendszeren.
 A szolgáltatás elindítását követően be kell importálnunk, vagy kézileg felépítenünk a az összes okos eszközre vonatkozó
 logikát, kezelést és irányítást. Ezek a flow-k exportálhatóak és importálhatóak egy JSON fájlból, így könnyen hordozható
 és megosztható előre megépített flow-k vagy akár teljes házak felépítése.
 
-Az Eclipse Mosquitto MQTT bróker telepítése operációs rendszertől függetlenül egyszerű telepíteni, a mosquitto
+Az Eclipse Mosquitto MQTT bróker telepítése operációs rendszertől függetlenül egyszerű telepíteni, a Mosquitto
 honlapjának letöltési oldalán található instrukciók alapján. A telepítést követően a \ref{configGenerator}-es
-beszúrt kódban látható módon lehet egyszerűen generálni egy konfigurációs fájlt aminek az alkalmazásával
+beszúrt scriptben látható módon lehet egyszerűen generálni egy konfigurációs fájlt aminek az alkalmazásával
 zökkenőmentes a hardver hordozhatóvá tétele, mivel biztosítja a legfrissebb helyi cím átadását a brókernek.
 
 A PM2 renszer ezeket a lépéseket követően az összes indításkor vagy újraindításkor garantálja a kiszolgálók
@@ -718,11 +753,12 @@ indítását, ezért tekinthető egy egyszeri konfigurációs lépésnek.
 
 \subsection{Android}
 Az alkalmazás telepítése egyenlőre a proket GitHub oldalán\cite{github}
-található ,,Releases'' menüpontban elérhető verziókban letölthető .apk telepítő fájlok által lehetséges, de a jövőben
+található ,,Releases'' menüpontban elérhető verziókban letölthető .apk telepítő fájl által lehetséges, de a jövőben
 a Google Play Store-on is elérhetővé válik.
 
 Az első indítás nem különbözik más indításoktól, csak a felhasználói profilok hiányában jelentkezhet, de ezek
-természetesen a felhasználó igénye szerint generálódnak vagy akár törlődnek.
+természetesen a felhasználó igénye szerint generálódnak vagy akár törlődnek, így nem különböztetek meg egy 
+első indítási állapotot pédlául egy olyan esettől, hogy minden profil törlésre kerül.
 
 \section{Telefon csatlakoztatása kiszolgálóhoz}
 Az alkalmazásban a kiszolgálóhoz való csatlakozáshoz meg kell adni annak az IP címét, amit optimális esetben
@@ -738,7 +774,7 @@ az újracsatlakozás lehetőségét, ami megpróbál újbóli kapcsolatot létes
 \section{Okos eszközök kezelése az alkalmazásban}
 Egy új kártya létrehozásához a felhasználónak fel kell iratkoznia egy MQTT topic-ra, majd kiválasztani az interakció
 típusát. Ezt a folyamatot a Home fragmenten található jobb alsó sarokban elhelyezkedő gomb érintésével
-tudja kezdeményezni a felhasználó. Először meg kell adni a topic nevét, ezt egy egyszerű szöveges beviteli mezőn
+tudja kezdeményezni a felhasználó. Először meg kell adni a topic nevét, amit egy egyszerű szöveges beviteli mezőn
 teheti meg, majd az interakció típust kell kiválasztani egy előre meghatározott listából, amit egy legördülő
 menüben lehet kiválasztani. A csúszka típusú kártyáknak van egy extra létrehozási követelménye, mégpedig a
 csúszka határainak beállítása, melyet a típus kiválasztása után két számértéket elváró beviteli mezőben adhat
@@ -752,7 +788,7 @@ fragmenten belül.
 Egy létrehozott kártya utólag nem módosítható, így ha a topicon vagy a kártya típusán szeretnénk módosítani,
 a módosítani kívánt kártyát törölni kell, majd egy új kártyát létrehozni.
 
-A létrehozott kártyák korábban említettem készen állnak a kommunikációra, így a felhasználónak nincsen további teendője,
+A létrehozott kártyák korábban említetten készen állnak a kommunikációra, így a felhasználónak nincsen további teendője,
 máris kezébe veheti az okos otthonának irányítását. Minden kártya interakciós felülete reszponzívan kommunikál
 a kiszolgálóval, így nem kell extra lépéseket tennie a felhasználónak az üzenetek továbbításáért, például a kapcsoló
 típusú kártyán lévő kapcsoló megérintését követően azonnal továbbítja állapotát a kiszolgáló felé.
@@ -761,7 +797,7 @@ típusú kártyán lévő kapcsoló megérintését követően azonnal továbbí
 Az alkalamzás tartalmaz egy Help fragmentet, melyben az alkalmazás funkciói és azok felhasználási módjáról,
 funkcióiról talál a felhasználó egy rövid leírást. Ezek a leírások segíthetik az alkalmazás használatának
 megértésében, vagy esetleges félreértések tisztázásában. Ezek a leírások a Home fragmenthez hasonló kártyarendszer
-alkalmazásával osztja fel a különböző funkciók leírását, esetleges hibaelhárítását.
+alkalmazásával osztja fel a különböző funkciók leírását, esetleges hibaelhárítását, így megkönnyítve a tájékozódást.
 
 \section{Okos eszközök kezelése a webes felületen}
 A Node-RED Dashboard lehetőséget nyújt egy webes felület létrehozására, amin keresztül lehet irányítani a beépített
@@ -843,6 +879,15 @@ Ez azon a konvención alapul, hogy az topic nevek felépítése a következő fo
 \subsubsection{Felhasználó által létrehozható csoportok}
 Egy olyan rendezési mód implementálása, ahol a Felhasználó ízlése szerint saját csoportokat hozhat létre, 
 melyekben saját logika vagy rendezési szempont szerint helyezheti el az egyes kártyákat.
+
+\subsection{Kártyák módosítása}
+A jelenlegi rendszer nem nyújt lehetőséget egy meglévő kártyáknak szerkesztésére, azaz a létrehozáskor megadott
+topic és interakciós felület állandó. Ezt a limitációt egy olyan új felület kifejlesztésével
+lehetne feloldani, ami a kártyák elemeinek szerkesztését teszi lehetővé. Ennek a felületnek a megtervezése
+és felhasználóbarát módon való prezentációja egy olyan kihívás, mely a jelenlegi struktúra mellett
+úgy valósítható meg, hogy rejtett módon az eredeti kártya törlését és egy új kártya létrehozását burkolja
+egy ,,szerkesztési'' felület mögé, mivel mind az interakciós felület megváltoztatása, mind a topic cseréje
+egy kártya belső kódjának változtatását igényli.
 
 \chapter*{Összegzés}
 A kiszolgáló szoftverek, az Androidos alkalmazás és a programozható mikrokontrollerek zökkenőmentes kapcsolata
@@ -932,6 +977,9 @@ akik a tanulmányaim alatt végig mellettem álltak és támogattak.
 
 \bibitem{adafruit}Adafruit MQTT API
 \\\texttt{\url{https://learn.adafruit.com/adafruit-io/mqtt-api}}
+
+\bibitem{android-versions}Android verziók eloszlása
+\\\texttt{https://www.appbrain.com/stats/top-android-sdk-versions}
 \end{thebibliography}
 %\includepdf{nyilatkozat.pdf}
 \end{document}

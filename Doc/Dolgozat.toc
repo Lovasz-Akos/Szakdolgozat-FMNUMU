@@ -16,7 +16,7 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {3.2.1}Flow}{10}{subsection.3.2.1}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.2.2}Dashboard}{12}{subsection.3.2.2}%
 \select@language {magyar} \contentsline {section}{\numberline {3.3}MQTT}{13}{section.3.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {3.3.1}Broker}{13}{subsection.3.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.1}Bróker}{13}{subsection.3.3.1}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.3.2}Konfigurálás}{13}{subsection.3.3.2}%
 \select@language {magyar} \contentsline {section}{\numberline {3.4}Android}{13}{section.3.4}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.4.1}Activity}{13}{subsection.3.4.1}%
@@ -32,11 +32,11 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {3.4.4}Kapcsolat}{17}{subsection.3.4.4}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.4.5}Kártyák}{18}{subsection.3.4.5}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.4.6}Kommunikáció}{20}{subsection.3.4.6}%
-\select@language {magyar} \contentsline {subsection}{\numberline {3.4.7}Adattárolás, Profilok}{21}{subsection.3.4.7}%
-\select@language {magyar} \contentsline {section}{\numberline {3.5}ESP Okos eszköz}{23}{section.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.7}Adattárolás, Profilok}{22}{subsection.3.4.7}%
+\select@language {magyar} \contentsline {section}{\numberline {3.5}ESP Okos eszköz}{24}{section.3.5}%
 \select@language {magyar} \contentsline {section}{\numberline {3.6}Tesztelés}{24}{section.3.6}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.6.1}Reszponzivitás}{24}{subsection.3.6.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {3.6.2}Hibakezelés}{24}{subsection.3.6.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.6.2}Hibakezelés}{25}{subsection.3.6.2}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.6.3}Erőforrás felhasználás}{25}{subsection.3.6.3}%
 \select@language {magyar} \contentsline {chapter}{\numberline {4}A renszer működése}{27}{chapter.4}%
 \select@language {magyar} \contentsline {section}{\numberline {4.1}Első indítás}{27}{section.4.1}%
@@ -56,3 +56,4 @@
 \select@language {magyar} \contentsline {subsubsection}{Rendezés kártyatípus szerint}{32}{section*.20}%
 \select@language {magyar} \contentsline {subsubsection}{Csoportosítás szobánként}{32}{section*.21}%
 \select@language {magyar} \contentsline {subsubsection}{Felhasználó által létrehozható csoportok}{32}{section*.22}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.5.1}Kártyák módosítása}{32}{subsection.5.5.1}%
