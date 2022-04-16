@@ -44,7 +44,7 @@
 
 \begin{document}
 \institute{Matematikai és Informatikai Intézet}
-\title{Okos otthon hub és irányítóközpont}
+\title{Okosotthon hub és irányítóközpont}
 \author{Lovász Ákos\\Programtervező informatikus BSc}
 \supervisor{Dr. Tajti Tibor\\Egyetemi adjunktus}
 \city{Eger}
@@ -64,11 +64,11 @@ már készítettem ezt megelőzően, de komolyabban itt kezdtem vele foglalkozni
 sajátosságokkal.
 
 
-Az ilyen jellegű eszközök kapcsolata és kommunikációja már korai gondolataimban is az okos otthonok felépítésére
+Az ilyen jellegű eszközök kapcsolata és kommunikációja már korai gondolataimban is az okosotthonok felépítésére
 emlékeztetett, ezért is gondoltam megfelelő téma választásnak.
 
 
-A döntést követő kutatás során szembetűnő hátránya volt az okos otthon rendszereknek, hogy a legtöbb ,,márkás''
+A döntést követő kutatás során szembetűnő hátránya volt az okosotthon rendszereknek, hogy a legtöbb ,,márkás''
 megoldás elsősorban drága és csak felületes hozzáférést tesznek lehetővé, melyet teljes mértékben a rendszer
 gyártója határoz meg. 
 
@@ -90,13 +90,13 @@ hiányosságok egyszerűen pótolhatók.
 \chapter{A rendszer alapjai}
 A rendszer két fő komponensből áll. A kiszolgáló, mely egy Orange Pi Zero egykártyás számítógép, 
 amin fut a Node-RED\cite{nodeRed}, egy olyan webes felületet biztosító szolgáltatás, 
-mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a renszer működését befolyásolni, 
+mely grafikusan kezelhető komponensek összekapcsolásával teszi lehetővé a rendszer működését befolyásolni, 
 és a Mosquitto MQTT bróker\cite{mosquitto}, ami lehetővé teszi a Node-RED és az Androidos alkalmazás  
 közötti kommunikációt.
 
 \section{A kiszolgáló hardver}
 Az eszköz egy nyílt forráskódú egykártyás számítógép, amin Armbian\cite{armbian} (ARM processzor architektúrára specializált Debian) 
-operációs renszer fut, de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. 
+operációs rendszer fut, de lehetőséget nyújt Ubuntu, vagy akár Android operációs rendszer telepítésére is. 
 Ezen fut a Node-RED felület és a Mosquitto MQTT bróker, melyeket a helyi hálózaton bármely eszköz el tud érni, 
 csupán az eszköz IP címét kell ismernie.
 
@@ -110,8 +110,8 @@ Androidos kliens oldali MQTT implementációját használatba véve valósítja 
 A kommunikáció kétirányú, azaz nem csak az alkalmazás tudja az okos eszközöket irányítani, 
 hanem fogad üzeneteket a kiszolgálótól, így tud naprakész információt prezentálni az eszközök állapotáról a felhasználó számára.
 
-A felület rugalmasságából adódóan az alkalmazás  nem kizárólag okos otthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren 
-való kommunikációra képes, viszont mivel a fejlesztés során az okos otthonok kezelése volt az elsődleges szempont, 
+A felület rugalmasságából adódóan az alkalmazás  nem kizárólag okosotthon kezelésére alkalmas, bármilyen MQTT protokoll alapú rendszeren 
+való kommunikációra képes, viszont mivel a fejlesztés során az okosotthonok kezelése volt az elsődleges szempont, 
 így erre a célra használva a legoptimálisabb a felhasználói élmény.
 
 \section{Node-RED}
@@ -134,7 +134,7 @@ ezért ez a protokoll nagyon kevés erőforrást vesz igénybe, szinte bármilye
 \section{Okos eszközök}
 Okos eszköznek számít bármilyen berendezés, mely rendelkezik hálózati kommunikációra képes alkatrészekkel, 
 ebben az esetben egy MQTT protokollt használatba vevő eszköz. Az MQTT protokoll rugalmasságából 
-adódóan már a renszer tesztelése során is több eszköz típust 
+adódóan már a rendszer tesztelése során is több eszköz típust 
 vettem használatba, például Androidos tableteket, telefonokat és ESP D1 Mini mikrokontrollereket.
 
 \chapter{Hardver}
@@ -175,7 +175,7 @@ egészen alacsony erőforrásigénye van.
 
 Okos eszköz fejlesztésére egy rendkívül olcsó lehetőség az ESP D1 Mini mikrokontroller, ami Arduino nyelven
 programozható. WiFi moduljának, hivatalos Arduino MQTT könyvtárnak és rengeteg bővítési lehetőségének
-köszönhetően viszonylag egyszerűen okos otthon eszközzé lehet alakítani, vagy akár meglévő eszközöket
+köszönhetően viszonylag egyszerűen okosotthon eszközzé lehet alakítani, vagy akár meglévő eszközöket
 is lehet vele okosítani, például egy relé modul irányításával okos kapcsolóként használhatjuk.
 
 
@@ -680,7 +680,7 @@ Android Studio fejlesztői környezet beépített design eszközei és a tetsző
 
 A reszponzivitás implementálásában sokat segített a már korábban említett Material Design\cite{material} előírások betartása,
 de így is felbukkantak problémák a fejlesztés során, mint például a képernyő elforgatása során a felület 
-nem hívta meg a renszer szintű felület elrendezés frissítéséért felelős metódust, 
+nem hívta meg a rendszer szintű felület elrendezés frissítéséért felelős metódust, 
 így minden felhasználó által létrehozott kártya törlésre került. Ez egy jól ismert probléma az Android rendszerben, 
 így egyszerűen találtam megoldást, egy a Fragment osztály által örökölt metódus felülírásával.
 
@@ -729,7 +729,7 @@ optimalizálására.
 	\label{usage}
 \end{figure}
 
-\chapter{A renszer működése}
+\chapter{A rendszer működése}
 \section{Első indítás}
 A Node-RED, a Mosquitto bróker és az Android alkalmazás  is bizonyos fájlokra támaszkodik, melyek az első indításnál
 valószínűleg nincsenek jelen. Ez az Android alkalmazás felől nem jelent problémát, hiszen csak annyit jelent, hogy még nincsenek
@@ -747,7 +747,7 @@ honlapjának letöltési oldalán található instrukciók alapján. A telepít�
 beszúrt scriptben látható módon lehet egyszerűen generálni egy konfigurációs fájlt aminek az alkalmazásával
 zökkenőmentes a hardver hordozhatóvá tétele, mivel biztosítja a legfrissebb helyi cím átadását a brókernek.
 
-A PM2 renszer ezeket a lépéseket követően az összes indításkor vagy újraindításkor garantálja a kiszolgálók
+A PM2 rendszer ezeket a lépéseket követően az összes indításkor vagy újraindításkor garantálja a kiszolgálók
 indítását, ezért tekinthető egy egyszeri konfigurációs lépésnek.
 
 
@@ -789,7 +789,7 @@ Egy létrehozott kártya utólag nem módosítható, így ha a topicon vagy a k�
 a módosítani kívánt kártyát törölni kell, majd egy új kártyát létrehozni.
 
 A létrehozott kártyák korábban említetten készen állnak a kommunikációra, így a felhasználónak nincsen további teendője,
-máris kezébe veheti az okos otthonának irányítását. Minden kártya interakciós felülete reszponzívan kommunikál
+máris kezébe veheti az okosotthonának irányítását. Minden kártya interakciós felülete reszponzívan kommunikál
 a kiszolgálóval, így nem kell extra lépéseket tennie a felhasználónak az üzenetek továbbításáért, például a kapcsoló
 típusú kártyán lévő kapcsoló megérintését követően azonnal továbbítja állapotát a kiszolgáló felé.
 
@@ -801,12 +801,12 @@ alkalmazásával osztja fel a különböző funkciók leírását, esetleges hib
 
 \section{Okos eszközök kezelése a webes felületen}
 A Node-RED Dashboard lehetőséget nyújt egy webes felület létrehozására, amin keresztül lehet irányítani a beépített
-rendszereket. Mivel ennek a felületnek az elemei nem specifikusan okos otthon vezérlésére készültek és az egyes
+rendszereket. Mivel ennek a felületnek az elemei nem specifikusan okosotthon vezérlésére készültek és az egyes
 elemeket a rendszer programozható felületén kell implementálni, újabb elemek felhelyezése és funkcionalitásának
 implementálása nem egy felhasználóbarát folyamat.
 
-Ettől függetlenül a felület nem haszontalan, mivel egy olyan irányítőközpontot lehet rajta prezentálni, amit nem csak
-androidos telefonon lehet elérni, így szélesebb körűvé teszi az okos otthon vezérlési lehetőségeit. Egy olyan otthonban,
+Ettől függetlenül a felület nem haszontalan, mivel egy olyan irányítóközpontot lehet rajta prezentálni, amit nem csak
+androidos telefonon lehet elérni, így szélesebb körűvé teszi az okosotthon vezérlési lehetőségeit. Egy olyan otthonban,
 ahol az okos eszközök előrehatólag rövid időn belül nem lesznek bővítve, érdemes ezt a felületet létrehozni az
 általa nyújtott rugalmas elérés érdekében. Ennek a felületnek a kialakítása a rendszer telepítésekor, vagy későbbi
 bővítések során a rendszer karbantartásáért felelős rendszergazda szerepkörébe tartozik.
@@ -814,7 +814,7 @@ bővítések során a rendszer karbantartásáért felelős rendszergazda szerep
 \chapter{Továbbfejlesztési lehetőségek}
 \section{Felhasználó azonosítás}
 Bár az MQTT protokoll nézetében a felhasználói azonosítás valamilyen szinten értelmét veszti
-a renszdszer nyitottsága miatt, egy kliens oldali belépési rendszer szülői felügyeleti
+a rendszer nyitottsága miatt, egy kliens oldali belépési rendszer szülői felügyeleti
 eszközként előnyös lehet, viszont az egyes eszközök felhasználói hozzáférés tiltását az MQTT
 nem teszi lehetővé, minden eszköz feliratkozhat vagy küldhet üzenetet bármely általa ismert
 topic-ra.
@@ -861,7 +861,7 @@ Ez a telefonon való használathoz szükséges leginkább, mivel az interakciós
 esetekben túl sok helyet foglalna ahhoz, hogy két vagy akár több oszlopba rendeződjön a felület.
 
 \section{Kártyák rendezése}
-A felület felhasználóbarátabbá tételéhez hozzájárulhatna egy olyan renszer kifejlesztése ami engedélyezi a
+A felület felhasználóbarátabbá tételéhez hozzájárulhatna egy olyan rendszer kifejlesztése ami engedélyezi a
 kártyák valamilyen szempont általi rendezését, csoportosítását.
 
 Erre több megközelítési módot is figyelembe lehet venni:
@@ -894,7 +894,7 @@ A kiszolgáló szoftverek, az Androidos alkalmazás és a programozható mikroko
 és kommunikációja egy olyan rendszert alakítanak ki, mely rugalmas, bővíthető és továbbfejleszthető, folyamatos
 integráció mellett.
 
-Ennek a rendszernek a célja, hogy az okos otthonok elterjedésének tetőpontjára legyen egy olyan választási lehetősége a
+Ennek a rendszernek a célja, hogy az okosotthonok elterjedésének tetőpontjára legyen egy olyan választási lehetősége a
 felhasználóknak, ami egy olcsó, egyszerűen használható, nyílt rendszer, ami akár a közösség
 által továbbfejleszthető, bővíthető és ha a felhasználó igényeit nem skierül kielégítenie, továbbfejlesztési
 alapként viselkedhet, így nem kell minden fejlesztési igény felmerülésekor egy teljesen új rendszer fejlesztésébe
@@ -914,7 +914,7 @@ lehetőségek tárulhatnak fel.
 Szeretnék köszönetet nyilvánítani minden egyetemi oktatómnak az általuk átadott tudásért és minden segítségért,
 amit nekem és hallgatótársaimnak nyújtottak.
 \par
-Köszönöm Dr. Tajti Tibornak, aki tanáromként és konzulensemként, aki a szakdolgozatommal és egyéb dolgokkal kapcsolatban
+Köszönöm Dr. Tajti Tibornak, aki tanáromként és konzulensemként a szakdolgozatommal és egyéb dolgokkal kapcsolatban
 is sok segítséget nyújtott.
 \par
 További köszönetet szeretnék mondani az évek során megismert hallgatótársaimnak, akiknek állandó összetartása és
