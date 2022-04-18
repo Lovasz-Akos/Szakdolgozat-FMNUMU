@@ -72,7 +72,7 @@ gyártója határoz meg.
 
 Az alternatív, olcsóbb rendszerek bár nyíltabb hozzáállással próbálnak előnyt szerezni,
 sokszor erősen a technikai oldalába mélyednek, inkább fejlesztők otthoni hobby projektjeként jelentek meg, 
-így egy átlagos felhasználónak bonyolultnak, nehhezen kezelhetőnek tűnhetnek. Ezen felül gyakran futhatunk 
+így egy átlagos felhasználónak bonyolultnak, nehezen kezelhetőnek tűnhetnek. Ezen felül gyakran futhatunk 
 olyan problémába, hogy az általunk választott rendszerben lévő hiányosságokat csak más gyártótól származó 
 eszköz nyújtana megoldást, viszont különböző gyártók eszközei nagyon ritkán kompatibilisek egymással.
 
@@ -231,7 +231,7 @@ mint kapcsolóként kezelni és a felhasználóra bízni, hogy ne kapcsolja viss
 késés által előidézett idő kimaradás eltörlését, mivel az MQTT sorban küldi az üzeneteket, ha a rendszer lelassul egy pillanatra, 
 lehet, hogy két üzenet, amit a felhasználó egymástól eltérő időpontban küldött el, mégis egyszerre érkezik a kiszolgálóhoz.
 
-Ezt a webes szerkesztő felületet a helyi hálózaton a kiszolgáló eszköz IP címén, a konfigurációban megadott portszámon (alapbeállítás szerint 1880) lehet elértni.
+Ezt a webes szerkesztő felületet a helyi hálózaton a kiszolgáló eszköz IP címén, a konfigurációban megadott portszámon (alapbeállítás szerint 1880) lehet elérni.
 Az itt végzett változtatások csak akkor kerülnek a futási környezetbe, ha a ,,Deploy'' feliratú gombot megnyomjuk, különben minden változtatás
 csak a felületen történik, átmenetileg van mentve, hogy közben a szolgáltatás az előző verzióval tovább tudjon futni, így
 állandó elérést és irányítást biztosítva a már felcsatlakozott okos eszközök számára.
@@ -259,7 +259,7 @@ MQTT brókernek az Eclipse Mosquitto\cite{mosquitto}-t választottam, mivel egy 
 melyben különös figyelmet fordítottak az erőforrásokkal való spórolásra, így a gyengébb egykártyás számítógépeken való alkalmazását megkönnyítve. 
 
 Szintén előnyt jelentett választásom során a jó minőségű dokumentáció, mely alapján
-viszonylag zökkenőmentes volt a telepítés és a konfiguálás és a hibaelhárítás.
+viszonylag zökkenőmentes volt a telepítés és a konfigurálás és a hibaelhárítás.
 \subsection{Konfigurálás}
 Mivel a konfigurációs fájlban meg kell adni a brókernek, hogy mely címen fog csatlakozási kérelmeket és üzeneteket kapni,
 készítettem egy olyan shell scriptet, mely minden indításnál egy új, naprakész konfigurációs fájlt készít a bróker indítása előtt.
@@ -301,7 +301,7 @@ amíg a folyamat ami megakasztotta a szálat be nem fejeződik.
 	
 \subsubsection{Worker Thread}
 Az egyéb többszálas folyamatokat kezelő szál. Ez a szál nyújt megoldást a UI szál megakasztásának elkerülésére,
-ezt kell használni hosszabb, nem azonnal ellátható események kezelésére. Felmerül használata során viszon az a
+ezt kell használni hosszabb, nem azonnal ellátható események kezelésére. Felmerül használata során viszont az a
 probléma, hogy a felhasználói felületet csakis a UI szálról lehet frissíteni, így nem minden esetben csak ezt
 optimális használatba venni. 
 	
@@ -756,7 +756,7 @@ a Google Play Store-on is elérhetővé válik.
 
 Az első indítás nem különbözik más indításoktól, csak a felhasználói profilok hiányában jelentkezhet, de ezek
 természetesen a felhasználó igénye szerint generálódnak vagy akár törlődnek, így nem különböztetek meg egy 
-első indítási állapotot pédlául egy olyan esettől, hogy minden profil törlésre kerül.
+első indítási állapotot például egy olyan esettől, hogy minden profil törlésre kerül.
 
 \section{Telefon csatlakoztatása kiszolgálóhoz}
 Az alkalmazásban a kiszolgálóhoz való csatlakozáshoz meg kell adni annak az IP címét, amit optimális esetben
@@ -792,7 +792,7 @@ a kiszolgálóval, így nem kell extra lépéseket tennie a felhasználónak az 
 típusú kártyán lévő kapcsoló megérintését követően azonnal továbbítja állapotát a kiszolgáló felé.
 
 \section{Felhasználási segítségnyújtás}
-Az alkalamzás tartalmaz egy Help fragmentet, melyben az alkalmazás funkciói és azok felhasználási módjáról,
+Az alkalmazás tartalmaz egy Help fragmentet, melyben az alkalmazás funkciói és azok felhasználási módjáról,
 funkcióiról talál a felhasználó egy rövid leírást. Ezek a leírások segíthetik az alkalmazás használatának
 megértésében, vagy esetleges félreértések tisztázásában. Ezek a leírások a Home fragmenthez hasonló kártyarendszer
 alkalmazásával osztja fel a különböző funkciók leírását, esetleges hibaelhárítását, így megkönnyítve a tájékozódást.
@@ -865,7 +865,7 @@ kártyák valamilyen szempont általi rendezését, csoportosítását.
 Erre több megközelítési módot is figyelembe lehet venni:
 
 \subsubsection{Rendezés topic szerint}
-Egy egyszerű átrendezési mód, ami betűrendbe sorolja az összes kárytát a topic szövege szerint.
+Egy egyszerű átrendezési mód, ami betűrendbe sorolja az összes kártyát a topic szövege szerint.
 
 \subsubsection{Rendezés kártyatípus szerint}
 Szintén egy egyszerű rendezés, mely a kártyákon lévő interakciós fekületet veszi figyelembe a rendezés során.
