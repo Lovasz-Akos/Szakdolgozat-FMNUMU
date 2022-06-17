@@ -28,6 +28,18 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 
 ![web UI](screenshots/dashboard.jpg)
 
+## Install Node-RED and Mosquitto
+
+### Node-RED
+```bash
+sudo npm install -g --unsafe-perm node-red
+```
+
+### Mosquitto
+```bash
+apt-get install mosquitto
+```
+
 ## Starting the servers
 
 ### Node-RED Server
@@ -41,6 +53,9 @@ node-red
 ```bash
 mosquitto -c mqtt.conf -d
 ```
+note: 'mqtt.conf' is the path to your custom config, if you don't want to run it with default setting OR the auto-generated one.
+
+for the config file's content use the (official man page)[https://mosquitto.org/man/mosquitto-conf-5.html]
 
 ### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)
 
