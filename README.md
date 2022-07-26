@@ -1,5 +1,6 @@
 # Szakdolgozat-FMNUMU
-<img src="/screenshots/logo.png" width="200"> Smarthome hub and controller. 
+
+<img src="/screenshots/logo.png" width="200"> Smarthome hub and controller.
 
 Thesis work of Lovász Ákos.
 Eszterházy Károly Katolikus Egyetem.
@@ -31,11 +32,13 @@ An Orange Pi (a SBC similar to Raspberry Pi) running linux hosts a Node-RED serv
 ## Install Node-RED and Mosquitto
 
 ### Node-RED
+
 ```bash
 sudo npm install -g --unsafe-perm node-red
 ```
 
 ### Mosquitto
+
 ```bash
 apt-get install mosquitto
 ```
@@ -53,9 +56,10 @@ node-red
 ```bash
 mosquitto -c mqtt.conf -d
 ```
+
 note: 'mqtt.conf' is the path to your custom config, if you don't want to run it with default setting OR the auto-generated one.
 
-for the config file's content use the (official man page)[https://mosquitto.org/man/mosquitto-conf-5.html]
+for the config file's content use the [official man page](https://mosquitto.org/man/mosquitto-conf-5.html)
 
 ### This has been automated by two entries into [pm2](https://pm2.keymetrics.io/)
 
@@ -67,4 +71,4 @@ The second entry runs the following shell script to generate a config file for t
 echo -n "listener 1883 " > mqtt.conf; ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' >> mqtt.conf; echo $"allow_anonymous true" >> mqtt.conf
 ```
 
-> opens a listener on the 1883 port (mqtt default), then adds the server's current ipv4 address, and finally allows anonym connections* (*subject to change)
+> opens a listener on the 1883 port (mqtt default), then adds the server's current ipv4 address, and finally allows anonym connections*(*subject to change)
